@@ -35,7 +35,7 @@ body{background:radial-gradient(1400px 700px at 50% -10%,#232b3a 0%,var(--bg) 65
   <div class="card">
     <div class="top">
       <img src="logo.png" alt="">
-      <div><b>LOOPAYEH</b><small>PS4 Jailbreak Host &middot; 13.02 / 13.04 / 13.50</small></div>
+      <div><b>LOOPAYEH</b><small>PS4 Jailbreak Host &middot; 13.00 / 13.02 / 13.04 / 13.50 / 13.52</small></div>
       <div id="fw">firmware<b id="fwv">...</b></div>
     </div>
     <div id="state">detecting firmware...</div>
@@ -71,7 +71,7 @@ body{background:radial-gradient(1400px 700px at 50% -10%,#232b3a 0%,var(--bg) 65
     // kernel-table-present gate, so this is UX only -- an unlisted firmware
     // can still be launched with a tap. KEEP IN SYNC with ps4_offsets.js.
     // The PS4 reports its minor as two hex digits in the UA (13.50 -> minor 0x50).
-    var SUPPORTED = { 1302: 1, 1304: 1, 1350: 1 }; // 13.02, 13.04, 13.50
+    var SUPPORTED = { 1300: 1, 1302: 1, 1304: 1, 1350: 1, 1352: 1 }; // all 13.x
 
     var key = null, fwnum = null;
     var m = /PlayStation\s+4[\/ ](\d+)\.(\d+)/.exec(navigator.userAgent);
