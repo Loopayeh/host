@@ -13,13 +13,11 @@ html,body{min-height:100%;background:radial-gradient(1400px 700px at 50% -10%,#2
 #brand b{font-size:24px;letter-spacing:.12em}
 #brand small{display:block;color:var(--mut);font-size:14px;letter-spacing:0}
 #stage{max-width:900px;margin:0 auto;padding:34px 30px 20px;text-align:center}
-#spin{width:84px;height:84px;margin:26px auto;border:8px solid #2a2a2a;border-top-color:var(--acc);border-radius:50%;animation:spin .9s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
+#spin{width:84px;height:84px;margin:26px auto;border:8px solid #2a2a2a;border-top-color:var(--acc);border-radius:50%}
 #runmsg{font-size:30px;font-weight:700;margin:18px 0 6px}
 #sub{color:var(--mut);font-size:17px;min-height:28px}
 #bar{height:14px;background:#24262e;border-radius:8px;margin:22px 0 8px;overflow:hidden}
-#bar i{display:block;height:40%;width:30%;border-radius:8px;background:linear-gradient(90deg,var(--acc),#b693f1);animation:slide 1.2s ease-in-out infinite alternate}
-@keyframes slide{from{margin-left:0}to{margin-left:70%}}
+#bar i{display:block;height:100%;width:12%;border-radius:8px;background:linear-gradient(90deg,var(--acc),#b693f1)}
 #steps{display:flex;gap:10px;margin-top:26px;text-align:left}
 .step{flex:1;background:var(--card);border:1px solid #2c2f3a;border-radius:14px;padding:14px 16px;font-size:16px;color:var(--mut)}
 .step b{display:block;font-size:26px;margin-bottom:2px;color:var(--acc)}
