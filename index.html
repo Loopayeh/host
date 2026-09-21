@@ -15,14 +15,14 @@ body{background:radial-gradient(1400px 700px at 50% -10%,#232b3a 0%,var(--bg) 65
 .top b{font-size:23px;letter-spacing:.12em}
 .top small{display:block;color:var(--mut);font-size:13px;margin-top:2px}
 #fw{margin-left:auto;flex:none;text-align:center;background:#24262e;border-radius:12px;padding:8px 14px;font-size:14px;color:var(--mut)}
-#fw b{display:block;font-size:19px;color:var(--txt)}
-#fw.ok b{color:var(--ok)}#fw.bad b{color:var(--bad)}
+#fw b{display:block;font-size:19px;color:var(--acc)}
 #state{font-size:27px;font-weight:700;margin:20px 0 4px}
 #state.ok{color:var(--ok)}#state.bad{color:var(--bad)}#state.warn{color:var(--warn)}
 #det{font-size:15px;color:var(--mut)}
 #det b{color:var(--txt)}
 #bar{height:10px;background:#24262e;border-radius:6px;margin:16px 0 4px;overflow:hidden;display:none}
-#bar i{display:block;height:100%;width:0;border-radius:6px;background:linear-gradient(90deg,var(--acc),#b693f1);transition:width .3s}
+#bar i{display:block;height:100%;width:30%;border-radius:6px;background:linear-gradient(90deg,var(--acc),#b693f1);animation:slide 1.1s ease-in-out infinite alternate}
+@keyframes slide{from{margin-left:0}to{margin-left:70%}}
 #cache{font-size:14px;color:var(--mut);min-height:22px}
 #cache.cacheok{color:var(--ok)}
 #tap{margin-top:14px;font-size:17px;font-weight:700;color:var(--warn);display:none;animation:blink 1.2s ease-in-out infinite}
@@ -61,8 +61,16 @@ body{background:radial-gradient(1400px 700px at 50% -10%,#232b3a 0%,var(--bg) 65
     function setCache(t, ok) { cacheEl.textContent = t; cacheEl.className = ok ? "cacheok" : ""; }
     function setFw(key, ok) { fwv.textContent = key || "unknown"; fwBox.className = ok ? "ok" : "bad"; }
     function setProgress(p) {
+        // p = null hides; number = determinate %; "ind" = sliding stripe
+        // (PS4 browser often never reports e.total, so % may never come).
         if (p === null) { bar.style.display = "none"; return; }
         bar.style.display = "block";
+        if (p === "ind") {
+            fill.style.animation = "";
+            fill.style.width = "30%";
+            return;
+        }
+        fill.style.animation = "none";
         fill.style.width = Math.max(0, Math.min(100, p)) + "%";
     }
     var params = new URLSearchParams(location.search);
@@ -129,13 +137,18 @@ body{background:radial-gradient(1400px 700px at 50% -10%,#232b3a 0%,var(--bg) 65
                    function () { location.reload(); });
     } else {
         setCache("checking cache...");
+        var _files = 0;
         ac.addEventListener("downloading",
-            function () { setProgress(0); setCache("caching for offline (first run)..."); }, false);
+            function () { setProgress("ind"); setCache("caching for offline (first run)..."); }, false);
         ac.addEventListener("progress", function (e) {
             if (e && e.total) {
                 var p = Math.round((e.loaded / e.total) * 100);
                 setProgress(p);
                 setCache("caching " + p + "% -- first run only...");
+            } else {
+                _files++;
+                setProgress("ind");
+                setCache("caching file " + _files + "... -- first run only...");
             }
         }, false);
         ac.addEventListener("cached", function () {
