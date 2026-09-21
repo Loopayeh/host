@@ -57,6 +57,10 @@ function mark(tag, detail) {
   const raw = detail;
   detail = terse(detail);
   lines.push(tag + (detail == null || detail === "" ? "" : "  " + detail));
+  // Live stage UI (non-log mode only): cheap DOM writes, zero flow change.
+  // They paint whenever the exploit hits its own awaits (fetches, rpc, ...).
+  var _u = UI_STAGES[tag];
+  if (_u) uiStage(_u[0], _u[1], _u[2]);
   if (SHOW_LOG && outEl) {
     const esc = (t) => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;");
     outEl.innerHTML = lines
@@ -88,6 +92,46 @@ function state(t, c) {
   if (!SHOW_LOG || !stateEl) return;
   stateEl.textContent = t;
   stateEl.className = c || "";
+}
+
+// Stage map: exploit mark tag -> [bar %, active step, status line].
+// Steps on jb.html: 1 = Exploit, 2 = Kernel patches, 3 = Payloads.
+var UI_STAGES = {
+  "FW": [3, 1, "Starting..."],
+  "PRIMITIVE-OK": [35, 2, "Patching kernel..."],
+  "KPATCH-MAP": [55, 2, "Patching kernel..."],
+  "KPATCH-COPY": [65, 2, "Patching kernel..."],
+  "PAYLOAD-MAP": [80, 3, "Loading payloads..."],
+  "PAYLOAD-COPY": [88, 3, "Loading payloads..."],
+  "PAYLOAD-RUN": [95, 3, "Starting payload..."]
+};
+function uiStage(pct, step, label) {
+  if (SHOW_LOG) return;
+  try {
+    var runmsg = document.getElementById("runmsg");
+    if (runmsg && label) runmsg.textContent = label;
+    var bars = document.querySelectorAll("#bar i");
+    for (var bi = 0; bi < bars.length; bi++) {
+      bars[bi].style.animation = "none";
+      bars[bi].style.width = pct + "%";
+    }
+    var steps = document.querySelectorAll("#steps .step");
+    for (var i = 0; i < steps.length; i++) {
+      var b = steps[i].querySelector("b");
+      if (i + 1 < step) {
+        steps[i].style.borderColor = "#7fd0a0";
+        if (b) b.textContent = "\u2714";
+      } else if (i + 1 === step) {
+        steps[i].style.borderColor = "#4f8ef7";
+        if (b) b.textContent = "\u25C9";
+      }
+    }
+  } catch (e) {}
+}
+// One safe paint point after the primitive lands (phase boundary, no race
+// in flight) so the kernel stage actually shows instead of a frozen bar.
+function tick() {
+  return new Promise(function (r) { setTimeout(r, 30); });
 }
 function check(name, ok, detail) {
   if (ok) {
@@ -316,6 +360,7 @@ let allDone = false,
         "   (promotion off: the 137 MB stays pinned)",
     );
     mark("PRIMITIVE-OK", "");
+    await tick();
 
     const cell = p.leakval(Math.expm1);
     const nativeFn = p.read8(
