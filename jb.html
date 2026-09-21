@@ -13,7 +13,6 @@ html,body{min-height:100%;background:radial-gradient(1400px 700px at 50% -10%,#2
 #brand b{font-size:24px;letter-spacing:.12em}
 #brand small{display:block;color:var(--mut);font-size:14px;letter-spacing:0}
 #stage{max-width:900px;margin:0 auto;padding:34px 30px 20px;text-align:center}
-#spin{width:84px;height:84px;margin:26px auto;border:8px solid #2a2a2a;border-top-color:var(--acc);border-radius:50%}
 #runmsg{font-size:30px;font-weight:700;margin:18px 0 6px}
 #sub{color:var(--mut);font-size:17px;min-height:28px}
 #bar{height:14px;background:#24262e;border-radius:8px;margin:22px 0 8px;overflow:hidden}
@@ -25,9 +24,9 @@ html,body{min-height:100%;background:radial-gradient(1400px 700px at 50% -10%,#2
 #donemsg{display:none;font-size:30px;font-weight:700;margin:18px 0 6px;color:var(--ok)}
 #wrap{max-width:900px;margin:0 auto;padding:0 30px 30px}
 #state,#out{display:none}
-body.done #spin,body.done #runmsg,body.done #sub,body.done #bar,body.done #steps{display:none}
+body.done #runmsg,body.done #sub,body.done #bar,body.done #steps{display:none}
 body.done #donemsg{display:block}
-body.fail #spin,body.fail #runmsg,body.fail #sub,body.fail #bar,body.fail #steps{display:none}
+body.fail #runmsg,body.fail #sub,body.fail #bar,body.fail #steps{display:none}
 body.fail #msg{display:block}
 body.log #stage{display:none}
 body.log #wrap{padding:26px 30px 30px}
@@ -39,7 +38,6 @@ body.log #out{display:block;white-space:pre-wrap;font:15px/1.5 Consolas,monospac
   <body>
     <div id="brand"><img src="logo.png" alt=""><div><b>LOOPAYEH</b><small>PS4 Jailbreak Host &middot; 13.00 / 13.02 / 13.04 / 13.50 / 13.52</small></div></div>
     <div id="stage">
-      <div id="spin"></div>
       <div id="runmsg">Running exploit&hellip;</div>
       <div id="sub">do not close this page</div>
       <div id="bar"><i></i></div>
