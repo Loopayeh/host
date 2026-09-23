@@ -1,9 +1,10 @@
-<html manifest="css.manifest">
+
+<html manifest="slopkit.manifest">
 <head>
-    <html lang="ar" dir="rtl"></html>
+    <html lang="en" dir="ltr"></html>
 	<meta charset='utf-8'>
-    <script>history.replaceState(null,null,'cachecss.html');</script>
-    <title>PS4 P30Day Host 5.05 to 13.52 - Cache </title>
+    <script>history.replaceState(null,null,'cacheslopkit.html');</script>
+    <title>Loopayeh Host - Cache</title>
 
 <style>
     body{
@@ -17,7 +18,7 @@
         color: white;
         text-align: center;
         overflow: hidden;
-        direction: rtl;
+        direction: ltr;
         font-size:17px;
     }
     h1 {
@@ -264,25 +265,25 @@
         
 </style>
 </head>
-<h1 style="margin-top: 9px;"> هاست پی سی دی بدون فلش - فریمور 5.05 الی 13.52 | طراحی : نریمان</h1>
+<h1 style="margin-top: 9px;"> Loopayeh Host - Firmware 5.05 to 13.52</h1>
 <hr>
 
 <div  id=msgs class="progress-container" style='-webkit-font-feature-settings:"tnum";font-feature-settings:"tnum";'>
-    <div class="progress-label" id="progress">درحال بارگذاری... لطفا صبر کنید</div>
+    <div class="progress-label" id="progress">Loading... please wait</div>
     <div class="progress-wrapper">
         <div class="progress-bar" id="myProgress">
             <div class="progress-fill" id="myBar"></div>
             <div class="progress-text" id="progressText">0%</div>
         </div>
     </div>
-    <div class="status-message">درحال نصب کش...</div>
+    <div class="status-message">Installing cache...</div>
 </div>
 </div>
 
 <script>
 if(window.applicationCache.status==2){localStorage.is755BCached=true;}
 window.applicationCache.ondownloading=function(){
-    document.getElementById("progress").innerHTML="آغاز نصب کردن کش";
+    document.getElementById("progress").innerHTML="Starting cache install";
     localStorage.is755BCached=false;
 };
 window.applicationCache.onprogress=function(a){
@@ -291,17 +292,17 @@ window.applicationCache.onprogress=function(a){
     document.getElementById("progressText").innerHTML = progress + "%";
 };
 window.applicationCache.oncached=function(){
-    document.getElementById("progress").innerHTML="کش با موفقیت نصب شد";
+    document.getElementById("progress").innerHTML="Cache installed successfully";
     localStorage.is755BCached=true;
     setTimeout(function(){window.location.reload("myBar"); }, 1500);
 };
 window.applicationCache.onupdateready=function(){
-    document.getElementById("progress").innerHTML="کش با موفقیت آپدیت شد";
+    document.getElementById("progress").innerHTML="Cache updated successfully";
     localStorage.is755BCached=true;
     setTimeout(function(){window.location.reload("myBar"); }, 1500);
 };
-window.applicationCache.onnoupdate=function(){window.location.replace("index.html");};
-window.applicationCache.onerror=function(){window.location.replace("cachecss.html");};
+window.applicationCache.onnoupdate=function(){window.location.replace("../collection.html");};
+window.applicationCache.onerror=function(){window.location.replace("cacheslopkit.html");};
 
 // Fallback progress animation
 var width = 0;
