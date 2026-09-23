@@ -1,325 +1,87 @@
-<html manifest="900.manifest">
+<!DOCTYPE html>
+<html lang="en" dir="ltr" manifest="900.manifest">
 <head>
-    <html lang="en" dir="ltr"></html>
-	<meta charset='utf-8'>
-    <script>history.replaceState(null,null,'cache900.html');</script>
-    <title>Loopayeh Host - Cache</title>
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script>history.replaceState(null,null,'cache900.html');</script>
+<title>Loopayeh</title>
 <style>
-    body{
-        text-shadow: 0.2em 0.3em 0.3em black;
-        background-image: url("includes/img.jpg");
-        background-position: center;
-        background-size: cover;
-        background-attachment: fixed;
-        background-repeat: no-repeat;
-        background-color: #24272b;
-        color: white;
-        text-align: center;
-        overflow: hidden;
-        direction: ltr;
-        font-size:17px;
-    }
-    h1 {
-        text-shadow: 0.2em 0.3em 0.3em black;
-        font-size: 35px;
-        color: white;
-    }
-    h2 {
-        text-shadow: 0.2em 0.3em 0.3em black;
-        font-size: 25px;
-        color: white;
-    }
-
-    .info{
-        text-shadow: 0.2em 0.3em 0.3em black;
-        overflow: hidden;
-        position: fixed;
-        position: absolute;
-        top: 45%;
-        left: 50%;
-        font-size: 40px;
-        font-family: vazir;
-        color: rgb(255, 255, 255);
-        transform: translate(-50%, -50%);
-    }
-    * Animated background elements */
-        .bg-decoration {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 1;
-        }
-        
-        .floating-shape {
-            position: absolute;
-            opacity: 0.1;
-            animation: float 20s infinite linear;
-        }
-        
-        .shape-1 {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(45deg, #8b5cf6, #ec4899);
-            border-radius: 50%;
-            top: 20%;
-            left: 10%;
-            animation-delay: 0s;
-        }
-        
-        .shape-2 {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(45deg, #6366f1, #8b5cf6);
-            border-radius: 30%;
-            top: 60%;
-            right: 15%;
-            animation-delay: -5s;
-        }
-        
-        .shape-3 {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(45deg, #1BFACC, #56FFFF);
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            top: 40%;
-            left: 80%;
-            animation-delay: -10s;
-        }
-        
-        @keyframes float {
-            0% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-            100% { transform: translateY(0px) rotate(360deg); }
-        }
-        
-        .container {
-            position: relative;
-            z-index: 2;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-        }
-        
-        .logo-section {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-        
-        .main-title {
-            font-size: 3.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.02em;
-        }
-        
-        .subtitle {
-            font-size: 1.25rem;
-            color: #94a3b8;
-            font-weight: 400;
-            margin-bottom: 2rem;
-        }
-        
-        .progress-container {
-            width: 700px;
-            background-color: rgba(0, 0, 0, 0.3);
-            max-width: none;
-            margin-bottom: 2rem;
-            text-shadow: 0.2em 0.3em 0.3em black;
-            position: absolute;
-            top: 45%;
-            left: 50%;
-            margin-left: 20px;
-            margin-right: 20px;
-            font-size: 40px;
-            font-family: vazir;
-            color: rgb(255, 255, 255);
-            transform: translate(-50%, -50%);
-        }
-        
-        .progress-label {
-            font-size: 1.1rem;
-            font-weight: 500;
-            margin-bottom: 1rem;
-            color: #e2e8f0;
-            font-size: 40px;
-        }
-        
-        .progress-wrapper {
-            background: rgba(30, 41, 59, 0.5);
-            border-radius: 12px;
-            padding: 4px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(99, 102, 241, 0.2);
-        }
-        
-        .progress-bar {
-            background: rgba(15, 23, 42, 0.8);
-            border-radius: 8px;
-            height: 60px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
-            border-radius: 8px;
-            position: relative;
-            transition: width 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .progress-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #ffffff;
-            z-index: 3;
-        }
-        
-        .status-message {
-            font-size: 1.2rem;
-            font-weight: 500;
-            font-size: 40px;
-            color: #e2e8f0;
-            text-align: center;
-            margin-top: 1.5rem;
-            text-shadow: 0.5em 0.7em 0.7em black;
-        }
-        
-        .credits {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 25%, #2d2d5f  50%, #1a1a3e 75%, #0f0f23 100%);
-            backdrop-filter: blur(10px);
-            border-top: 1px solid rgba(99, 102, 241, 0.2);
-            padding: 1rem;
-            text-align: center;
-            font-size: 0.9rem;
-            z-index: 10;
-        }
-        
-        .credits-line {
-            margin: 0.25rem 0;
-        }
-        
-        .credit-label {
-            color: #ffffff;
-            font-weight: 500;
-            font-size: 25px;
-        }
-        
-        .credit-link {
-            color: #ec4899;
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-        
-        .credit-link:hover {
-            color: #ff8fc7;
-        }
-        
-        .telegram-link {
-            color: #8b5cf6;
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-        
-        .telegram-link:hover {
-            color: #b595ff;
-        }
-        
-        @media (max-width: 768px) {
-            .main-title {
-                font-size: 2.5rem;
-            }
-            
-            .container {
-                padding: 1rem;
-            }
-            
-            .progress-container {
-                max-width: 90%;
-            }
-        }
-        
+:root{--bg:#101014;--card:#1b1d24;--txt:#f1f3f8;--mut:#9aa3b5;--acc:#4f8ef7;--ok:#7fd0a0;--bad:#e17b7b;--warn:#e3c878}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:radial-gradient(1400px 700px at 50% -10%,#232b3a 0%,var(--bg) 65%);color:var(--txt);font:20px/1.7 system-ui,"Segoe UI",sans-serif;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:24px 16px}
+.wrap{width:100%;max-width:520px}
+.card{background:var(--card);border:1px solid #2c2f3a;border-radius:20px;padding:26px 28px;text-align:center}
+.top{display:flex;align-items:center;gap:14px;text-align:left}
+.top img{width:60px;height:60px;border-radius:50%;flex:none}
+.top b{font-size:23px;letter-spacing:.12em}
+.top small{display:block;color:var(--mut);font-size:13px;margin-top:2px}
+#fw{margin-left:auto;flex:none;text-align:center;background:#24262e;border-radius:12px;padding:8px 14px;font-size:14px;color:var(--mut)}
+#fw b{display:block;font-size:19px;color:var(--acc)}
+#pct{font-size:64px;font-weight:800;margin:18px 0 2px}
+#bar{height:14px;background:#24262e;border-radius:8px;margin:14px 0 6px;overflow:hidden}
+#bar i{display:block;height:100%;width:0%;border-radius:8px;background:linear-gradient(90deg,var(--acc),#b693f1)}
+#progress{font-size:22px;font-weight:700;margin-top:10px;min-height:36px}
+#progress.ok{color:var(--ok)}#progress.bad{color:var(--bad)}
+.foot{color:var(--mut);font-size:13px;margin-top:14px;text-align:center}
 </style>
 </head>
-<h1 style="margin-top: 9px;"> Loopayeh Host - Firmware 5.05 to 13.52</h1>
-<hr>
-
-<div  id=msgs class="progress-container" style='-webkit-font-feature-settings:"tnum";font-feature-settings:"tnum";'>
-    <div class="progress-label" id="progress">Loading... please wait</div>
-    <div class="progress-wrapper">
-        <div class="progress-bar" id="myProgress">
-            <div class="progress-fill" id="myBar"></div>
-            <div class="progress-text" id="progressText">0%</div>
-        </div>
+<body>
+<div class="wrap">
+  <div class="card">
+    <div class="top">
+      <img src="../logo.png" alt="">
+      <div><b>LOOPAYEH</b><small>Offline setup &middot; first run only</small></div>
+      <div id="fw">firmware<b>9.00 - 9.60</b></div>
     </div>
-    <div class="status-message">Installing cache...</div>
+    <div id="pct">0%</div>
+    <div id="bar"><i id="fill"></i></div>
+    <div id="progress">Preparing offline files...</div>
+  </div>
+  <div class="foot">Loopayeh Jailbreak Host &middot; after this you can disconnect the internet</div>
 </div>
-</div>
-
 <script>
-if(window.applicationCache.status==2){localStorage.is755BCached=true;}
-window.applicationCache.ondownloading=function(){
-    document.getElementById("progress").innerHTML="Starting cache install";
-    localStorage.is755BCached=false;
-};
-window.applicationCache.onprogress=function(a){
-    const progress = Math.round(100*(a.loaded/a.total));
-    document.getElementById("myBar").style.width = progress + "%";
-    document.getElementById("progressText").innerHTML = progress + "%";
-};
-window.applicationCache.oncached=function(){
-    document.getElementById("progress").innerHTML="Cache installed successfully";
-    try{localStorage.is755BCached=true;localStorage["cached_900"]=1;}catch(e){}
-    setTimeout(function(){window.location.reload("myBar"); }, 1500);
-};
-window.applicationCache.onupdateready=function(){
-    document.getElementById("progress").innerHTML="Cache updated successfully";
-    try{localStorage.is755BCached=true;localStorage["cached_900"]=1;}catch(e){}
-    setTimeout(function(){window.location.reload("myBar"); }, 1500);
-};
-window.applicationCache.onnoupdate=function(){try{localStorage["cached_900"]=1;}catch(e){}window.location.replace("../index.html");};
-window.applicationCache.onerror=function(){var n=0;try{n=parseInt(localStorage["err_cached_900"]||"0",10)+1;localStorage["err_cached_900"]=n;}catch(e){n=1;}if(n>=3){document.getElementById("progress").innerHTML="Cache failed, please clear browser data and retry";}else{window.location.replace("cache900.html");}};
-
-// Fallback progress animation
-var width = 0;
-function frame1() {
-    var elem = document.getElementById("myBar");
-    var text = document.getElementById("progressText");
-    var i=0;
-    var id = setInterval(fra, 10);
-    function fra(){
-        if(i<10 && width<100){
-            width++;
-            elem.style.width = width + "%";
-            text.innerHTML = width + "%";
-        } 
-        i++;
-    }
-}
+(function () {
+  var CKEY = "cached_900";
+  var SELF = "cache900.html";
+  var pct = document.getElementById("pct");
+  var fill = document.getElementById("fill");
+  var msg = document.getElementById("progress");
+  function setMsg(t, c) { msg.textContent = t; msg.className = c || ""; }
+  function setPct(p) {
+    p = Math.max(0, Math.min(100, p));
+    pct.textContent = p + "%";
+    fill.style.width = p + "%";
+  }
+  function flag() { try { localStorage.is755BCached = true; localStorage[CKEY] = 1; } catch (e) {} }
+  function errCount() {
+    var n = 0;
+    try { n = parseInt(localStorage["err_" + CKEY] || "0", 10) + 1; localStorage["err_" + CKEY] = n; }
+    catch (e) { n = 1; }
+    return n;
+  }
+  var ac = window.applicationCache;
+  if (!ac) { setMsg("Browser cache not supported", "bad"); return; }
+  if (ac.status === 2) { flag(); }
+  ac.ondownloading = function () { setMsg("Downloading offline files..."); };
+  ac.onprogress = function (a) {
+    if (a && a.total) setPct(Math.round((a.loaded / a.total) * 100));
+    setMsg("Downloading offline files...");
+  };
+  ac.oncached = function () {
+    setPct(100); setMsg("Saved for offline use", "ok"); flag();
+    setTimeout(function () { location.reload(); }, 1500);
+  };
+  ac.onupdateready = function () {
+    try { ac.swapCache(); } catch (e) {}
+    setPct(100); setMsg("Offline files updated", "ok"); flag();
+    setTimeout(function () { location.reload(); }, 1500);
+  };
+  ac.onnoupdate = function () { flag(); location.replace("../index.html"); };
+  ac.onerror = function () {
+    if (errCount() >= 3) setMsg("Cache failed, please clear browser data and retry", "bad");
+    else location.replace(SELF);
+  };
+})();
 </script>
-
 </body>
 </html>

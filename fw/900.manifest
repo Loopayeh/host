@@ -2,6 +2,7 @@ CACHE MANIFEST
 
 CACHE: 
 includes/img.jpg
+../logo.png
 includes/style.css
 payload.bin
 index.html
