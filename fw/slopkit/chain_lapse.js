@@ -245,8 +245,8 @@ function makeRpc(worker) {
         const fwResolved = offsetsFor(navigator.userAgent);
         const fwKey = fwResolved.key;
         const kpatchName = fwResolved.off && fwResolved.off.kpatch
-            ? "slopkit/patches/" + fwResolved.off.kpatch
-            : fwKey ? "slopkit/patches/" + fwKey.replace(".", "") + ".bin" : null;
+            ? "fw/slopkit/patches/" + fwResolved.off.kpatch
+            : fwKey ? "fw/slopkit/patches/" + fwKey.replace(".", "") + ".bin" : null;
         let kpatch = null;
         try {
             if (kpatchName) {
@@ -277,7 +277,7 @@ function makeRpc(worker) {
 
         let payload = null;
         try {
-            const prsp = await fetch("payload.bin");
+            const prsp = await fetch("fw/payload.bin");
             if (prsp.ok) payload = new Uint8Array(await prsp.arrayBuffer());
         } catch (e) {
             mark("PAYLOAD-FETCH-FAILED", (e && e.message) ? e.message : String(e));
@@ -739,7 +739,7 @@ function makeRpc(worker) {
             })() + " are available to this process)");
 
         state("wiring the worker...", "warn");
-        worker = new Worker("slopkit/rpc_worker.js");
+        worker = new Worker("fw/slopkit/rpc_worker.js");
         rpc = makeRpc(worker);
         await rpc("ping");
         const markerArr = await rpc("init", SENT_LO, SENT_HI);

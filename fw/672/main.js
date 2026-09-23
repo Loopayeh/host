@@ -56,7 +56,7 @@ async function doJailBreak() {
     if (result === 0 || result === 91) {
       window.log("\nKernel exploit succeeded", "green");
       // Inject HEN payload
-      getPayload672("payload.bin");
+      getPayload672("fw/payload.bin");
       window.log("Homebrew Enabler loaded", "green");
       window.log("\nBad Hoist by Fire30, 6.7x Kernel Exploit by Sleirsgoevy");
     } else if (result === 179) {
@@ -80,7 +80,7 @@ async function doJailBreak() {
     if (jb_step_status !== 1) return;
     await sleep(500); // Wait 500ms
     // Inject HEN payload
-    jb_step_status = await PayloadLoader("payload.bin"); // Read payload from .bin file
+    jb_step_status = await PayloadLoader("fw/payload.bin"); // Read payload from .bin file
     if (jb_step_status !== 1) {
       window.log("Failed to load HEN!\nPlease restart console and try again...", "red");
       return;

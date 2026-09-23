@@ -241,8 +241,8 @@ let allDone = false,
       return;
 
     const KPATCH_FILE =
-      "slopkit/patches/" + (off.kpatch || fwKey.replace(".", "") + ".bin");
-    const PAYLOAD_FILE = "payload.bin";
+      "fw/slopkit/patches/" + (off.kpatch || fwKey.replace(".", "") + ".bin");
+    const PAYLOAD_FILE = "fw/payload.bin";
     const needPatch = ["k_sysent_661", "k_jmp_rsi"].filter(
       (k) => off[k] === undefined,
     );
@@ -683,7 +683,7 @@ let allDone = false,
 
     async function bringWorker(name) {
       const w = { name: name, armed: false, wired: false };
-      w.worker = new Worker("slopkit/rpc_worker.js");
+      w.worker = new Worker("fw/slopkit/rpc_worker.js");
       w.rpc = makeRpc(w.worker, name);
       if ((await w.rpc("ping", 15000)) !== "pong")
         throw new Error(name + " ping");

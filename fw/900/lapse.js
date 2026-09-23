@@ -1830,7 +1830,7 @@ function runPayload(PLfile) {
 
 kexploit().then(() => {
 	setTimeout(() => {
-		runPayload("./payload.bin");
+		runPayload("fw/payload.bin");
 		msgs.innerHTML = "GoldHEN Loaded ...";
 	},500);
 }).catch(() => {
