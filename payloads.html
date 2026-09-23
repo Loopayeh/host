@@ -64,28 +64,33 @@ h2{font-size:18px;color:var(--mut);margin:18px 0 8px;text-align:left;letter-spac
 var msgs = document.getElementById("msgs");
 function setMsg(t, c) { msgs.textContent = t; msgs.className = c || ""; }
 function sendBin(file, doneText) {
-  setMsg("Sending " + file + "...", "warn");
-  var st = new XMLHttpRequest();
-  st.open("GET", "http://127.0.0.1:9090/status");
-  st.onerror = function () { setMsg("BinLoader is not running - jailbreak with GoldHEN first", "bad"); };
-  st.onload = function () {
-    var ok = false;
-    try { ok = JSON.parse(st.responseText).status === "ready"; } catch (e) {}
-    if (!ok) { setMsg("BinLoader is busy, try again", "bad"); return; }
-    var g = new XMLHttpRequest();
-    g.open("GET", "fw/payloads/" + file);
-    g.responseType = "arraybuffer";
-    g.onerror = function () { setMsg("Could not load " + file, "bad"); };
-    g.onload = function () {
+  setMsg("Loading " + file + "...", "warn");
+  var g = new XMLHttpRequest();
+  g.open("GET", "fw/payloads/" + file);
+  g.responseType = "arraybuffer";
+  g.onerror = function () { setMsg("Could not load " + file + " - refresh the offline cache", "bad"); };
+  g.onload = function () {
+    if (!g.response || g.response.byteLength < 1000) { setMsg("Bad file: " + file, "bad"); return; }
+    setMsg("Contacting BinLoader...", "warn");
+    var st = new XMLHttpRequest();
+    st.open("GET", "http://127.0.0.1:9090/status");
+    try { st.timeout = 8000; } catch (e) {}
+    st.ontimeout = st.onerror = function () {
+      setMsg("Cannot reach BinLoader at 127.0.0.1:9090 - open this page on the PS4 browser AFTER GoldHEN is loaded, with BinLoader Server enabled", "bad");
+    };
+    st.onload = function () {
+      var ok = false;
+      try { ok = JSON.parse(st.responseText).status === "ready"; } catch (e) {}
+      if (!ok) { setMsg("BinLoader is busy, try again", "bad"); return; }
       var p = new XMLHttpRequest();
       p.open("POST", "http://127.0.0.1:9090", true);
       p.onload = function () { setMsg(doneText, "ok"); };
       p.onerror = function () { setMsg("Send failed, try again", "bad"); };
       p.send(g.response);
     };
-    g.send();
+    st.send();
   };
-  st.send();
+  g.send();
 }
 </script>
 </body>
