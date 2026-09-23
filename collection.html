@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" manifest="cache.appcache">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Loopayeh - Collection 5.05 تا 13.52</title>
+<style>
+:root{--bg:#101014;--card:#1b1d24;--txt:#f1f3f8;--mut:#9aa3b5;--acc:#4f8ef7;--ok:#7fd0a0;--bad:#e17b7b;--warn:#e3c878}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:radial-gradient(1400px 700px at 50% -10%,#232b3a 0%,var(--bg) 65%);color:var(--txt);font:20px/1.7 system-ui,"Segoe UI",Tahoma,sans-serif;min-height:100vh;display:flex;justify-content:center;padding:24px 16px}
+.wrap{width:100%;max-width:640px}
+.card{background:var(--card);border:1px solid #2c2f3a;border-radius:20px;padding:26px 28px;text-align:center}
+.top{display:flex;align-items:center;gap:14px;text-align:left}
+.top img{width:60px;height:60px;border-radius:50%;flex:none}
+.top b{font-size:23px;letter-spacing:.12em}
+.top small{display:block;color:var(--mut);font-size:13px;margin-top:2px}
+#fw{margin-right:auto;flex:none;text-align:center;background:#24262e;border-radius:12px;padding:8px 14px;font-size:14px;color:var(--mut)}
+#fw b{display:block;font-size:19px;color:var(--acc)}
+#msgs{font-size:27px;font-weight:700;margin:20px 0 4px}
+#msgs.ok{color:var(--ok)}#msgs.bad{color:var(--bad)}#msgs.warn{color:var(--warn)}
+.warnbox{font-size:16px;background:rgba(0,0,0,.3);border:1px solid #3a3d48;padding:12px 16px;margin:14px 0;border-radius:12px;text-align:right;color:var(--txt)}
+.warnbox ul{text-align:right;list-style-position:inside;padding:0}
+.warnbox li{margin:6px 0}
+.warnbox b.t{font-size:19px;color:var(--warn)}
+#console{direction:ltr;text-align:left;white-space:pre-wrap;color:#fff;background:#24262e;border:1px solid #3a3d48;border-radius:12px;width:100%;min-height:90px;max-height:220px;overflow-y:auto;padding:12px 14px;font:14px/1.6 Consolas,monospace;margin-top:14px}
+.foot{color:var(--mut);font-size:13px;margin-top:14px;text-align:center}
+.grid{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:12px}
+.grid span{font-size:14px;background:#24262e;border:1px solid #3a3d48;border-radius:10px;padding:6px 12px;color:var(--mut)}
+.grid span.hit{color:var(--ok);border-color:var(--ok)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <div class="top">
+      <img src="logo.png" alt="">
+      <div><b>LOOPAYEH</b><small>Collection Host &middot; 5.05 تا 13.52</small></div>
+      <div id="fw">firmware<b id="fwv">...</b></div>
+    </div>
+    <div id="msgs">در حال جیلبریک... لطفا صبر کنید</div>
+    <div class="warnbox">
+      <b class="t">مهم</b>
+      <ul>
+        <li>اگر با خطا مواجه شدید دوباره تلاش نکنید؛ فقط کنسول را ری‌استارت کنید و دوباره تلاش کنید.</li>
+        <li>این جیلبریک در فریمورهای 5.05 تا 13.52 هیچ نیازی به فلش ندارد.</li>
+        <li>گلدهن بعد از چند ثانیه به صورت اتوماتیک لود می‌شود.</li>
+      </ul>
+    </div>
+    <div class="grid" id="fwgrid"></div>
+    <pre id="console">Ready. Awaiting for Jailbreaking...</pre>
+  </div>
+  <div class="foot">Loopayeh Collection &middot; logic ported from P30Day 5.05-13.52 &middot; Design: Loopayeh</div>
+</div>
+
+<script>
+(function () {
+  var msgs = document.getElementById("msgs");
+  var con = document.getElementById("console");
+  var fwv = document.getElementById("fwv");
+  var grid = document.getElementById("fwgrid");
+  function log(t) { con.textContent += "\n" + t; con.scrollTop = con.scrollHeight; }
+  function setMsg(t, c) { msgs.textContent = t; msgs.className = c || ""; }
+
+  var ranges = ["5.05", "5.07", "6.70-6.72", "7.00-8.52", "9.00-9.60", "10.00-11.02", "11.50-13.52"];
+  ranges.forEach(function (r) {
+    var s = document.createElement("span"); s.textContent = r; s.dataset.r = r; grid.appendChild(s);
+  });
+  function mark(i) {
+    var kids = grid.children;
+    for (var k = 0; k < kids.length; k++) kids[k].className = (k === i ? "hit" : "");
+  }
+
+  var ua = navigator.userAgent;
+  var m = ua.match(/PlayStation 4[ \/]([\d.]+)/i);
+  var fwVersion = m ? m[1] : "Unknown";
+  var fwNum = parseFloat(fwVersion);
+  fwv.textContent = fwVersion;
+
+  function onScriptError() {
+    setMsg("کش یافت نشد؛ لطفا کلیر کش کنید و از ابتدا هاست را وارد کنید", "bad");
+    log("ERR: script load failed (cache missing?)");
+  }
+
+  if (!m) {
+    setMsg("فقط برای PS4 با فریمور 5.05 تا 13.52", "bad");
+    log("Not a PS4 UA: " + ua);
+    return;
+  }
+
+  // First run (appcache empty) -> go to cache page like P30Day, except 13.x
+  // which uses our own offline cache (index.html).
+  var ac = window.applicationCache;
+  var uncached = ac && ac.status === 0;
+  if (uncached) {
+    if (fwNum === 5.05 || fwNum === 5.07) location.replace("p30day/505/cache505.html");
+    else if (fwNum >= 6.70 && fwNum <= 6.72) location.replace("p30day/672/cache700.html");
+    else if (fwNum >= 7.00 && fwNum <= 8.52) location.replace("p30day/672/cache700.html");
+    else if (fwNum >= 9.00 && fwNum <= 9.60) location.replace("p30day/900/cache900.html");
+    else if (fwNum >= 10.00 && fwNum <= 11.02) location.replace("p30day/css/cachecss.html");
+    else if (fwNum >= 11.50 && fwNum <= 13.52) location.replace("p30day/slopkit/cacheslopkit.html");
+    else { setMsg("Unsupported Firmware: " + fwVersion, "bad"); }
+    return;
+  }
+
+  function load(src, type, cb) {
+    var s = document.createElement("script");
+    if (type) s.type = type;
+    // cache-bust like original P30Day (jb.js?v=10)
+    s.src = src;
+    s.onerror = onScriptError;
+    if (cb) s.onload = cb;
+    document.head.appendChild(s);
+    log("loading " + src);
+  }
+
+  if (fwNum === 5.05 || fwNum === 5.07) {
+    mark(0); mark(1);
+    load("p30day/505/exploit.js");
+  } else if (fwNum >= 6.70 && fwNum <= 6.72) {
+    mark(2);
+    load("p30day/672/672entrypoint.js", null, function () {
+      load("p30day/672/main.js", null, function () {
+        setTimeout(function () { if (typeof doJailBreak === "function") doJailBreak(); }, 500);
+      });
+    });
+  } else if (fwNum >= 7.00 && fwNum <= 8.52) {
+    mark(3);
+    load("p30day/700/alert.js", "module");
+  } else if (fwNum >= 9.00 && fwNum <= 9.60) {
+    mark(4);
+    load("p30day/900/alert.js", "module");
+  } else if (fwNum >= 10.00 && fwNum <= 11.02) {
+    mark(5);
+    load("p30day/css/main.js", null, function () {
+      setTimeout(function () { if (typeof doJb === "function") doJb(); }, 500);
+    });
+  } else if (fwNum >= 11.50 && fwNum <= 12.02) {
+    mark(6);
+    load("p30day/slopkit/chain_lapse.js", "module");
+  } else if (fwNum >= 12.50 && fwNum <= 13.00) {
+    mark(6);
+    load("p30day/slopkit/chain_poops.js", "module");
+  } else if (fwNum >= 13.02 && fwNum <= 13.52) {
+    mark(6);
+    load("p30day/slopkit/jb.js?v=10", "module");
+  } else {
+    setMsg("Unsupported Firmware: " + fwVersion, "bad");
+    log("unsupported: " + fwVersion);
+  }
+})();
+</script>
+</body>
+</html>
