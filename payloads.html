@@ -33,6 +33,8 @@ h2{font-size:18px;color:var(--mut);margin:18px 0 8px;text-align:left;letter-spac
       <div><b>LOOPAYEH</b><small>Payloads &middot; run after jailbreak</small></div>
     </div>
     <div id="msgs">Pick a payload</div>
+    <button id="verifyBtn" onclick="verifyBins()" style="background:#24262e;color:var(--mut);border:1px solid #3a3d48;border-radius:10px;padding:8px 18px;font-size:15px;cursor:pointer">Verify offline files</button>
+    <div id="verify" style="font-size:15px;color:var(--mut);min-height:24px;margin-top:6px"></div>
 
     <h2>SYSTEM</h2>
     <div class="grid">
@@ -62,6 +64,32 @@ h2{font-size:18px;color:var(--mut);margin:18px 0 8px;text-align:left;letter-spac
 
 <script>
 var msgs = document.getElementById("msgs");
+var BINS = ['disableupdates.bin','gtava1.bin','gtava2.bin','gtava3.bin','gtavl.bin','gtavbq132.bin','gtavbq133.bin','Lamance9.bin','Oysters1.13.bin','Oysters1.19.bin','Oysters1.24.bin'];
+function verifyBins() {
+  var box = document.getElementById("verify");
+  box.textContent = "Checking 11 files...";
+  var missing = [];
+  var i = 0;
+  function next() {
+    if (i >= BINS.length) {
+      box.textContent = missing.length === 0
+        ? "All 11 files cached, offline ready"
+        : "Missing (" + missing.length + "): " + missing.join(", ") + " - re-run the cache page";
+      return;
+    }
+    var f = BINS[i++];
+    var r = new XMLHttpRequest();
+    r.open("GET", "fw/payloads/" + f);
+    r.responseType = "arraybuffer";
+    r.onload = function () {
+      if (!r.response || r.response.byteLength < 1000) missing.push(f);
+      next();
+    };
+    r.onerror = function () { missing.push(f); next(); };
+    r.send();
+  }
+  next();
+}
 function setMsg(t, c) { msgs.textContent = t; msgs.className = c || ""; }
 function sendBin(file, doneText) {
   setMsg("Loading " + file + "...", "warn");
