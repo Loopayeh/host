@@ -87,19 +87,18 @@ body{background:radial-gradient(1400px 700px at 50% -10%,#232b3a 0%,var(--bg) 65
     return;
   }
 
-  // First run (appcache empty) -> go to the cache page for this firmware.
-  var ac = window.applicationCache;
-  var uncached = ac && ac.status === 0;
-  if (uncached) {
-    if (fwNum === 5.05 || fwNum === 5.07) location.replace("fw/cache505.html");
-    else if (fwNum >= 6.70 && fwNum <= 6.72) location.replace("fw/cache700.html");
-    else if (fwNum >= 7.00 && fwNum <= 8.52) location.replace("fw/cache700.html");
-    else if (fwNum >= 9.00 && fwNum <= 9.60) location.replace("fw/cache900.html");
-    else if (fwNum >= 10.00 && fwNum <= 11.02) location.replace("fw/cachecss.html");
-    else if (fwNum >= 11.50 && fwNum <= 13.52) location.replace("fw/cacheslopkit.html");
-    else { setMsg("Unsupported Firmware: " + fwVersion, "bad"); }
-    return;
-  }
+  // Offline files live under fw/ with their own manifests. Each cache page
+  // stores a flag in localStorage when done, so we never bounce back to it.
+  var ACKEY = null, cachePage = null;
+  if (fwNum === 5.05 || fwNum === 5.07) { ACKEY = "cached_505"; cachePage = "fw/cache505.html"; }
+  else if (fwNum >= 6.70 && fwNum <= 8.52) { ACKEY = "cached_700"; cachePage = "fw/cache700.html"; }
+  else if (fwNum >= 9.00 && fwNum <= 9.60) { ACKEY = "cached_900"; cachePage = "fw/cache900.html"; }
+  else if (fwNum >= 10.00 && fwNum <= 11.02) { ACKEY = "cached_css"; cachePage = "fw/cachecss.html"; }
+  else if (fwNum >= 11.50 && fwNum <= 13.52) { ACKEY = "cached_slopkit"; cachePage = "fw/cacheslopkit.html"; }
+  else { setMsg("Unsupported Firmware: " + fwVersion, "bad"); return; }
+  var offlineReady = false;
+  try { offlineReady = !!localStorage[ACKEY]; } catch (e) {}
+  if (!offlineReady) { location.replace(cachePage); return; }
 
   function load(src, type, cb) {
     var s = document.createElement("script");

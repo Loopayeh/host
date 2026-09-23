@@ -292,16 +292,16 @@ window.applicationCache.onprogress=function(a){
 };
 window.applicationCache.oncached=function(){
     document.getElementById("progress").innerHTML="Cache installed successfully";
-    localStorage.is755BCached=true;
+    try{localStorage.is755BCached=true;localStorage["cached_505"]=1;}catch(e){}
     setTimeout(function(){window.location.reload("myBar"); }, 1500);
 };
 window.applicationCache.onupdateready=function(){
     document.getElementById("progress").innerHTML="Cache updated successfully";
-    localStorage.is755BCached=true;
+    try{localStorage.is755BCached=true;localStorage["cached_505"]=1;}catch(e){}
     setTimeout(function(){window.location.reload("myBar"); }, 1500);
 };
-window.applicationCache.onnoupdate=function(){window.location.replace("../index.html");};
-window.applicationCache.onerror=function(){window.location.replace("cache505.html");};
+window.applicationCache.onnoupdate=function(){try{localStorage["cached_505"]=1;}catch(e){}window.location.replace("../index.html");};
+window.applicationCache.onerror=function(){var n=0;try{n=parseInt(localStorage["err_cached_505"]||"0",10)+1;localStorage["err_cached_505"]=n;}catch(e){n=1;}if(n>=3){document.getElementById("progress").innerHTML="Cache failed, please clear browser data and retry";}else{window.location.replace("cache505.html");}};
 
 // Fallback progress animation
 var width = 0;
