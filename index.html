@@ -44,7 +44,7 @@ body{background:radial-gradient(1400px 700px at 50% -10%,#232b3a 0%,var(--bg) 65
       </ul>
     </div>
   </div>
-  <div class="foot">Loopayeh Jailbreak Host &middot; <a href="payloads.html" style="color:var(--acc)">Payloads</a></div>
+  <div class="foot">Loopayeh Jailbreak Host &middot; <a href="payloads.html" style="color:var(--acc)">Payloads</a> &middot; <span id="cache"></span></div>
 </div>
 
 <script>
@@ -80,6 +80,23 @@ body{background:radial-gradient(1400px 700px at 50% -10%,#232b3a 0%,var(--bg) 65
   var offlineReady = false;
   try { offlineReady = !!localStorage[ACKEY]; } catch (e) {}
   if (!offlineReady) { location.replace(cachePage); return; }
+
+  // Root manifest (this page + payloads page) caches in the background.
+  // Stay here until it says "offline ready" before disconnecting.
+  (function rootCache() {
+    var el = document.getElementById("cache");
+    var c = window.applicationCache;
+    if (!c || !document.documentElement.hasAttribute("manifest")) return;
+    function note(t) { el.textContent = t; }
+    if (!navigator.onLine) { note("offline mode"); return; }
+    if (c.status === c.IDLE) { note("offline ready"); return; }
+    if (c.status === c.UPDATEREADY) { note("update ready - reload once"); return; }
+    note("saving offline files...");
+    c.addEventListener("cached", function () { note("offline ready"); }, false);
+    c.addEventListener("noupdate", function () { note("offline ready"); }, false);
+    c.addEventListener("updateready", function () { note("update ready - reload once"); }, false);
+    c.addEventListener("error", function () { note("offline unavailable"); }, false);
+  })();
 
   function load(src, type, cb) {
     setMsg("Starting jailbreak for " + fwVersion + "...", "warn");
