@@ -1,1 +1,17 @@
+# Keep original bytes exactly as downloaded (no EOL conversion)
 * -text
+
+# Treat binary payloads as binary for diffs
+*.bin binary
+*.elf binary
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.ttf binary
+*.otf binary
+*.woff binary
+*.woff2 binary
+*.mp4 binary

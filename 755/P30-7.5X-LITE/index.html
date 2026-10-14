@@ -1,0 +1,450 @@
+<html manifest="offlinexmb.cache">
+
+<meta charset="utf-8">
+<title>P30Day Host 7.5x LITE FW</title>
+<style type="text/css">
+html, body {
+
+background-size: 100%;
+background-repeat: no-repeat;
+background-color: #24272b;
+margin: 0;
+height: 100%;
+padding: 0;
+overflow: hidden;
+font-family: sans-serif;
+font-size: 20px;
+font-weight: bold;
+text-align: center;  
+width: 100%;
+overflow: hidden;
+}
+#head {
+ font-weight:bold;
+ font-size:20px;
+ color: white;
+  margin-right:10%;
+}
+ button {
+            
+            border: 2px solid black;
+            border-radius: 10px;
+			width: 170px;
+            height: 50px;            
+            text-align: center;
+            padding: 1px;
+            margin: 1px;
+            box-shadow: 0 5px 20px 0 white;
+            background:rgba(0,0,0,0.5);
+}
+button:hover {
+            box-shadow: 0 5px 50px 0 red;
+            color: white;
+            border-radius: 10px;
+            background-color: #0F0F53;
+}
+header{
+	height: 3em;
+	position: fixed;
+	width: 100%;
+	top: 0;
+	left: 0;
+	z-index: 10;
+}
+#clock{
+ float:right;
+ margin-right:2.25%;
+ margin-top: 0px;
+ font-weight:bold;
+ font-size:40px;
+  color: white;
+}
+#date {
+ float:left;
+ margin-left:1.25%;
+ font-weight:bold;
+ margin-top: 5px;
+ font-size:40px;
+ color: white;
+}
+#donate2{
+ float:right;
+ margin-right:2.25%;
+ margin-top: 0px;
+ font-weight:bold;
+ font-size:28px;
+  color: white;
+}
+#donate {
+ float:left;
+ margin-left:1.60%;
+ font-weight:bold;
+ margin-top: 0px;
+ font-size:28px;
+ color: white;
+}
+#msgs {
+ font-weight:bold;
+ padding-right: 60px;
+ margin-right: 60px;
+ font-size:17px;
+}
+header div{
+	height: 100%;
+	display: ruby-text;
+	margin-top: -1.5em;
+}
+.pointer {cursor: pointer;}
+.yellow {
+  color:yellow;
+ }
+ .hue {
+  color:yellow;
+  padding:10px;
+  border-radius:10px;
+  animation:hue 5s linear infinite;
+  -webkit-animation: hue 5s linear infinite;
+  box-shadow: 0px 0px 50px yellow;
+  color:white;
+  background:rgba(255,255,0,0.4);
+ }
+ .hue:hover{
+  color:yellow;
+  background:transparent;
+ }
+ @keyframes hue{
+ 0%{
+ filter:hue-rotate(0deg);
+ -webkit-filter:hue-rotate(0deg);
+ }
+ 10%{
+ box-shadow: 0px 1px 50px yellow;
+ }
+ 20%{
+ box-shadow: 1px 1px 50px yellow;
+ }
+ 30%{
+ box-shadow: 1px 0px 50px yellow;
+ }
+ 40%{
+  box-shadow: 1px -1px 50px yellow;
+ }
+ 50%{
+ box-shadow: 0px -1px 50px yellow;
+ }
+ 60%{
+ box-shadow: -1px -1px 50px yellow;
+ }
+ 70%{
+ box-shadow: -1px 0px 50px yellow;
+ }
+ 80%{
+ box-shadow: -1px 1px 50px yellow;
+ }
+ 90%{
+ box-shadow: 0px 1px 50px yellow;
+ }
+ 100%{
+ filter:hue-rotate(360deg);
+ -webkit-filter:hue-rotate(360deg);
+ }
+ }
+  .content {
+  width:80%;
+  margin-left:7.5%;
+  background:rgba(0,0,0,0.5);
+  color:white;
+  margin-top:0%;
+  font-size:25px;
+  text-align:center;
+  border-radius:30px;
+  padding:20px;
+  line-height:10px;
+ }
+ .title {
+  font-size:40px;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-weight:bolder;
+  margin-bottom:10px;
+ }
+</style>
+<script>
+    function showdate() {
+  var dt = new Date();
+    Hour= dt.getHours();
+  Minute= dt.getMinutes();
+     Day=dt.getDate();
+   Month=dt.getMonth()+1;
+   Year=dt.getFullYear();
+if (Minute < 10) { Minute = "0" + Minute; };
+if (Hour < 10) { Hour = "0" + Hour; };
+document.getElementById("date").innerHTML = (Day+"/"+Month+"/"+Year);
+document.getElementById("clock").innerHTML = (Hour+":"+Minute);
+  }
+  
+  setInterval(showdate,0);
+</script>
+</head>
+
+<div id="container"  style="">
+<br><span id="date" ></span><span id="clock" ></span>
+
+<script>
+function DLProgress(e){Percent=(Math.round(e.loaded / e.total * 100));document.getElementById="display:none";window.msgs.innerHTML="Installing Offline Cache: " + Percent + "%";}
+function DisplayCacheProgress(){setTimeout(function(){window.msgs.innerHTML="Cache Installed Successfully ✔";},1000);setTimeout(function(){window.msgs.innerHTML="Now Close And Re-Open Your Browser ...";},3000);}window.applicationCache.addEventListener("progress",DLProgress,false);window.applicationCache.oncached=function(e){DisplayCacheProgress();};window.applicationCache.onupdateready=function(e){DisplayCacheProgress();};
+document.cookie = 'kex=1';
+</script>
+
+</head>
+<h1 id=msgs style='font-size:25px;text-align:center;color:white;'>Status</h1>
+<br>
+<hr>
+<br>
+<div style="text-align:center">
+<button style='font-size:20px;text-align:center;text-shadow: 4px 4px 4px black;color:yellow' onmouseover="mainpayload1()" onmouseout="pagetitle()" onclick=load_goldhen()> GoldHEN v1.1 </button>&nbsp;&nbsp;&nbsp;&nbsp;
+<button style='font-size:20px;text-align:center;text-shadow: 4px 4px 4px black;color:yellow' onmouseover="mainpayload4()" onmouseout="pagetitle()" onclick=load_goldhen1()> GoldHEN v2b </button>&nbsp;&nbsp;&nbsp;&nbsp;
+<button style='font-size:20px;text-align:center;text-shadow: 4px 4px 4px black;color:yellow' onmouseover="mainpayload2()" onmouseout="pagetitle()" onclick=load_mira75x()> MIRA 7.5x </button>&nbsp;&nbsp;&nbsp;&nbsp;
+<button style='font-size:20px;text-align:center;text-shadow: 4px 4px 4px black;color:yellow' onmouseover="mainpayload3()" onmouseout="pagetitle()" onclick=load_binloader()> Bin Loader </button>&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+<hr>
+<h1 style="font-size:20px;text-align:center;color:yellow">Payloads</h1>
+
+<button style='font-size:20px;text-align:center;text-shadow: 4px 4px 4px black;color:white' onmouseover="enableUpdates()" onmouseout="pagetitle()" onclick=load_enablebUpdates()> Enable Updates </button>&nbsp;&nbsp;
+<button style='font-size:20px;text-align:center;text-shadow: 4px 4px 4px black;color:white' onmouseover="disableUpdates()" onmouseout="pagetitle()" onclick=load_disableUpdates()> Disable Updates </button>&nbsp;&nbsp;
+<button style='font-size:20px;text-align:center;text-shadow: 4px 4px 4px black;color:white' onmouseover="disbaslr()" onmouseout="pagetitle()" onclick=load_disbAslr()> Disable ASLR </button>&nbsp;&nbsp;&nbsp;&nbsp;
+
+<br>
+<hr>
+<br>
+
+ 	 <br><span class="yellow" >Designed,and Compiled by :</span >&nbsp;&nbsp; <a class="hue" style='font-size:25px;text-align:center;text-shadow: 4px 4px 4px black;color:white;'>P30Day - Mohsen</a>
+<br>
+</div>
+<script>
+function mainpayload1(){
+document.getElementById("msgs").innerHTML = "GoldHEN v1.1 for All Firmwares 7.5x (Includes Temporary Fix for CE-30391-6)";
+}
+function mainpayload4(){
+document.getElementById("msgs").innerHTML = "GoldHEN v2b for All Firmwares 7.5x";
+}
+function mainpayload2(){
+document.getElementById("msgs").innerHTML = "MIRA for All Firmwares 7.5x";
+
+}
+function enableUpdates(){
+document.getElementById("msgs").innerHTML = "Enable System Updates";
+}
+function disableUpdates(){
+document.getElementById("msgs").innerHTML = "Disable System Updates";
+
+}
+function disbaslr(){
+document.getElementById("msgs").innerHTML = "Disables the ASLR (Address space layout randomization)";
+
+}
+function pagetitle(){
+document.getElementById("msgs").innerHTML = "PS4 7.50 - 7.55 Host LITE  by P30DAY";
+}
+
+for(var i=40; i<=79; i++){
+    var select = document.getElementById("tempC");
+    var option = document.createElement("OPTION");
+	select.options.add(option);
+	option.text = i;
+	option.value = i;
+}
+tempC.value=60;
+
+function load_goldhen(){
+
+  var link = document.createElement('a');
+        document.body.appendChild(link);
+        link.href = 'goldhen.html';
+        link.click();
+}
+function load_goldhen1(){
+
+  var link = document.createElement('a');
+        document.body.appendChild(link);
+        link.href = 'goldhen2b.html';
+        link.click();
+}
+function load_mira75x(){
+
+  var link = document.createElement('a');
+        document.body.appendChild(link);
+        link.href = 'mira-75x.html';
+        link.click();
+}
+function load_binloader(){
+
+  var link = document.createElement('a');
+        document.body.appendChild(link);
+        link.href = 'payload.html';
+        link.click();
+}
+function load_todex(){
+
+  var link = document.createElement('a');
+        document.body.appendChild(link);
+        link.href = 'payload.html#f=todex.js';
+        link.click();
+}
+function load_dumper(){
+
+  var link = document.createElement('a');
+        document.body.appendChild(link);
+        link.href = 'payload.html#f=app-dumper.js';
+        link.click();
+}
+function load_ftp(){
+
+  var link = document.createElement('a');
+        document.body.appendChild(link);
+        link.href = 'payload.html#f=ftp.js';
+        link.click();
+}
+function load_app2usb(){
+
+  var link = document.createElement('a');
+        document.body.appendChild(link);
+        link.href = 'payload.html#f=app2usb.js';
+        link.click();
+}
+function load_enablebUpdates(){
+
+  var link = document.createElement('a');
+        document.body.appendChild(link);
+        link.href = 'payload.html#f=enable-updates.js';
+        link.click();
+}
+function load_disableUpdates(){
+
+  var link = document.createElement('a');
+        document.body.appendChild(link);
+        link.href = 'payload.html#f=disable-updates.js';
+        link.click();
+}
+function load_dbackup(){
+
+  var link = document.createElement('a');
+        document.body.appendChild(link);
+        link.href = 'payload.html#f=backup.js';
+        link.click();
+}
+function load_dbrestore(){
+
+  var link = document.createElement('a');
+        document.body.appendChild(link);
+        link.href = 'payload.html#f=restore.js';
+        link.click();
+}
+function load_historyBlocker(){
+
+  var link = document.createElement('a');
+        document.body.appendChild(link);
+        link.href = 'payload.html#f=history-blocker.js';
+        link.click();
+}
+function load_ebrowser(){
+
+  var link = document.createElement('a');
+        document.body.appendChild(link);
+        link.href = 'payload.html#f=enable-browser.js';
+        link.click();
+}
+function load_kernelDump(){
+
+  var link = document.createElement('a');
+        document.body.appendChild(link);
+        link.href = 'payload.html#f=kernel-dumper.js';
+        link.click();
+}
+function load_kernelClock(){
+
+  var link = document.createElement('a');
+        document.body.appendChild(link);
+        link.href = 'payload.html#f=kernel-clock.js';
+        link.click();
+}
+function load_ps4debug(){
+
+  var link = document.createElement('a');
+        document.body.appendChild(link);
+        link.href = 'payload.html#f=ps4debug.js';
+        link.click();
+}
+function load_disbAslr(){
+
+  var link = document.createElement('a');
+        document.body.appendChild(link);
+        link.href = 'payload.html#f=disable-aslr.js';
+        link.click();
+}
+function load_rifRen(){
+
+  var link = document.createElement('a');
+        document.body.appendChild(link);
+        link.href = 'payload.html#f=rif-renamer.js';
+        link.click();
+}
+function load_fanthreshold(){
+
+  var link = document.createElement('a');
+        document.body.appendChild(link);
+        link.href = 'payload.html#f=fanThreshold.js';localStorage.setItem('fanthreshold', tempC.value);
+        link.click();
+}
+function load_webact(){
+
+  var link = document.createElement('a');
+        document.body.appendChild(link);
+        link.href = 'web-activator.html';
+        link.click();
+}
+function load_exitidu(){
+
+  var link = document.createElement('a');
+        document.body.appendChild(link);
+        link.href = 'payload.html#f=idu.js';
+        link.click();
+}
+function load_linux1gb(){
+
+  var link = document.createElement('a');
+        document.body.appendChild(link);
+        link.href = 'payload.html#f=linux-1gb.js';
+        link.click();
+}
+function load_linux3gb(){
+
+  var link = document.createElement('a');
+        document.body.appendChild(link);
+        link.href = 'payload.html#f=linux-3gb.js';
+        link.click();
+}
+function load_webrte(){
+
+  var link = document.createElement('a');
+        document.body.appendChild(link);
+        link.href = 'payload.html#f=webrte.js';
+        link.click();
+}
+function load_ps4trainer(){
+
+  var link = document.createElement('a');
+        document.body.appendChild(link);
+        link.href = 'html';
+	link.target = "blank";
+        link.click();
+}
+
+var jailbreak_start_date = localStorage.getItem("jailbreak_start_date");
+if (jailbreak_start_date !== null) {
+  localStorage.removeItem("jailbreak_start_date");
+}
+</script>
+</body>
+</html>

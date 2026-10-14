@@ -1,0 +1,222 @@
+<html>
+    <link rel="shortcut icon" href="favicon.ico"></link>
+<style type="text/css">
+body {
+  background-color: #1A1920;  
+  background-repeat:no-repeat;
+  height:100%;
+ }
+ button {
+            background:rgba(0,0,0,0.5);
+		    box-shadow: 0 5px 20px 0 WHITE;
+            border: 5px solid YELLOW;
+            border-radius: 10px;
+            width: 180px;
+            height:60px;            
+            text-align: center;
+            padding: 6px;
+            margin: 6px;
+}
+button:hover {
+            box-shadow: 0 5px 50px 0 yellow;
+            background-color: #0F0F53;
+            color: yellow;
+            border-radius: 10px;
+}
+#clock{
+ float:right;
+ margin-right:2.25%;
+ margin-top: 18px;
+ font-weight:bold;
+ font-size:35px;
+  color: yellow;
+}
+#date {
+ float:left;
+ margin-left:1.25%;
+ font-weight:bold;
+ margin-top: 18px;
+ font-size:35px;
+ color: yellow;
+}
+ .content {
+  width:80%;
+  margin-left:7.5%;
+  background:rgba(0,0,0,0.5);
+  color:white;
+  margin-top:1%;
+  font-size:50px;
+  text-align:center;
+  border-radius:30px;
+  padding:20px;
+  line-height:55px;
+ }
+ .title {
+  font-size:50px;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-weight:bolder;
+  margin-bottom:10px;
+ }
+ .yellow {
+  color:yellow;
+ }
+ .hue {
+  color:yellow;
+  padding:10px;
+  border-radius:10px;
+  animation:hue 5s linear infinite;
+  -webkit-animation: hue 5s linear infinite;
+  box-shadow: 0px 0px 50px yellow;
+  color:white;
+  background:rgba(255,255,0,0.4);
+ }
+ .hue:hover{
+  color:yellow;
+  background:transparent;
+ }
+ @keyframes hue{
+ 0%{
+ filter:hue-rotate(0deg);
+ -webkit-filter:hue-rotate(0deg);
+ }
+ 10%{
+ box-shadow: 0px 1px 50px yellow;
+ }
+ 20%{
+ box-shadow: 1px 1px 50px yellow;
+ }
+ 30%{
+ box-shadow: 1px 0px 50px yellow;
+ }
+ 40%{
+  box-shadow: 1px -1px 50px yellow;
+ }
+ 50%{
+ box-shadow: 0px -1px 50px yellow;
+ }
+ 60%{
+ box-shadow: -1px -1px 50px yellow;
+ }
+ 70%{
+ box-shadow: -1px 0px 50px yellow;
+ }
+ 80%{
+ box-shadow: -1px 1px 50px yellow;
+ }
+ 90%{
+ box-shadow: 0px 1px 50px yellow;
+ }
+ 100%{
+ filter:hue-rotate(360deg);
+ -webkit-filter:hue-rotate(360deg);
+ }
+ }
+ .text {
+  padding-bottom:10px;
+ }
+  .back {
+   font-size:200px;
+   margin-top:10px;
+   display:block;
+   line-height:55px;
+   width:20%;
+   text-decoration:none;
+   height:50px;
+   background:white;
+   color:black;
+   border-radius:15px;
+  }
+  .back:hover{
+   border:2px solid white;
+   background:transparent;
+   box-sizing:border-box;
+   color:white;
+  }
+  .pointer {cursor: pointer;}
+</style>
+  
+<body>
+    <h1 id=msgs style='font-size:25px;text-align:center;color:white'>Loading... Please Wait 20-30 Seconds!!!</h1>
+    <div text-align= center>Pass = <span id=passCounter></span>&nbsp;&nbsp;:&nbsp;&nbsp;Fail = <span id=failCounter></span></div>
+    <div style="width:100%;font-size:20px;color:white">
+    PS4 Firmware <span id="PS4fw"></span></div>
+<script>
+function wk_keep_alive()
+{
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', document.location.href, false);
+    xhr.send('');
+}
+
+function print(){}
+
+function getHashParams()
+{
+    var ans = {};
+    var p = document.location.hash.substr(1).split("&");
+    for(var i = 0; i < p.length; i++)
+    {
+        var kv = p[i].split('=');
+        var k = kv.shift();
+        ans[k] = decodeURIComponent(kv.join('='));
+    }
+    return ans;
+}
+
+function done()
+{
+    history.pushState({}, '', 'index.html');
+    if(main_ret == 0 || main_ret == 179)
+    {
+        alert("You're all set!");
+        setTimeout(function() { read_ptr_at(0); }, 1);
+    }
+    else
+        alert("Jailbreak is not activated.");
+}
+
+function runScript(what)
+{
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', what, false);
+    xhr.send('');
+    eval.call(window, xhr.responseText);
+}
+
+var params = getHashParams();
+</script>
+<script>
+    if (localStorage.passcount == null || localStorage.passcount == undefined) localStorage.passcount=0;
+     if (localStorage.passCounter == null || localStorage.passCounter == undefined ){
+      passCounter.innerHTML=localStorage.passcount;}
+    if (localStorage.failcount == null || localStorage.failcount == undefined) localStorage.failcount=0;
+     if (localStorage.failCounter == null || localStorage.failCounter == undefined ){
+      failCounter.innerHTML=localStorage.failcount;}
+</script>
+<script>
+    var exec_type = "";
+    var UA = navigator.userAgent.substring(navigator.userAgent.indexOf('5.0 (') + 19, navigator.userAgent.indexOf(') Apple')).replace("PlayStation 4/","");
+    if (UA == "9.00"){PS4fw.innerHTML="v"+UA+" Detected"};if(UA != "9.00"){PS4fw.innerHTML="Spoofed To v"+UA};
+</script>
+<script src="netcat.js"></script>
+<script src="int64.js"></script>
+<script src="rop.js"></script>
+<script src="kexploit.js"></script>
+<script src="exploit.js"></script>
+<script src="malloc.js"></script>
+<script src="rop_sleirs.js"></script>
+<script src="syscalls.js"></script>
+<script src="syscalls2.js"></script>
+<script>
+if('p0' in params)
+    runScript(params.p0);
+if('p1' in params)
+    runScript(params.p1);
+</script>
+<script src="kexploit-launcher.js"></script>
+<script src="relocator.js"></script>
+<script>done();</script>
+</body>
+</html>
