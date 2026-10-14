@@ -1,72 +1,39 @@
 <html manifest="ps4jb.cache">
   <head>
     <meta charset="utf-8">
-    <title>>PS4 Jailbreak All In One 5.05-9.60 Feyzee6</title>
+    <title>PS4 Jailbreak · 5.05 – 9.60</title>
     <style>
-      body {
-        background-color: #252526;
-        color: #cccccc;
-        font-family: "Segoe UI", Tahoma, sans-serif;
-        text-align: center;
-      }
-      h2 {
-        margin-bottom: 20px;
-      }
-      #console {
-        font-family: monospace;
-        background-color: #1e1e1e;
-        color: #cccccc;
-        border: 1px solid #3c3c3c;
-        padding: 12px;
-        border-radius: 6px;
-        margin-top: 20px;
-        text-align: left;
-      }
-      #jailbreakBtn {
-        margin-top: 20px;
-        padding: 12px 24px;
-        font-size: 18px;
-        font-weight: bold;
-        border: none;
-        border-radius: 6px;
-        background: #555555;
-        color: #aaaaaa;
-        cursor: not-allowed;
-        opacity: 0.7;
-        box-shadow: none;
-      }
-      footer {
-        margin-top: 30px;
-        font-size: 14px;
-        color: #888;
-      }
+      :root{--txt:#f1f3f8;--mut:#9aa3b5;--acc:#91c8f6}
+      *{box-sizing:border-box;margin:0;padding:0}
+      body{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 16px;
+        background:radial-gradient(1200px 620px at 50% -10%, #26303f 0%, #0f0f12 62%);
+        color:var(--txt);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif}
+      .card{width:100%;max-width:520px;border-radius:22px;padding:26px 22px;
+        background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+        -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+        box-shadow:0 24px 70px rgba(0,0,0,.5)}
+      h1{font-size:20px;font-weight:600;text-align:center}
+      .sub{color:var(--mut);font-size:13px;text-align:center;margin:4px 0 22px}
+      .actions{display:flex;flex-direction:column;gap:14px;align-items:center}
+      #jailbreakBtn{width:100%;padding:16px;border-radius:14px;cursor:not-allowed;
+        border:1px solid rgba(255,255,255,.12);color:var(--mut);font-size:17px;font-weight:600;
+        background:rgba(255,255,255,.05)}
+      .auto{display:flex;align-items:center;gap:8px;color:var(--mut);font-size:13px}
+      #console{margin-top:20px;height:200px;overflow:auto;padding:14px;border-radius:14px;
+        background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.1);
+        font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;color:#cdd6e4;white-space:pre-wrap;text-align:left}
     </style>
-  <style id="loopayeh-theme">
-:root{--bg:#171717;--card:#202020;--txt:#f1f3f8;--mut:#8b93a5;--acc:#91c8f6}
-html,body{background-color:#171717!important;color:#f1f3f8!important;font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif!important}
-body{text-align:center;padding:24px 16px}
-h1,h2,h3{color:#f1f3f8!important;text-shadow:none!important;font-weight:600!important}
-button,.btn{background:#202020!important;color:#f1f3f8!important;border:1px solid #2a2a2a!important;border-radius:12px!important;box-shadow:none!important;font-weight:600!important}
-button:hover,.btn:hover{background:#262626!important;border-color:#91c8f6!important;color:#f1f3f8!important}
-a{color:#91c8f6}
-</style>
-</head>
+  </head>
   <body>
-    <h2>PS4 Exploit Chain | All In One | 5.05-9.60</h2>
-    <div>
-      <button id="jailbreakBtn">Start Jailbreak</button>
+    <div class="card">
+      <h1>PS4 Jailbreak</h1>
+      <p class="sub">Firmware 5.05 &ndash; 9.60 &middot; caching&hellip;</p>
+      <div class="actions">
+        <button id="jailbreakBtn" disabled>Start Jailbreak</button>
+        <label class="auto"><input type="checkbox" id="autoRunCheck" disabled> Autorun disabled</label>
+      </div>
+      <pre id="console"></pre>
     </div>
-    <div style="margin-top: 15px;">
-      <label style="font-size: 16px;">
-        <input type="checkbox" id="autoRunCheck" disabled>
-        Autorun disabled
-      </label>
-    </div>
-    <pre id="console"></pre>
-    <footer>
-      UI Designed by <strong>Feyzee</strong> | <strong>Nariman</strong> |  Collection Host <strong>Loopayeh</strong> 
-    </footer>
-  </body>
   <script>
     // Clear history and prevent back navigation
     history.replaceState(null, null, 'index.html');
@@ -111,4 +78,5 @@ a{color:#91c8f6}
       window.log("Please wait, this may take a few seconds.");
     });
   </script>
+  </body>
 </html>

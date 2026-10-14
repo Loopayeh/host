@@ -2,7 +2,7 @@
     <head>
         <meta charset='utf-8'>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>PS4 Loopayeh Host 5.05 to 13.52 </title>
+        <title>PS4 Jailbreak · 5.05 – 13.52</title>
         <link rel="stylesheet" href="includes/style.css">
         <script>
             var uaFull = navigator.userAgent;
@@ -114,191 +114,30 @@
             }
         </script>
         <style>
-            body{
-                text-shadow: 0.2em 0.3em 0.3em black;
-                background-image: url("includes/img.jpg");
-                background-position: center;
-                background-size: cover;
-                background-attachment: fixed;
-                background-repeat: no-repeat;
-                background-color: #24272b;
-                color: white;
-                text-align: center;
-                overflow: hidden;
-                direction: rtl;
-                font-size:17px;
-            }
-            h1 {
-                text-shadow: 0.2em 0.3em 0.3em black;
-                font-size: 35px;
-                color: white;
-            }
-            a {
-            text-decoration: none;
-            }
-            #progress {
-                display: block;
-            }
-
-            #lnx {
-                display: none;
-            }
-
-            #mods {
-                display: none;
-            }
-            h2 {
-                text-shadow: 0.2em 0.3em 0.3em black;
-                font-size: 30px;
-                color: white;
-            }
-
-            @font-face {
-                font-family: 'logging';
-            }
-
-            #console {
-                font-family: 'logging';
-            }
-            .warning {
-                font-size: 25px;
-                background-color: rgba(0, 0, 0, 0.3);
-                border: 1px solid rgb(255, 255, 255);
-                padding: 10px;
-                margin: 10px 0;
-                border-radius: 10px;
-                text-align: center;
-                color: white;
-            }
-            .btn {
-                background-color: #008000;
-                color: white;
-                width: 227px;
-                height: 46px;
-                padding-bottom: 5px;
-                text-align: center;
-                font-size: 20px;
-                margin-top: 8px;
-                margin-bottom: 8px;
-                margin-left: 5px;
-                margin-right: 5px;
-                border-style: none;
-                transition-duration: 0.4s;
-                cursor: pointer;
-                border-radius: 4px;
-                font-family: vazir; 
-            }
-
-            .btn:hover {
-                background-color: #0069d9;
-            }
-
-            .btn-onln {
-                background-color: #076300;
-            }
-
-            .btn-onln:hover {
-                background-color: #18891b;
-            }
-
-            .btn-toolbox {
-                background-color: #ae2301;
-            }
-
-            .btn-toolbox:hover {
-                background-color: #d42a01;
-            }
-            button {
-            background:rgba(0,0,0,0.5);
-			box-shadow: 0 5px 10px 0 white;
-            border: 2px solid black;
-            border-radius: 15px;
-            width: 200px;
-            height: 50px;            
-            text-align: center;
-            margin-left: 10px;
-            }
-            button:hover {
-            box-shadow: 0 5px 50px 0 white;
-            color: white;
-            border-radius: 10px;
-			background-color: #0F0F53;
-            }
-			#console {
-				direction: ltr;
-				text-align: left;   
-				white-space: pre-wrap;
-				color: #FFF;
-				background-color: #6f707433;
-				border-radius: 18px;
-				width: 90%;
-				height: 18%;
-				margin: 0 auto; 
-				border: 1px solid #FFB84D;
-				padding: 10px; 
-				display: flex;
-				align-items: center;
-				position: absolute;
-				bottom: 18px;
-				left: 5px;
-				right: 5px;
-				overflow-y: auto;
-				overflow-x: hidden;
-			}
-
-			#DebugConsole h3 {
-				color: #FFF;
-				font-size: 1em;
-				font-weight: bold;
-				letter-spacing: .08em;
-				background-color: rgba(0, 0, 0, 0.8);
-				border: 1px solid #FFB84D;
-				border-radius: 18px;
-				padding: 10px;
-				pointer-events: auto;
-				position: absolute;
-				bottom: 25%;
-				align-items: center;
-				display: flex;
-				margin: 0 auto;
-				left: 5%;
-
-			}
-
+            :root{--txt:#f1f3f8;--mut:#9aa3b5;--acc:#91c8f6}
+            *{box-sizing:border-box;margin:0;padding:0}
+            body{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 16px;
+                background:radial-gradient(1200px 620px at 50% -10%, #26303f 0%, #0f0f12 62%);
+                color:var(--txt);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;
+                direction:rtl;overflow:hidden}
+            .card{width:100%;max-width:520px;border-radius:22px;padding:26px 22px;text-align:center;
+                background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+                -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+                box-shadow:0 24px 70px rgba(0,0,0,.5)}
+            h1{font-size:20px;font-weight:600}
+            .sub{color:var(--mut);font-size:13px;margin:4px 0 20px}
+            #msgs{font-size:20px;font-weight:700;min-height:34px;margin:6px 0 20px}
+            #console{margin-top:6px;height:150px;overflow:auto;padding:14px;border-radius:14px;
+                background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.1);direction:ltr;text-align:left;
+                font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;color:#cdd6e4;white-space:pre-wrap}
         </style>
-
-    <style id="loopayeh-theme">
-:root{--bg:#171717;--card:#202020;--txt:#f1f3f8;--mut:#8b93a5;--acc:#91c8f6}
-html,body{background-color:#171717!important;color:#f1f3f8!important;font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif!important}
-body{text-align:center;padding:24px 16px}
-h1,h2,h3{color:#f1f3f8!important;text-shadow:none!important;font-weight:600!important}
-button,.btn{background:#202020!important;color:#f1f3f8!important;border:1px solid #2a2a2a!important;border-radius:12px!important;box-shadow:none!important;font-weight:600!important}
-button:hover,.btn:hover{background:#262626!important;border-color:#91c8f6!important;color:#f1f3f8!important}
-a{color:#91c8f6}
-</style>
-</head>
-    <body style="margin-top: 10px;">
-        <h1>هاست PS4 پی سی دی برای فریمور های 5.05 تا 13.52</h1>
-        <hr>
-        <div class="warning">
-            <strong style="font-size: 35px;"><b>مهم</b></strong> 
-            <ul style="text-align: right; list-style-position: inside;">
-                <li>درصورتی که با خطا مواجه شدید دوباره تلاش نکنید. فقط کنسول را ری استارت کنید و تلاش کنید</li>
-                <li>این جیلبریک جدید و این هاست در فریمور های 5.05 تا 13.52 هیچ نیازی به فلش ندارد.</li>
-                <li>گلدهن بعد از چند ثانیه به صورت اتوماتیک لود می شود</li>
-                <li>تاریخ بروزرسانی: 1405/06/29</li>
-            </ul>
-        </div> 
-
-        <h1 id=msgs style="font-size: 30px;margin-top: 60px;margin-bottom: 455px; ">در حال جیلبریک... لطفا صبر کنید</h1>
-        
-        <br><br><br>
-        <br>
-		<div id="DebugConsole">
-		  <h3> Debug Console | Design : Nariman </h3>
-		
-		  <div class="console" style="padding: 20px;"><pre id='console'>Ready. Awaiting for Jailbreaking...</pre></div>
-		</div>
+    </head>
+    <body>
+        <div class="card">
+            <h1>PS4 Jailbreak</h1>
+            <p class="sub">Firmware 5.05 &ndash; 13.52</p>
+            <div id="msgs">در حال جیلبریک... لطفا صبر کنید</div>
+            <pre id="console">Ready. Awaiting for Jailbreaking...</pre>
+        </div>
     </body>
-
 </html>
