@@ -1,191 +1,51 @@
-<html>
+<!doctype html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
-<title>هاست هک کپیخور پلی استیشن 4 - P30Day PS4 Host</title>
-<meta name="description" content="کالکشن تمامی هاست های مورد نیاز PS4 کپی خور. با این کالکشن شما میتوانید تمامی کنسول های PS4 با فریمور 5.05 الی فریمور 13.00 را جیلبریک کنید." />
-<style type="text/css">
-body {
-  background-color: #1A1920;  
-  background-repeat:no-repeat;
-  height:100%;
- }
- button {
-            background:rgba(0,0,0,0.5);
-		    box-shadow: 0 5px 20px 0 yellow;
-            border: 3px solid white;
-            border-radius: 10px;
-            width: 220px;
-            height:100px;            
-            text-align: center;
-            padding: 6px;
-            margin: 6px;
-}
-button:hover {
-            box-shadow: 0 5px 50px 0 blue;
-            background-color: #0F0F53;
-            color: yellow;
-            border-radius: 10px;
-}
-#clock{
- float:right;
- margin-right:2.25%;
- margin-top: 18px;
- font-weight:bold;
- font-size:35px;
-  color: yellow;
-}
-#date {
- float:left;
- margin-left:1.25%;
- font-weight:bold;
- margin-top: 18px;
- font-size:35px;
- color: yellow;
-}
- .content {
-  width:80%;
-  margin-left:7.5%;
-  background:rgba(0,0,0,0.5);
-  color:white;
-  margin-top:1%;
-  font-size:40px;
-  text-align:center;
-  border-radius:30px;
-  padding:20px;
-  line-height:55px;
- }
- .title {
-  font-size:50px;
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-weight:bolder;
-  margin-bottom:10px;
- }
- .yellow {
-  color:yellow;
- }
- .hue {
-  color:yellow;
-  padding:10px;
-  border-radius:10px;
-  animation:hue 5s linear infinite;
-  -webkit-animation: hue 5s linear infinite;
-  box-shadow: 0px 0px 50px yellow;
-  color:white;
-  background:rgba(255,255,0,0.4);
- }
- .hue:hover{
-  color:yellow;
-  background:transparent;
- }
- @keyframes hue{
- 0%{
- filter:hue-rotate(0deg);
- -webkit-filter:hue-rotate(0deg);
- }
- 10%{
- box-shadow: 0px 1px 50px yellow;
- }
- 20%{
- box-shadow: 1px 1px 50px yellow;
- }
- 30%{
- box-shadow: 1px 0px 50px yellow;
- }
- 40%{
-  box-shadow: 1px -1px 50px yellow;
- }
- 50%{
- box-shadow: 0px -1px 50px yellow;
- }
- 60%{
- box-shadow: -1px -1px 50px yellow;
- }
- 70%{
- box-shadow: -1px 0px 50px yellow;
- }
- 80%{
- box-shadow: -1px 1px 50px yellow;
- }
- 90%{
- box-shadow: 0px 1px 50px yellow;
- }
- 100%{
- filter:hue-rotate(360deg);
- -webkit-filter:hue-rotate(360deg);
- }
- }
- .text {
-  padding-bottom:10px;
- }
-  .back {
-   font-size:220px;
-   margin-top:10px;
-   display:block;
-   line-height:55px;
-   width:20%;
-   text-decoration:none;
-   height:50px;
-   background:white;
-   color:black;
-   border-radius:15px;
-  }
-  .back:hover{
-   border:2px solid white;
-   background:transparent;
-   box-sizing:border-box;
-   color:white;
-  }
-  .pointer {cursor: pointer;}
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PS4 Host — Loopayeh</title>
+<style>
+:root{--bg:#171717;--card:#202020;--txt:#f1f3f8;--mut:#8b93a5;--acc:#91c8f6}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;min-height:100vh;display:flex;justify-content:center;padding:48px 16px}
+.wrap{width:100%;max-width:420px;text-align:center}
+h1{font-size:24px;margin-bottom:4px}
+.sub{color:var(--mut);font-size:14px;margin-bottom:28px}
+a.btn{display:flex;align-items:center;gap:12px;background:var(--card);color:var(--txt);text-decoration:none;padding:14px;border-radius:12px;margin-bottom:12px;border:1px solid #2a2a2a}
+a.btn:hover{border-color:var(--acc)}
+a.btn .ico{width:44px;height:44px;flex:none;border-radius:10px;background:#2a2a2a;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;letter-spacing:.02em;color:var(--acc)}
+a.btn .lbl{text-align:left}
+a.btn .lbl b{display:block;font-size:15px;font-weight:600}
+a.btn .lbl small{display:block;color:var(--mut);font-size:12px}
+.foot{color:var(--mut);font-size:12px;margin-top:24px}
 </style>
-<script>
-    function showdate() {
-  var dt = new Date();
-    Hour= dt.getHours();
-  Minute= dt.getMinutes();
-     Day=dt.getDate();
-   Month=dt.getMonth()+1;
-   Year=dt.getFullYear();
-if (Minute < 10) { Minute = "0" + Minute; };
-if (Hour < 10) { Hour = "0" + Hour; };
-document.getElementById("date").innerHTML = (Day+"/"+Month+"/"+Year);
-document.getElementById("clock").innerHTML = (Hour+":"+Minute);
-  }
-  
-  setInterval(showdate,0);
-</script>
 </head>
-<body class="bg-darker">
-<div id="container"  style="">
-<br><span id="date" ></span><span id="clock" ></span><h1 style='font-size:25px;text-align:center;color:yellow;'>P30DAY Collection Hosts</h1><br>
-<h1 id=msgs2 style='font-size:25px;text-align:center;color:white;'>Status</h1><br>
-<div style="text-align:center"  id="MyItems">
+<body>
+<div class="wrap">
+  <h1>PS4 Host</h1>
+  <p class="sub">Loopayeh &middot; Jailbreak collection</p>
 
-<a href="505/index.html"><button style='font-size:30px;text-align:center;color:white' class="pointer" onMouseOver="msgs2.innerHTML='کالکشن هاست 5.05'" ; onmouseout="msgs2.innerHTML='Status'"  type="button"><B>5.05</B></button></a>&nbsp;&nbsp;
-<a href="672/index.html"><button style='font-size:30px;text-align:center;color:white' class="pointer" onMouseOver="msgs2.innerHTML='کالکشن هاست 6.72'"; onmouseout="msgs2.innerHTML='Status'"  type="button"><B>6.72</B></button></a>&nbsp;&nbsp;
-<a href="702/index.html"><button style='font-size:30px;text-align:center;color:white' class="pointer" onMouseOver="msgs2.innerHTML='کالکشن هاست 7.02'"; onmouseout="msgs2.innerHTML='Status'"  type="button"><B>7.02</B></button></a>&nbsp;&nbsp;
-<a href="755/index.html"><button style='font-size:30px;text-align:center;color:white' class="pointer" onMouseOver="msgs2.innerHTML='7.5x کالکشن هاست '"; onmouseout="msgs2.innerHTML='Status'"  type="button"><B>7.5X </B></button></a>&nbsp;&nbsp;
-<a href="9.00/index.html"><button style='font-size:30px;text-align:center;color:white' class="pointer" onMouseOver="msgs2.innerHTML='9.00 کالکشن هاست '"; onmouseout="msgs2.innerHTML='Status'"  type="button"><B>9.00 </B></button></a>&nbsp;&nbsp;
-<br><br>
-<a href="ps4jb-Feyzee-AIO/index.html"><button style='font-size:30px;text-align:center;color:white' class="pointer" onMouseOver="msgs2.innerHTML='هاست کامل 5.05 الی 9.60'"; onmouseout="msgs2.innerHTML='Status'"  type="button"><B>5.05 - 9.60</B></button></a>&nbsp;&nbsp;
-<a href="6.00-11.02/ntfonto-p30day/index.html"><button style='font-size:30px;text-align:center;color:white' class="pointer" onMouseOver="msgs2.innerHTML='هاست کامل 6.00 الی 11.02'"; onmouseout="msgs2.innerHTML='Status'"  type="button"><B>6.00 - 11.02</B></button></a>&nbsp;&nbsp;
-<a href="5.05-13.52/index.html"><button style='font-size:30px;text-align:center;color:white' class="pointer" onMouseOver="msgs2.innerHTML='هاست کامل 5.05 الی 13.52'"; onmouseout="msgs2.innerHTML='Status'"  type="button"><B>5.05 - 13.52</B></button></a>&nbsp;&nbsp;
+  <a class="btn" href="9.00/index.html">
+    <span class="ico">9.00</span>
+    <span class="lbl"><b>Firmware 9.00</b><small>9.00 host collection</small></span>
+  </a>
 
-<br><br><br>
+  <a class="btn" href="ps4jb-Feyzee-AIO/index.html">
+    <span class="ico">5-9</span>
+    <span class="lbl"><b>5.05 – 9.60</b><small>All-in-one &middot; Feyzee</small></span>
+  </a>
 
-<a href="restore-t/index.html"><button style='font-size:20px;text-align:center;color:white' class="pointer" onMouseOver="msgs2.innerHTML='ترینرو هاست در یوزگاید"; onmouseout="msgs2.innerHTML='Status'"  type="button"><B>Restore usb Trainer P30DAY </B></button></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="restore/index.html"><button style='font-size:20px;text-align:center;color:white' class="pointer" onMouseOver="msgs2.innerHTML='نصب هاست در یوزگاید"; onmouseout="msgs2.innerHTML='Status'"  type="button"><B>Restore User Guide P30DAY </B></button></a>
+  <a class="btn" href="6.00-11.02/ntfonto-p30day/index.html">
+    <span class="ico">6-11</span>
+    <span class="lbl"><b>6.00 – 11.02</b><small>CSSFontFace host</small></span>
+  </a>
 
-<br><br><br>
+  <a class="btn" href="5.05-13.52/index.html">
+    <span class="ico">5-13</span>
+    <span class="lbl"><b>5.05 – 13.52</b><small>All-in-one &middot; latest</small></span>
+  </a>
 
- <div class="content" >
- 	<div class="text" >
- 		<span class="WHITE" >Designed by :</span >&nbsp;&nbsp; <span class="hue" >P30DAY</span>
-		<br><br><br>
-		<span class="WHITE" >Telegram Channel :</span >&nbsp;&nbsp; <span class="hue" >@p30day2</span>	
- 	</div>
- </div>
+  <p class="foot">Designed by Loopayeh</p>
 </div>
 </body>
 </html>
