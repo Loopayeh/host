@@ -2,87 +2,119 @@
 <head>
 	<meta charset='utf-8'>
     <script>history.replaceState(null,null,'cachecss.html');</script>
-    <title>PS4 Jailbreak · caching</title>
+    <title>PS4 Jailbreak · Cache</title>
 <style>
-    :root{--txt:#f1f3f8;--mut:#9aa3b5;--acc:#91c8f6}
+    :root{--txt:#f1f3f8;--mut:#9aa3b5;--acc:#91c8f6;--acc2:#b693f1;--card:rgba(255,255,255,.06)}
     *{box-sizing:border-box;margin:0;padding:0}
     body{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 16px;
         background:radial-gradient(1200px 620px at 50% -10%, #26303f 0%, #0f0f12 62%);
-        color:var(--txt);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;direction:rtl}
-    .card{width:100%;max-width:520px;border-radius:22px;padding:26px 22px;text-align:center;
-        background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
-        -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+        color:var(--txt);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif}
+    .card{width:100%;max-width:440px;border-radius:24px;padding:34px 26px;text-align:center;
+        background:var(--card);border:1px solid rgba(255,255,255,.12);
+        -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
         box-shadow:0 24px 70px rgba(0,0,0,.5)}
+    .ring{position:relative;width:136px;height:136px;margin:0 auto 24px}
+    .ring svg{width:100%;height:100%;transform:rotate(-90deg);overflow:visible}
+    .ring circle{fill:none;stroke-width:9;stroke-linecap:round}
+    .ring .track{stroke:rgba(255,255,255,.08)}
+    .ring .fill{stroke:url(#grad);stroke-dasharray:326.7;stroke-dashoffset:326.7;
+        transition:stroke-dashoffset .5s cubic-bezier(.22,.61,.36,1);filter:drop-shadow(0 0 8px rgba(145,200,246,.45))}
+    .ring.busy .fill{animation:pulse 1.6s ease-in-out infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
+    .pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+        font-size:28px;font-weight:700;letter-spacing:-.02em}
     h1{font-size:20px;font-weight:600}
-    .sub{color:var(--mut);font-size:13px;margin:4px 0 22px}
-    #progress{font-size:17px;font-weight:600;margin-bottom:16px;min-height:26px}
-    .progress-wrapper{background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.1);
-        border-radius:14px;padding:4px}
-    .progress-bar{position:relative;height:44px;border-radius:10px;overflow:hidden;background:rgba(0,0,0,.25)}
-    .progress-fill{height:100%;width:0%;border-radius:10px;transition:width .3s ease;
-        background:linear-gradient(90deg,rgba(145,200,246,.5),rgba(145,200,246,.85))}
-    .progress-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-        font-size:15px;font-weight:700;color:#fff;z-index:3}
-    .status-message{color:var(--mut);font-size:13px;margin-top:16px}
+    .sub{color:var(--mut);font-size:13px;margin-top:6px;min-height:20px}
+    .retry{display:none;margin-top:20px;width:100%;padding:14px;border-radius:14px;cursor:pointer;
+        font-size:15px;font-weight:600;color:var(--txt);
+        border:1px solid rgba(145,200,246,.35);
+        background:linear-gradient(180deg,rgba(145,200,246,.22),rgba(145,200,246,.07))}
+    .retry:hover{background:linear-gradient(180deg,rgba(145,200,246,.34),rgba(145,200,246,.12))}
+    .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--acc);
+        margin-right:8px;vertical-align:middle;animation:blink 1.2s infinite}
+    @keyframes blink{0%,100%{opacity:.25}50%{opacity:1}}
 </style>
 </head>
 <body>
 <div class="card">
-    <h1>PS4 Jailbreak</h1>
-    <p class="sub">Firmware 5.05 &ndash; 13.52 &middot; installing cache</p>
-    <div id=msgs>
-        <div id="progress">درحال بارگذاری... لطفا صبر کنید</div>
-        <div class="progress-wrapper">
-            <div class="progress-bar" id="myProgress">
-                <div class="progress-fill" id="myBar"></div>
-                <div class="progress-text" id="progressText">0%</div>
-            </div>
-        </div>
-        <div class="status-message">درحال نصب کش...</div>
+    <div class="ring busy" id="ringBox">
+        <svg viewBox="0 0 120 120">
+            <defs>
+                <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#91c8f6"/>
+                    <stop offset="100%" stop-color="#b693f1"/>
+                </linearGradient>
+            </defs>
+            <circle class="track" cx="60" cy="60" r="52"/>
+            <circle class="fill" id="ring" cx="60" cy="60" r="52"/>
+        </svg>
+        <div class="pct" id="pct">0%</div>
     </div>
+    <h1 id="title"><span class="dot"></span>Preparing</h1>
+    <p class="sub" id="sub">Installing the offline cache&hellip;</p>
+    <button class="retry" id="retry" onclick="location.reload()">Try again</button>
 </div>
 
 <script>
-if(window.applicationCache.status==2){localStorage.is755BCached=true;}
-window.applicationCache.ondownloading=function(){
-    document.getElementById("progress").innerHTML="آغاز نصب کردن کش";
-    localStorage.is755BCached=false;
-};
-window.applicationCache.onprogress=function(a){
-    const progress = Math.round(100*(a.loaded/a.total));
-    document.getElementById("myBar").style.width = progress + "%";
-    document.getElementById("progressText").innerHTML = progress + "%";
-};
-window.applicationCache.oncached=function(){
-    document.getElementById("progress").innerHTML="کش با موفقیت نصب شد";
-    localStorage.is755BCached=true;
-    setTimeout(function(){window.location.reload("myBar"); }, 1500);
-};
-window.applicationCache.onupdateready=function(){
-    document.getElementById("progress").innerHTML="کش با موفقیت آپدیت شد";
-    localStorage.is755BCached=true;
-    setTimeout(function(){window.location.reload("myBar"); }, 1500);
-};
-window.applicationCache.onnoupdate=function(){window.location.replace("index.html");};
-window.applicationCache.onerror=function(){window.location.replace("cachecss.html");};
+(function () {
+    var C = 2 * Math.PI * 52;
+    var ring = document.getElementById("ring");
+    var pct  = document.getElementById("pct");
+    var box  = document.getElementById("ringBox");
+    var title = document.getElementById("title");
+    var sub  = document.getElementById("sub");
+    var retry = document.getElementById("retry");
+    var ac = window.applicationCache;
 
-// Fallback progress animation
-var width = 0;
-function frame1() {
-    var elem = document.getElementById("myBar");
-    var text = document.getElementById("progressText");
-    var i=0;
-    var id = setInterval(fra, 10);
-    function fra(){
-        if(i<10 && width<100){
-            width++;
-            elem.style.width = width + "%";
-            text.innerHTML = width + "%";
-        } 
-        i++;
+    ring.style.strokeDasharray = C;
+    ring.style.strokeDashoffset = C;
+
+    function setProgress(p) {
+        p = Math.max(0, Math.min(100, Math.round(p)));
+        ring.style.strokeDashoffset = C * (1 - p / 100);
+        pct.textContent = p + "%";
     }
-}
-</script>
+    function setText(t, s) { title.innerHTML = t; sub.textContent = s; }
+    function done() { box.classList.remove("busy"); setProgress(100); }
 
+    if (!ac) { setText("Not supported", "This browser cannot install the offline cache."); return; }
+
+    ac.ondownloading = function () {
+        box.classList.add("busy");
+        setText('<span class="dot"></span>Preparing', "Installing the offline cache\u2026");
+        localStorage.is755BCached = false;
+    };
+    ac.onprogress = function (e) {
+        if (e && e.total) setProgress(100 * e.loaded / e.total);
+    };
+    ac.oncached = function () {
+        done();
+        setText("Cache ready", "Loading the exploit\u2026");
+        localStorage.is755BCached = true;
+        setTimeout(function () { location.reload(); }, 1200);
+    };
+    ac.onupdateready = function () {
+        done();
+        setText("Cache updated", "Loading the exploit\u2026");
+        localStorage.is755BCached = true;
+        setTimeout(function () { location.reload(); }, 1200);
+    };
+    ac.onnoupdate = function () { location.replace("index.html"); };
+    ac.onerror = function () {
+        box.classList.remove("busy");
+        setText("Cache error", "Clear the browser data and open the host again.");
+        retry.style.display = "block";
+    };
+
+    if (ac.status == 2) localStorage.is755BCached = true;
+
+    // gentle idle motion until real progress arrives
+    var idle = 0, idleTimer = setInterval(function () {
+        idle = (idle + 1) % 100;
+        if (ring.style.strokeDashoffset === String(C)) setProgress(idle * 0.6);
+    }, 60);
+    setTimeout(function () { clearInterval(idleTimer); }, 2500);
+})();
+</script>
 </body>
 </html>

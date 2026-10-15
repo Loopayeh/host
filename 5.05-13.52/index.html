@@ -12,12 +12,12 @@
             var fwNum = parseFloat(fwVersion);
 
             function onScriptError() {
-                msgs.innerHTML = "کش یافت نشد.... لطفا کلیر کش کنید و از ابتدا هاست را وارد کنید.";
+                msgs.innerHTML = "Cache not found. Clear the browser data and open the host again.";
             }
 
             if (!isPS4) {
                 document.addEventListener("DOMContentLoaded", () => {
-                    msgs.innerHTML = "فقط برای PS4 های با فریمور های 5.05 تا 13.52";
+                    msgs.innerHTML = "Only for PS4 consoles on firmware 5.05 to 13.52";
                 });
 				} else {
 					if (window.applicationCache.status == '0') {
@@ -136,7 +136,7 @@
         <div class="card">
             <h1>PS4 Jailbreak</h1>
             <p class="sub">Firmware 5.05 &ndash; 13.52</p>
-            <div id="msgs">در حال جیلبریک... لطفا صبر کنید</div>
+            <div id="msgs">Starting the exploit&hellip; please wait</div>
             <pre id="console">Ready. Awaiting for Jailbreaking...</pre>
         </div>
     </body>
