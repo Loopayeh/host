@@ -7,8 +7,11 @@
 <style>
 :root{
   --txt:#f2f5fb;--mut:#98a2b6;--acc:#7cc2ff;--acc2:#b693f1;
-  --glass:linear-gradient(150deg,rgba(255,255,255,.11),rgba(255,255,255,.035));
-  --stroke:rgba(255,255,255,.14);
+  --glass:linear-gradient(150deg,rgba(255,255,255,.10),rgba(255,255,255,.03));
+  --stroke:rgba(255,255,255,.13);
+  --sh-card:0 26px 60px -32px rgba(0,0,0,.92), inset 0 1px 0 rgba(255,255,255,.13);
+  --sh-btn:0 12px 26px -20px rgba(0,0,0,.9), inset 0 1px 0 rgba(255,255,255,.13);
+  --sh-btn-h:0 18px 38px -22px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.18);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
@@ -17,11 +20,11 @@ body{position:relative;overflow-x:hidden;min-height:100vh;display:flex;align-ite
   font:19px/1.6 system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif}
 .aurora{position:fixed;inset:0;z-index:0;pointer-events:none;
   background:
-    radial-gradient(760px 520px at 12% -6%, rgba(79,142,247,.45), transparent 62%),
-    radial-gradient(700px 560px at 92% 108%, rgba(139,92,246,.40), transparent 62%),
-    radial-gradient(640px 640px at 78% 6%, rgba(56,189,248,.22), transparent 60%),
-    radial-gradient(600px 600px at 6% 96%, rgba(236,72,153,.18), transparent 60%)}
-.grid{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.32;
+    radial-gradient(760px 520px at 12% -6%, rgba(79,142,247,.26), transparent 62%),
+    radial-gradient(700px 560px at 92% 108%, rgba(139,92,246,.24), transparent 62%),
+    radial-gradient(640px 640px at 78% 6%, rgba(56,189,248,.12), transparent 60%),
+    radial-gradient(600px 600px at 6% 96%, rgba(236,72,153,.10), transparent 60%)}
+.grid{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.22;
   background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),
                    linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
   background-size:52px 52px;
@@ -30,30 +33,30 @@ body{position:relative;overflow-x:hidden;min-height:100vh;display:flex;align-ite
 .wrap{position:relative;z-index:1;width:100%;max-width:600px}
 .card{border-radius:32px;padding:40px 34px 34px;text-align:center;
   background:var(--glass);border:1px solid var(--stroke);
-  -webkit-backdrop-filter:blur(24px) saturate(160%);
-  backdrop-filter:blur(24px) saturate(160%);
-  box-shadow:0 40px 90px -30px rgba(0,0,0,.9), inset 0 1px 0 rgba(255,255,255,.22)}
-.mark{width:76px;height:76px;margin:0 auto 20px;border-radius:22px;display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(150deg,rgba(124,194,255,.38),rgba(182,147,241,.24));
-  border:1px solid rgba(255,255,255,.24);
-  box-shadow:0 16px 40px -14px rgba(124,194,255,.85), inset 0 1px 0 rgba(255,255,255,.4)}
-.mark svg{width:38px;height:38px;fill:#fff}
+  -webkit-backdrop-filter:blur(24px) saturate(150%);
+  backdrop-filter:blur(24px) saturate(150%);
+  box-shadow:var(--sh-card)}
+.mark{width:76px;height:76px;margin:0 auto 20px;border-radius:22px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 10px 24px -16px rgba(0,0,0,.85), inset 0 1px 0 rgba(255,255,255,.18)}
+.mark img{width:100%;height:100%;object-fit:cover;display:block}
 h1{font-size:36px;font-weight:800;letter-spacing:-.01em}
 .sub{color:var(--mut);font-size:17px;margin-top:8px}
 .list{margin-top:30px;display:flex;flex-direction:column;gap:16px}
-a.btn{display:flex;align-items:center;gap:18px;padding:22px 22px;border-radius:20px;text-decoration:none;
+a.btn{display:flex;align-items:center;gap:18px;padding:22px;border-radius:20px;text-decoration:none;
   color:var(--txt);text-align:left;
-  background:linear-gradient(150deg,rgba(255,255,255,.09),rgba(255,255,255,.03));
-  border:1px solid rgba(255,255,255,.13);
-  box-shadow:0 18px 40px -22px rgba(0,0,0,.9), inset 0 1px 0 rgba(255,255,255,.16);
-  transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease}
-a.btn:hover{transform:translateY(-2px);border-color:rgba(124,194,255,.55);
-  box-shadow:0 22px 50px -20px rgba(124,194,255,.55), inset 0 1px 0 rgba(255,255,255,.22)}
+  background:linear-gradient(150deg,rgba(255,255,255,.08),rgba(255,255,255,.025));
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:var(--sh-btn);
+  transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease, background .18s ease}
+a.btn:hover{transform:translateY(-2px);border-color:rgba(124,194,255,.4);
+  background:linear-gradient(150deg,rgba(255,255,255,.11),rgba(255,255,255,.04));
+  box-shadow:var(--sh-btn-h)}
 a.btn .ico{width:64px;height:64px;flex:none;border-radius:18px;display:flex;align-items:center;justify-content:center;
-  font-size:16px;font-weight:800;letter-spacing:.01em;color:#fff;
-  background:linear-gradient(150deg,rgba(124,194,255,.34),rgba(182,147,241,.20));
-  border:1px solid rgba(255,255,255,.2);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
+  font-size:16px;font-weight:800;letter-spacing:.01em;color:#dbe7f7;
+  background:linear-gradient(150deg,rgba(255,255,255,.10),rgba(255,255,255,.03));
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.16)}
 a.btn .lbl b{display:block;font-size:22px;font-weight:700}
 a.btn .lbl small{display:block;color:var(--mut);font-size:15px;margin-top:2px}
 .foot{color:var(--mut);font-size:14px;margin-top:30px}
@@ -65,7 +68,7 @@ a.btn .lbl small{display:block;color:var(--mut);font-size:15px;margin-top:2px}
 
 <div class="wrap">
   <div class="card">
-    <div class="mark"><svg viewBox="0 0 24 24"><path d="M5 2h5v14h9v6H5z"/></svg></div>
+    <div class="mark"><img src="data:image/jpeg;base64,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" alt="Loopayeh"></div>
     <h1>PS4 Host</h1>
     <p class="sub">Loopayeh &middot; Jailbreak collection</p>
 

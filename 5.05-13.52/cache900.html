@@ -14,11 +14,11 @@
         font:16px/1.6 system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif}
     .aurora{position:fixed;inset:0;z-index:0;pointer-events:none;
         background:
-            radial-gradient(620px 420px at 12% -6%, rgba(79,142,247,.42), transparent 62%),
-            radial-gradient(560px 460px at 92% 108%, rgba(139,92,246,.38), transparent 62%),
-            radial-gradient(520px 520px at 78% 6%, rgba(56,189,248,.20), transparent 60%),
-            radial-gradient(500px 500px at 6% 96%, rgba(236,72,153,.16), transparent 60%)}
-    .grid{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.35;
+            radial-gradient(620px 420px at 12% -6%, rgba(79,142,247,.26), transparent 62%),
+            radial-gradient(560px 460px at 92% 108%, rgba(139,92,246,.24), transparent 62%),
+            radial-gradient(520px 520px at 78% 6%, rgba(56,189,248,.12), transparent 60%),
+            radial-gradient(500px 500px at 6% 96%, rgba(236,72,153,.10), transparent 60%)}
+    .grid{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.22;
         background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),
                          linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
         background-size:44px 44px;
@@ -29,12 +29,9 @@
         background:var(--glass);border:1px solid var(--stroke);
         -webkit-backdrop-filter:blur(22px) saturate(160%);
         backdrop-filter:blur(22px) saturate(160%);
-        box-shadow:0 30px 70px -24px rgba(0,0,0,.85), inset 0 1px 0 rgba(255,255,255,.22)}
-    .mark{width:48px;height:48px;margin:0 auto 16px;border-radius:14px;display:flex;align-items:center;justify-content:center;
-        background:linear-gradient(150deg,rgba(124,194,255,.35),rgba(182,147,241,.22));
-        border:1px solid rgba(255,255,255,.22);
-        box-shadow:0 10px 26px -10px rgba(124,194,255,.75), inset 0 1px 0 rgba(255,255,255,.35)}
-    .mark svg{width:24px;height:24px;fill:#fff}
+        box-shadow:0 26px 60px -32px rgba(0,0,0,.92), inset 0 1px 0 rgba(255,255,255,.13)}
+    .mark{width:48px;height:48px;margin:0 auto 16px;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.16);box-shadow:0 10px 24px -16px rgba(0,0,0,.85), inset 0 1px 0 rgba(255,255,255,.18)}
+    .mark img{width:100%;height:100%;object-fit:cover;display:block}
     .ring{position:relative;width:148px;height:148px;margin:0 auto 22px}
     .ring svg{width:100%;height:100%;transform:rotate(-90deg);overflow:visible}
     .ring circle{fill:none;stroke-width:9;stroke-linecap:round}
@@ -52,7 +49,7 @@
         font-size:15px;font-weight:700;color:#fff;
         border:1px solid rgba(124,194,255,.45);
         background:linear-gradient(180deg,rgba(124,194,255,.30),rgba(124,194,255,.10));
-        box-shadow:0 12px 30px -10px rgba(124,194,255,.7), inset 0 1px 0 rgba(255,255,255,.28)}
+        box-shadow:0 12px 26px -20px rgba(0,0,0,.9), inset 0 1px 0 rgba(255,255,255,.14)}
     .retry:hover{background:linear-gradient(180deg,rgba(124,194,255,.42),rgba(124,194,255,.16))}
     .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--acc);
         margin-right:9px;vertical-align:middle;animation:blink 1.2s infinite}
@@ -60,8 +57,8 @@
     /* larger sizing for TV viewing */
     body{font-size:19px}
     .card{max-width:520px;padding:40px 34px 34px;border-radius:30px}
-    .mark{width:64px;height:64px;border-radius:18px;margin-bottom:20px}
-    .mark svg{width:32px;height:32px}
+    .mark{width:64px;height:64px;border-radius:18px;margin-bottom:20px;overflow:hidden;border:1px solid rgba(255,255,255,.16)}
+    .mark img{width:100%;height:100%;object-fit:cover;display:block}
     .ring{width:184px;height:184px;margin-bottom:26px}
     .pct{font-size:38px}
     h1{font-size:26px}
@@ -74,7 +71,7 @@
 <div class="grid"></div>
 
 <div class="card">
-    <div class="mark"><svg viewBox="0 0 24 24"><path d="M5 2h5v14h9v6H5z"/></svg></div>
+    <div class="mark"><img src="data:image/jpeg;base64,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" alt="Loopayeh"></div>
     <div class="ring busy" id="ringBox">
         <svg viewBox="0 0 120 120">
             <defs>
