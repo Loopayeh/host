@@ -4,27 +4,62 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>PS4 Jailbreak · 5.05 – 9.60</title>
     <style>
-      :root{--txt:#f1f3f8;--mut:#9aa3b5;--acc:#91c8f6}
+      :root{
+        --txt:#f2f5fb;--mut:#98a2b6;--acc:#7cc2ff;--acc2:#b693f1;
+        --ok:#6fe3a4;--bad:#f58b8b;--warn:#f3cf7a;
+        --glass:linear-gradient(150deg,rgba(255,255,255,.11),rgba(255,255,255,.035));
+        --stroke:rgba(255,255,255,.14);
+      }
       *{box-sizing:border-box;margin:0;padding:0}
-      body{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 16px;
-        background:radial-gradient(1200px 620px at 50% -10%, #26303f 0%, #0f0f12 62%);
-        color:var(--txt);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif}
-      .card{width:100%;max-width:520px;border-radius:22px;padding:26px 22px;
-        background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
-        -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
-        box-shadow:0 24px 70px rgba(0,0,0,.5)}
-      h1{font-size:20px;font-weight:600;text-align:center}
-      .sub{color:var(--mut);font-size:13px;text-align:center;margin:4px 0 22px}
-      .actions{display:flex;flex-direction:column;gap:14px;align-items:center}
-      #jailbreakBtn{width:100%;padding:16px;border-radius:14px;cursor:pointer;transition:.2s;
-        border:1px solid rgba(145,200,246,.35);color:var(--txt);font-size:17px;font-weight:600;
-        background:linear-gradient(180deg,rgba(145,200,246,.22),rgba(145,200,246,.07))}
-      #jailbreakBtn:not(:disabled):hover{background:linear-gradient(180deg,rgba(145,200,246,.34),rgba(145,200,246,.12));border-color:rgba(145,200,246,.6)}
-      #jailbreakBtn:disabled{opacity:.5;cursor:not-allowed}
+      html,body{height:100%}
+      body{position:relative;overflow:hidden;min-height:100vh;display:flex;align-items:center;justify-content:center;
+        padding:26px 16px;background:#08080c;color:var(--txt);
+        font:16px/1.6 system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif}
+      .aurora{position:fixed;inset:0;z-index:0;pointer-events:none;
+        background:
+          radial-gradient(620px 420px at 12% -6%, rgba(79,142,247,.42), transparent 62%),
+          radial-gradient(560px 460px at 92% 108%, rgba(139,92,246,.38), transparent 62%),
+          radial-gradient(520px 520px at 78% 6%, rgba(56,189,248,.20), transparent 60%),
+          radial-gradient(500px 500px at 6% 96%, rgba(236,72,153,.16), transparent 60%)}
+      .grid{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.35;
+        background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),
+                         linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+        background-size:44px 44px;
+        -webkit-mask-image:radial-gradient(circle at 50% 40%,#000 0%,transparent 78%);
+        mask-image:radial-gradient(circle at 50% 40%,#000 0%,transparent 78%)}
+      .card{position:relative;z-index:1;width:100%;max-width:470px;border-radius:26px;
+        padding:30px 26px 26px;text-align:center;
+        background:var(--glass);border:1px solid var(--stroke);
+        -webkit-backdrop-filter:blur(22px) saturate(160%);
+        backdrop-filter:blur(22px) saturate(160%);
+        box-shadow:0 30px 70px -24px rgba(0,0,0,.85), inset 0 1px 0 rgba(255,255,255,.22)}
+      .mark{width:52px;height:52px;margin:0 auto 14px;border-radius:15px;display:flex;align-items:center;justify-content:center;
+        background:linear-gradient(150deg,rgba(124,194,255,.35),rgba(182,147,241,.22));
+        border:1px solid rgba(255,255,255,.22);
+        box-shadow:0 10px 26px -10px rgba(124,194,255,.75), inset 0 1px 0 rgba(255,255,255,.35)}
+      .mark svg{width:26px;height:26px;fill:#fff}
+      h1{font-size:21px;font-weight:700}
+      .sub{color:var(--mut);font-size:13px;margin-top:5px}
+      .status{display:inline-flex;align-items:center;gap:9px;margin:18px auto 2px;padding:11px 20px;border-radius:999px;
+        font-size:14px;font-weight:700;border:1px solid var(--stroke);background:rgba(255,255,255,.05);color:var(--txt);
+        transition:background .3s,border-color .3s,color .3s}
+      .status .sdot{width:9px;height:9px;border-radius:50%;background:currentColor;flex:none}
+      .status.busy{color:var(--acc);border-color:rgba(124,194,255,.42);background:rgba(124,194,255,.12);box-shadow:0 0 26px -6px rgba(124,194,255,.65)}
+      .status.busy .sdot{animation:blink 1.1s ease-in-out infinite}
+      .status.ok{color:var(--ok);border-color:rgba(111,227,164,.45);background:rgba(111,227,164,.12);box-shadow:0 0 30px -6px rgba(111,227,164,.6)}
+      .status.err{color:var(--bad);border-color:rgba(245,139,139,.45);background:rgba(245,139,139,.12);box-shadow:0 0 30px -6px rgba(245,139,139,.55)}
+      @keyframes blink{0%,100%{opacity:.25}50%{opacity:1}}
+      .actions{display:flex;flex-direction:column;gap:13px;align-items:center;margin-top:18px}
+      #jailbreakBtn{width:100%;padding:16px;border-radius:16px;cursor:pointer;transition:.2s;
+        border:1px solid rgba(124,194,255,.45);color:#fff;font-size:17px;font-weight:700;
+        background:linear-gradient(180deg,rgba(124,194,255,.30),rgba(124,194,255,.10));
+        box-shadow:0 12px 30px -10px rgba(124,194,255,.7), inset 0 1px 0 rgba(255,255,255,.28)}
+      #jailbreakBtn:not(:disabled):hover{background:linear-gradient(180deg,rgba(124,194,255,.42),rgba(124,194,255,.16));border-color:rgba(124,194,255,.7)}
+      #jailbreakBtn:disabled{opacity:.5;cursor:not-allowed;box-shadow:none}
       .auto{display:flex;align-items:center;gap:8px;color:var(--mut);font-size:13px}
-      #console{margin-top:20px;height:200px;overflow:auto;padding:14px;border-radius:14px;
-        background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.1);
-        font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;color:#cdd6e4;white-space:pre-wrap;text-align:left}
+      #console{margin-top:18px;height:180px;overflow:auto;padding:13px;border-radius:16px;text-align:left;
+        background:rgba(4,6,12,.55);border:1px solid rgba(255,255,255,.09);
+        font:12.5px/1.55 ui-monospace,Menlo,Consolas,monospace;color:#c9d4e6;white-space:pre-wrap}
     </style>
     <script>
       if (window.applicationCache.status === 0) { // 0: UNCACHED
@@ -33,9 +68,13 @@
     </script>
 </head>
   <body>
+    <div class="aurora"></div>
+    <div class="grid"></div>
     <div class="card">
+      <div class="mark"><svg viewBox="0 0 24 24"><path d="M5 2h5v14h9v6H5z"/></svg></div>
       <h1>PS4 Jailbreak</h1>
       <p class="sub">Firmware 5.05 &ndash; 9.60 &middot; all in one</p>
+      <div class="status busy" id="status"><span class="sdot"></span><span id="statusText">Ready</span></div>
       <div class="actions">
         <button id="jailbreakBtn">Start Jailbreak</button>
         <label class="auto"><input type="checkbox" id="autoRunCheck" checked> Autorun in <span id="countdown">5</span>s</label>
@@ -213,5 +252,31 @@
     window.addEventListener('load', function () {
       restartCountdown();
     });
+  </script>
+  <script>
+  (function () {
+    var c = document.getElementById("console");
+    var st = document.getElementById("status");
+    var tx = document.getElementById("statusText");
+    var last = null;
+    function classify(t) {
+      t = (t || "").toLowerCase();
+      if (t.indexOf("failed") > -1 || t.indexOf("error") > -1 || t.indexOf("not implemented") > -1) return ["err", "Not jailbroken"];
+      if (t.indexOf("already jailbroken") > -1) return ["ok", "Already jailbroken"];
+      if (t.indexOf("homebrew enabler loaded") > -1 || t.indexOf("kernel exploit succeeded") > -1) return ["ok", "Jailbroken"];
+      if (t.indexOf("starting") > -1 || t.indexOf("exploit") > -1) return ["busy", "Jailbreaking\u2026"];
+      return ["busy", "Ready"];
+    }
+    function apply() {
+      var r = classify(c.textContent), k = r[0] + r[1];
+      if (k === last) return;
+      last = k;
+      st.className = "status " + r[0];
+      tx.textContent = r[1];
+    }
+    if (window.MutationObserver) new MutationObserver(apply).observe(c, { childList: true, characterData: true, subtree: true });
+    setInterval(apply, 400);
+    apply();
+  })();
   </script>
 </html>

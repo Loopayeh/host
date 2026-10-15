@@ -1,4 +1,4 @@
-<html lang="ar" dir="rtl">
+<html lang="en">
     <head>
         <meta charset='utf-8'>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,7 +35,7 @@
 							window.location.replace("cacheslopkit.html");
 						} else {
 							document.addEventListener("DOMContentLoaded", () => {
-								msgs.innerHTML = 'Unsupported Firmware: <span style="color: red;">' + fwVersion + '</span>';
+								msgs.innerHTML = 'Unsupported Firmware: ' + fwVersion;
 							});
 						}
                 } else {
@@ -114,30 +114,120 @@
             }
         </script>
         <style>
-            :root{--txt:#f1f3f8;--mut:#9aa3b5;--acc:#91c8f6}
+            :root{
+                --txt:#f2f5fb; --mut:#98a2b6; --acc:#7cc2ff; --acc2:#b693f1;
+                --ok:#6fe3a4; --bad:#f58b8b; --warn:#f3cf7a;
+                --glass:linear-gradient(150deg,rgba(255,255,255,.11),rgba(255,255,255,.035));
+                --stroke:rgba(255,255,255,.14);
+            }
             *{box-sizing:border-box;margin:0;padding:0}
-            body{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 16px;
-                background:radial-gradient(1200px 620px at 50% -10%, #26303f 0%, #0f0f12 62%);
-                color:var(--txt);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;
-                direction:rtl;overflow:hidden}
-            .card{width:100%;max-width:520px;border-radius:22px;padding:26px 22px;text-align:center;
-                background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
-                -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
-                box-shadow:0 24px 70px rgba(0,0,0,.5)}
-            h1{font-size:20px;font-weight:600}
-            .sub{color:var(--mut);font-size:13px;margin:4px 0 20px}
-            #msgs{font-size:20px;font-weight:700;min-height:34px;margin:6px 0 20px}
-            #console{margin-top:6px;height:150px;overflow:auto;padding:14px;border-radius:14px;
-                background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.1);direction:ltr;text-align:left;
-                font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;color:#cdd6e4;white-space:pre-wrap}
+            html,body{height:100%}
+            body{position:relative;overflow:hidden;min-height:100vh;display:flex;align-items:center;justify-content:center;
+                padding:26px 16px;background:#08080c;color:var(--txt);
+                font:16px/1.6 system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif}
+            /* aurora backdrop */
+            .aurora{position:fixed;inset:0;z-index:0;pointer-events:none;
+                background:
+                    radial-gradient(620px 420px at 12% -6%, rgba(79,142,247,.42), transparent 62%),
+                    radial-gradient(560px 460px at 92% 108%, rgba(139,92,246,.38), transparent 62%),
+                    radial-gradient(520px 520px at 78% 6%, rgba(56,189,248,.20), transparent 60%),
+                    radial-gradient(500px 500px at 6% 96%, rgba(236,72,153,.16), transparent 60%);}
+            .grid{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.35;
+                background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),
+                                 linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+                background-size:44px 44px;
+                -webkit-mask-image:radial-gradient(circle at 50% 40%,#000 0%,transparent 78%);
+                mask-image:radial-gradient(circle at 50% 40%,#000 0%,transparent 78%);}
+            .card{position:relative;z-index:1;width:100%;max-width:470px;border-radius:26px;
+                padding:30px 26px 26px;text-align:center;
+                background:var(--glass);border:1px solid var(--stroke);
+                -webkit-backdrop-filter:blur(22px) saturate(160%);
+                backdrop-filter:blur(22px) saturate(160%);
+                box-shadow:0 30px 70px -24px rgba(0,0,0,.85), inset 0 1px 0 rgba(255,255,255,.22)}
+            .mark{width:52px;height:52px;margin:0 auto 14px;border-radius:15px;display:flex;align-items:center;justify-content:center;
+                background:linear-gradient(150deg,rgba(124,194,255,.35),rgba(182,147,241,.22));
+                border:1px solid rgba(255,255,255,.22);
+                box-shadow:0 10px 26px -10px rgba(124,194,255,.75), inset 0 1px 0 rgba(255,255,255,.35)}
+            .mark svg{width:26px;height:26px;fill:#fff}
+            h1{font-size:21px;font-weight:700;letter-spacing:.01em}
+            .sub{color:var(--mut);font-size:13px;margin-top:5px}
+            .fwchip{display:inline-flex;align-items:center;gap:7px;margin-top:14px;padding:6px 14px;border-radius:999px;
+                font-size:12px;font-weight:600;color:var(--acc);
+                background:rgba(124,194,255,.10);border:1px solid rgba(124,194,255,.30)}
+            .status{display:inline-flex;align-items:center;gap:9px;margin:20px auto 4px;padding:11px 20px;border-radius:999px;
+                font-size:14px;font-weight:700;letter-spacing:.01em;
+                border:1px solid var(--stroke);background:rgba(255,255,255,.05);color:var(--txt);
+                transition:background .3s,border-color .3s,color .3s}
+            .status .sdot{width:9px;height:9px;border-radius:50%;background:currentColor;flex:none}
+            .status.busy{color:var(--acc);border-color:rgba(124,194,255,.42);background:rgba(124,194,255,.12);
+                box-shadow:0 0 26px -6px rgba(124,194,255,.65)}
+            .status.busy .sdot{animation:blink 1.1s ease-in-out infinite}
+            .status.ok{color:var(--ok);border-color:rgba(111,227,164,.45);background:rgba(111,227,164,.12);
+                box-shadow:0 0 30px -6px rgba(111,227,164,.6)}
+            .status.err{color:var(--bad);border-color:rgba(245,139,139,.45);background:rgba(245,139,139,.12);
+                box-shadow:0 0 30px -6px rgba(245,139,139,.55)}
+            .status.warn{color:var(--warn);border-color:rgba(243,207,122,.45);background:rgba(243,207,122,.12)}
+            @keyframes blink{0%,100%{opacity:.25}50%{opacity:1}}
+            #console{margin-top:18px;height:132px;overflow:auto;padding:13px;border-radius:16px;text-align:left;
+                direction:ltr;background:rgba(4,6,12,.55);border:1px solid rgba(255,255,255,.09);
+                font:12.5px/1.55 ui-monospace,Menlo,Consolas,monospace;color:#c9d4e6;white-space:pre-wrap}
+            .hidden-msgs{position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;opacity:0}
         </style>
     </head>
     <body>
+        <div class="aurora"></div>
+        <div class="grid"></div>
+
         <div class="card">
+            <div class="mark">
+                <svg viewBox="0 0 24 24"><path d="M5 2h5v14h9v6H5z"/></svg>
+            </div>
             <h1>PS4 Jailbreak</h1>
             <p class="sub">Firmware 5.05 &ndash; 13.52</p>
-            <div id="msgs">Starting the exploit&hellip; please wait</div>
-            <pre id="console">Ready. Awaiting for Jailbreaking...</pre>
+            <div class="fwchip" id="fwchip">Detecting firmware&hellip;</div>
+
+            <div class="status busy" id="status"><span class="sdot"></span><span id="statusText">Starting&hellip;</span></div>
+
+            <pre id="console">Ready. Waiting for the exploit&hellip;</pre>
         </div>
+
+        <div id="msgs" class="hidden-msgs">Starting the exploit&hellip; please wait</div>
+
+        <script>
+        (function () {
+            var msgsEl = document.getElementById("msgs");
+            var stEl = document.getElementById("status");
+            var stTxt = document.getElementById("statusText");
+            var chip = document.getElementById("fwchip");
+            var last = null;
+
+            var m = (navigator.userAgent.match(/PlayStation 4[ /]([\d.]+)/i) || [])[1];
+            chip.textContent = m ? ("PS4 \u00b7 firmware " + m) : "Not a PS4";
+
+            function classify(t) {
+                t = (t || "").toLowerCase();
+                if (t.indexOf("unsupported") > -1) return ["err", "Unsupported firmware"];
+                if (t.indexOf("cache not found") > -1) return ["err", "Cache not found"];
+                if (t.indexOf("only for") > -1) return ["warn", "PS4 only"];
+                if (t.indexOf("failed") > -1 || t.indexOf("error") > -1) return ["err", "Not jailbroken"];
+                if (t.indexOf("already") > -1) return ["ok", "Already jailbroken"];
+                if (t.indexOf("loaded") > -1 || t.indexOf("succeeded") > -1) return ["ok", "Jailbroken"];
+                return ["busy", "Jailbreaking\u2026"];
+            }
+            function apply() {
+                var res = classify(msgsEl.textContent);
+                var key = res[0] + "|" + res[1];
+                if (key === last) return;
+                last = key;
+                stEl.className = "status " + res[0];
+                stTxt.textContent = res[1];
+            }
+            if (window.MutationObserver) {
+                new MutationObserver(apply).observe(msgsEl, { childList: true, characterData: true, subtree: true });
+            }
+            setInterval(apply, 400);
+            apply();
+        })();
+        </script>
     </body>
 </html>
