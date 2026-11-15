@@ -1,7 +1,6 @@
 /* ==========================================================================
-   PS4 Host · Loopayeh — UI controller
+   PS4 Host · Loopayeh — minimal UI controller
    Drives the exploit engine (firmware.js / HENs.js / jailbreak.js / chains).
-   The exploit model is chosen automatically; the sheet is only a fallback.
    ========================================================================== */
 (function () {
     'use strict';
@@ -102,16 +101,16 @@
         if (!pill) return;
         if (!f) {
             pill.textContent = '\u0631\u0648\u06cc PS4 \u0628\u0627\u0632 \u06a9\u0646';
-            pill.className = 'pill bad';
+            pill.className = 'fw bad';
             if (hint) hint.textContent = '\u0627\u06cc\u0646 \u0647\u0627\u0633\u062a \u0631\u0648\u06cc \u06a9\u0646\u0633\u0648\u0644 \u0627\u062c\u0631\u0627 \u0645\u06cc\u200c\u0634\u0648\u062f.';
             return;
         }
         var ok = isFirmwareSupported(parseFloat(f));
         pill.textContent = '\u0641\u0631\u06cc\u0645\u0648\u0631 ' + f;
-        pill.className = 'pill ' + (ok ? 'ok' : 'bad');
+        pill.className = 'fw' + (ok ? '' : ' bad');
         if (hint) {
             hint.textContent = ok
-                ? '\u0628\u0647\u062a\u0631\u06cc\u0646 \u062d\u0627\u0644\u062a \u0628\u0631\u0627\u06cc \u0641\u0631\u06cc\u0645\u0648\u0631 ' + f + ' \u062e\u0648\u062f\u06a9\u0627\u0631 \u0627\u0646\u062a\u062e\u0627\u0628 \u0634\u062f\u0647 \u0627\u0633\u062a.'
+                ? '\u0628\u0647\u062a\u0631\u06cc\u0646 \u062d\u0627\u0644\u062a \u0628\u0631\u0627\u06cc \u0627\u06cc\u0646 \u0641\u0631\u06cc\u0645\u0648\u0631 \u062e\u0648\u062f\u06a9\u0627\u0631 \u0627\u0646\u062a\u062e\u0627\u0628 \u0634\u062f\u0647 \u0627\u0633\u062a.'
                 : '\u0627\u06cc\u0646 \u0641\u0631\u06cc\u0645\u0648\u0631 \u067e\u0634\u062a\u06cc\u0628\u0627\u0646\u06cc \u0646\u0645\u06cc\u200c\u0634\u0648\u062f.';
         }
     }
@@ -131,6 +130,7 @@
         ['advanced', '\u067e\u06cc\u0634\u0631\u0641\u062a\u0647']
     ];
     var currentTab = 'tools';
+    var payRendered = false;
 
     function renderPayloads(tab) {
         currentTab = tab || currentTab;
@@ -173,6 +173,7 @@
             card.onclick = function () { sendPayload(p); };
             grid.appendChild(card);
         });
+        payRendered = true;
     }
 
     function sendPayload(p) {
@@ -192,16 +193,19 @@
         loadFanThreshold(t);
     }
 
-    /* ------------------------------------------------------------- settings */
-    function openSheet() {
-        var s = el('sheet'), b = el('sheetBack');
+    /* --------------------------------------------------------------- sheets */
+    function closeSheets() {
+        ['sheet', 'paySheet', 'scrim'].forEach(function (id) {
+            var e = el(id);
+            if (e) e.classList.add('hidden');
+        });
+    }
+
+    function openSheet(id) {
+        closeSheets();
+        var s = el(id), b = el('scrim');
         if (s) s.classList.remove('hidden');
         if (b) b.classList.remove('hidden');
-    }
-    function closeSheet() {
-        var s = el('sheet'), b = el('sheetBack');
-        if (s) s.classList.add('hidden');
-        if (b) b.classList.add('hidden');
     }
 
     /* ------------------------------------------------------------------- run */
@@ -264,11 +268,19 @@
         };
 
         var gear = el('gearBtn');
-        if (gear) gear.onclick = openSheet;
+        if (gear) gear.onclick = function () { openSheet('sheet'); };
+        var payBtn = el('payloadBtn');
+        if (payBtn) payBtn.onclick = function () {
+            if (!payRendered) renderPayloads(currentTab);
+            openSheet('paySheet');
+        };
+
         var sc = el('sheetClose');
-        if (sc) sc.onclick = closeSheet;
-        var sb = el('sheetBack');
-        if (sb) sb.onclick = closeSheet;
+        if (sc) sc.onclick = closeSheets;
+        var pc = el('payClose');
+        if (pc) pc.onclick = closeSheets;
+        var scrim = el('scrim');
+        if (scrim) scrim.onclick = closeSheets;
 
         if (typeof user !== 'undefined') {
             user.currentJbFlavor = HEN;
@@ -281,7 +293,6 @@
         paintFw();
         paintHen();
         buildChains();
-        renderPayloads('tools');
     }
 
     function boot() {
@@ -315,8 +326,8 @@
                 if (!t) return;
                 if (/DONE|success/i.test(t)) setBadge('ok', '\u062c\u06cc\u0644\u0628\u0631\u06cc\u06a9 \u0634\u062f');
                 else if (/Restored/i.test(t)) setBadge('', '\u0628\u0631\u06af\u0634\u062a \u0628\u0647 \u0635\u0641\u062d\u0647 \u0634\u0631\u0648\u0639\u2026', true);
-                else if (/Restart/i.test(t)) setBadge('bad', '\u06a9\u0646\u0633\u0648\u0644 \u0631\u0627 \u0631\u06cc\u200c\u0627\u0633تارت \u06a9ن');
-                else if (/Refresh/i.test(t)) setBadge('bad', '\u062e\u0637ا\u061b \u0635فحه \u0631ا \u0631\u0641\u0631\u0634 \u06a9\u0646');
+                else if (/Restart/i.test(t)) setBadge('bad', '\u06a9\u0646\u0633\u0648\u0644 \u0631\u0627 \u0631\u06cc\u200c\u0627\u0633\u062a\u0627\u0631\u062a \u06a9\u0646');
+                else if (/Refresh/i.test(t)) setBadge('bad', '\u062e\u0637\u0627\u061b \u0635\u0641\u062d\u0647 \u0631\u0627 \u0631\u0641\u0631\u0634 \u06a9\u0646');
             }).observe(st, { childList: true, characterData: true, subtree: true });
         }
 
