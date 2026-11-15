@@ -21,7 +21,7 @@ body{
   background:var(--bg);
   color:var(--txt);
   font:16px/1.55 system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;
-  direction:rtl;
+  direction:ltr;
   -webkit-font-smoothing:antialiased;
   min-height:100vh;
 }
@@ -116,7 +116,7 @@ body::before{
 .x{background:none; border:0; color:var(--mut); font-size:22px; cursor:pointer; line-height:1}
 .x:hover{color:var(--txt)}
 .sheet-label{margin:0 0 10px; font-size:11.5px; font-weight:700; letter-spacing:.1em; color:var(--mut)}
-.sheet .hint{margin:0 0 14px; font-size:12.5px; line-height:1.8; color:var(--mut); text-align:right}
+.sheet .hint{margin:0 0 14px; font-size:12.5px; line-height:1.8; color:var(--mut); text-align:left}
 .row{display:flex; flex-wrap:wrap; gap:8px}
 .chip{
   padding:9px 14px; border-radius:10px; cursor:pointer; font-size:13px; font-weight:700;
@@ -132,15 +132,15 @@ body::before{
 /* payloads inside the sheet */
 #payGrid{display:flex; flex-direction:column; gap:2px}
 .pay{
-  text-align:right; cursor:pointer; padding:12px 2px;
+  text-align:left; cursor:pointer; padding:12px 2px;
   background:none; border:0; border-bottom:1px solid var(--line); width:100%;
 }
 .pay:hover{border-bottom-color:var(--line2)}
-.pay b{display:block; font-size:13.5px; font-weight:700; direction:ltr; text-align:right}
+.pay b{display:block; font-size:13.5px; font-weight:700; direction:ltr; text-align:left}
 .pay i{display:block; font-style:normal; font-size:11px; color:var(--acc); margin-top:2px;
-  direction:ltr; text-align:right}
+  direction:ltr; text-align:left}
 .pay p{font-size:12px; color:var(--mut); margin-top:6px; line-height:1.7;
-  direction:ltr; text-align:right}
+  direction:ltr; text-align:left}
 .pay span{display:block; margin-top:6px; font-size:10.5px; font-weight:700; color:#c9a85f;
   direction:ltr; unicode-bidi:isolate}
 

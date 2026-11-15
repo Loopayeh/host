@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fa" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
@@ -13,7 +13,7 @@
         var isPS4 = navigator.userAgent.indexOf("PlayStation 4") !== -1;
         var local = /^(127\.|192\.168\.|10\.|172\.(1[6-9]|2[0-9]|3[0-1])\.)/.test(location.hostname);
         if (isPS4 && !local && location.protocol === 'https:' && localStorage.getItem('dontHTTPS') !== '1') {
-            if (confirm("شما از HTTPS استفاده می‌کنید؛ برای ارسال پیلود به HTTP برویم؟")) {
+            if (confirm("You are on HTTPS. Switch to HTTP so payloads can be loaded (recommended)?")) {
                 window.abortLoading = true;
                 location.href = "http://" + location.host + location.pathname;
             } else {
@@ -30,32 +30,32 @@
     <div class="name">PS4 Host</div>
     <div class="by">DESIGNED BY LOOPAYEH</div>
 
-    <div class="fw" id="fwPill">در حال تشخیص…</div>
+    <div class="fw" id="fwPill">Detecting…</div>
 
-    <button class="start" id="startBtn" title="شروع">
+    <button class="start" id="startBtn" title="Start">
         <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
             <path d="M0.69 21.95C-0.5 22.79-0.28 24.24 2.45 25.14c2.73.9 5.9 1.09 8.7.59v-2.85l-2.71.92c-1.04.34-2.08.42-3.11.17-.8-.25-.64-.75.32-1.17l5.51-2.01v-3.1l-7.67 2.77c-.96.33-1.92.83-2.8 1.5zM19.21 9.37v8.14c3.27 1.68 5.83 0 5.83-4.36 0-4.45-1.52-6.46-5.91-8.05-2.32-.84-4.71-1.6-7.11-2.1V27.2l5.59 1.76V8.62c0-.92 0-1.59.64-1.34.88.25.96 1.17.96 2.09zm10.38 10.65c-2.31-.84-4.79-1.17-7.18-.92-1.33.09-2.58.48-3.83.92v3.27l5.19-2.01c1.04-.34 2.08-.42 3.11-.17.8.25.64.75-.32 1.17l-7.98 3.11v3.19l11.02-4.28c.8-.34 1.52-.75 2.16-1.43.56-.84.32-2.01-2.15-2.85z"/>
         </svg>
     </button>
-    <div class="start-label">شروع</div>
+    <div class="start-label">Start</div>
 
-    <div class="model">مدل: <b id="modelName">—</b></div>
+    <div class="model">Model: <b id="modelName">—</b></div>
     <div class="hint" id="startHint"></div>
 
     <div class="links">
-        <button id="payloadBtn">پیلودها</button>
-        <button id="gearBtn">تنظیمات</button>
-        <button id="cacheBtn">به‌روزرسانی کش</button>
+        <button id="payloadBtn">Payloads</button>
+        <button id="gearBtn">Settings</button>
+        <button id="cacheBtn">Update cache</button>
     </div>
 </main>
 
 <section id="exploit-main-screen" class="run hidden">
     <div class="run-wrap">
         <div class="run-top">
-            <span class="badge" id="runBadge"><span class="dot"></span>در حال جیلبریک…</span>
+            <span class="badge" id="runBadge"><span class="dot"></span>Jailbreaking…</span>
         </div>
-        <pre id="console">آماده…</pre>
-        <button class="back" id="backBtn">بازگشت</button>
+        <pre id="console">Ready…</pre>
+        <button class="back" id="backBtn">Back</button>
     </div>
 </section>
 
@@ -63,7 +63,7 @@
 
 <aside class="sheet hidden" id="paySheet">
     <div class="sheet-head">
-        <h3>پیلودها</h3>
+        <h3>Payloads</h3>
         <button class="x" id="payClose">×</button>
     </div>
     <div class="row" id="payTabs"></div>
@@ -73,16 +73,16 @@
 
 <aside class="sheet hidden" id="sheet">
     <div class="sheet-head">
-        <h3>تنظیمات</h3>
+        <h3>Settings</h3>
         <button class="x" id="sheetClose">×</button>
     </div>
-    <p class="sheet-label">مدل اکسپلویت</p>
-    <p class="hint">خودکار بر اساس فریمور انتخاب می‌شود؛ معمولاً نیازی به تغییر نیست.</p>
+    <p class="sheet-label">EXPLOIT CHAIN</p>
+    <p class="hint">Picked automatically for your firmware. You normally never need to change it.</p>
     <div class="row" id="chainGrid"></div>
 
     <div class="divider"></div>
-    <p class="sheet-label">GoldHEN</p>
-    <p class="hint">نسخه <b id="ghVer">2.4b18.14</b> · پیش‌فرض</p>
+    <p class="sheet-label">GOLDHEN</p>
+    <p class="hint">Version <b id="ghVer">2.4b18.14</b> · default</p>
 </aside>
 
 <!-- engine compatibility nodes (never rendered) -->

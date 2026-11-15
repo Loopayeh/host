@@ -88,7 +88,7 @@
             box.appendChild(b);
         });
         if (!avail.length) {
-            box.innerHTML = '<div class="hint">\u0645\u062f\u0644\u06cc \u0628\u0631\u0627\u06cc \u0627\u06cc\u0646 \u0641\u0631\u06cc\u0645\u0648\u0631 \u062a\u0639\u0631\u06cc\u0641 \u0646\u0634\u062f\u0647 \u0627\u0633\u062a.</div>';
+            box.innerHTML = '<div class="hint">No exploit chain is defined for this firmware.</div>';
         }
         paintChains(currentChain());
     }
@@ -100,18 +100,18 @@
         var f = fw();
         if (!pill) return;
         if (!f) {
-            pill.textContent = '\u0631\u0648\u06cc PS4 \u0628\u0627\u0632 \u06a9\u0646';
+            pill.textContent = 'Open on PS4';
             pill.className = 'fw bad';
-            if (hint) hint.textContent = '\u0627\u06cc\u0646 \u0647\u0627\u0633\u062a \u0631\u0648\u06cc \u06a9\u0646\u0633\u0648\u0644 \u0627\u062c\u0631\u0627 \u0645\u06cc\u200c\u0634\u0648\u062f.';
+            if (hint) hint.textContent = 'This host runs inside the console browser.';
             return;
         }
         var ok = isFirmwareSupported(parseFloat(f));
-        pill.textContent = '\u0641\u0631\u06cc\u0645\u0648\u0631 ' + f;
+        pill.textContent = 'Firmware ' + f;
         pill.className = 'fw' + (ok ? '' : ' bad');
         if (hint) {
             hint.textContent = ok
-                ? '\u0628\u0647\u062a\u0631\u06cc\u0646 \u062d\u0627\u0644\u062a \u0628\u0631\u0627\u06cc \u0627\u06cc\u0646 \u0641\u0631\u06cc\u0645\u0648\u0631 \u062e\u0648\u062f\u06a9\u0627\u0631 \u0627\u0646\u062a\u062e\u0627\u0628 \u0634\u062f\u0647 \u0627\u0633\u062a.'
-                : '\u0627\u06cc\u0646 \u0641\u0631\u06cc\u0645\u0648\u0631 \u067e\u0634\u062a\u06cc\u0628\u0627\u0646\u06cc \u0646\u0645\u06cc\u200c\u0634\u0648\u062f.';
+                ? 'Best chain for this firmware is selected automatically.'
+                : 'This firmware is not supported.';
         }
     }
 
@@ -124,10 +124,10 @@
 
     /* ---------------------------------------------------------------- payload */
     var PAY_TABS = [
-        ['tools', '\u0627\u0628\u0632\u0627\u0631\u0647\u0627'],
-        ['homebrew', '\u0647\u0648\u0645\u200c\u0628\u0631\u0648'],
-        ['linux', '\u0644\u06cc\u0646\u0648\u06a9\u0633'],
-        ['advanced', '\u067e\u06cc\u0634\u0631\u0641\u062a\u0647']
+        ['tools', 'Tools'],
+        ['homebrew', 'Homebrew'],
+        ['linux', 'Linux'],
+        ['advanced', 'Advanced']
     ];
     var currentTab = 'tools';
     var payRendered = false;
@@ -178,15 +178,15 @@
 
     function sendPayload(p) {
         if (!isPS4Console()) {
-            alert('\u067e\u06cc\u0644\u0648\u062f\u0647\u0627 \u0641\u0642\u0637 \u0627\u0632 \u0631\u0648\u06cc \u06a9\u0646\u0633\u0648\u0644 \u0627\u0631\u0633\u0627\u0644 \u0645\u06cc\u200c\u0634\u0648\u0646\u062f.');
+            alert('Payloads can only be sent from the console.');
             return;
         }
         if (p.id === 'FanThreshold') { askFan(); return; }
-        try { Loadpayloads(p); } catch (e) { alert('\u0627\u0631\u0633\u0627\u0644 \u0646\u0634\u062f: ' + e.message); }
+        try { Loadpayloads(p); } catch (e) { alert('Could not send: ' + e.message); }
     }
 
     function askFan() {
-        var t = prompt('\u062f\u0645\u0627\u06cc \u0641\u0646 \u0631\u0627 \u0627\u0646\u062a\u062e\u0627\u0628 \u06a9\u0646: 60 / 70 / 80 / 85', '70');
+        var t = prompt('Fan threshold temperature: 60 / 70 / 80 / 85', '70');
         if (!t) return;
         t = String(t).trim();
         if (['60', '70', '80', '85'].indexOf(t) === -1) return;
@@ -235,13 +235,13 @@
         resetScroll();
         setTimeout(resetScroll, 60);
         setTimeout(resetScroll, 320);
-        setBadge('', '\u062f\u0631 \u062d\u0627\u0644 \u062c\u06cc\u0644\u0628\u0631\u06cc\u06a9\u2026', true);
+        setBadge('', 'Jailbreaking\u2026', true);
     }
 
     function startJailbreak() {
         if (typeof user !== 'undefined' && user.blockJailbreak) return;
         if (!isPS4Console() && typeof devMode === 'undefined') {
-            setBadge('bad', '\u0641\u0642\u0637 \u0631\u0648\u06cc \u06a9\u0646\u0633\u0648\u0644');
+            setBadge('bad', 'Console only');
             return;
         }
         if (typeof user !== 'undefined') user.blockJailbreak = true;
@@ -250,7 +250,7 @@
             if (typeof chooseHEN === 'function') chooseHEN();
             jailbreak();
         } catch (e) {
-            setBadge('bad', '\u062e\u0637\u0627: ' + (e && e.message ? e.message : e));
+            setBadge('bad', 'Error: ' + (e && e.message ? e.message : e));
         }
     }
 
@@ -324,10 +324,10 @@
             new MutationObserver(function () {
                 var t = (st.textContent || '').trim();
                 if (!t) return;
-                if (/DONE|success/i.test(t)) setBadge('ok', '\u062c\u06cc\u0644\u0628\u0631\u06cc\u06a9 \u0634\u062f');
-                else if (/Restored/i.test(t)) setBadge('', '\u0628\u0631\u06af\u0634\u062a \u0628\u0647 \u0635\u0641\u062d\u0647 \u0634\u0631\u0648\u0639\u2026', true);
-                else if (/Restart/i.test(t)) setBadge('bad', '\u06a9\u0646\u0633\u0648\u0644 \u0631\u0627 \u0631\u06cc\u200c\u0627\u0633\u062a\u0627\u0631\u062a \u06a9\u0646');
-                else if (/Refresh/i.test(t)) setBadge('bad', '\u062e\u0637\u0627\u061b \u0635\u0641\u062d\u0647 \u0631\u0627 \u0631\u0641\u0631\u0634 \u06a9\u0646');
+                if (/DONE|success/i.test(t)) setBadge('ok', 'Jailbroken');
+                else if (/Restored/i.test(t)) setBadge('', 'Back to the start page\u2026', true);
+                else if (/Restart/i.test(t)) setBadge('bad', 'Restart your console');
+                else if (/Refresh/i.test(t)) setBadge('bad', 'Refresh the page and try again');
             }).observe(st, { childList: true, characterData: true, subtree: true });
         }
 
@@ -335,7 +335,7 @@
         if (typeof orig === 'function' && !orig.__lp) {
             var wrapped = function () {
                 try { orig.apply(this, arguments); } catch (e) {}
-                setBadge('ok', '\u062c\u06cc\u0644\u0628\u0631\u06cc\u06a9 \u0634\u062f');
+                setBadge('ok', 'Jailbroken');
             };
             wrapped.__lp = true;
             window.jailbreakSuccess = wrapped;
