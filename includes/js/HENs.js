@@ -133,9 +133,9 @@ function updateHenFlavorVisibility(fwVersion) {
         storage.set('jailbreakFlavor', 'PS4HEN');
     }
 
-    toggleVisibility(nexHENInputInitial.id, !hidenexHEN);
-    toggleVisibility(nexHENInputExploit.id, !hidenexHEN);
+    if (nexHENInputInitial) toggleVisibility(nexHENInputInitial.id, !hidenexHEN);
+    if (nexHENInputExploit) toggleVisibility(nexHENInputExploit.id, !hidenexHEN);
 
-    toggleVisibility(PS4HENInputInitial.id, !hidePS4HEN);
-    toggleVisibility(PS4HENInputExploit.id, !hidePS4HEN);
+    if (PS4HENInputInitial) toggleVisibility(PS4HENInputInitial.id, !hidePS4HEN);
+    if (PS4HENInputExploit) toggleVisibility(PS4HENInputExploit.id, !hidePS4HEN);
 }

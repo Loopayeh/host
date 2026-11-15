@@ -122,6 +122,7 @@
                     <small id="lpChainNote"></small>
                 </div>
                 <div class="lp-chain-list" id="lpChainList"></div>
+                <div class="lp-note" id="lpHenNote"></div>
             </div>
 
             <!-- PS Button -->
@@ -153,32 +154,6 @@
                     class="bg-blue-600 hover:bg-blue-700 p-3 rounded font-semibold disabled:opacity-50 transition-colors text-white text-center">Load
                     payloads using a PayLoader - External link</button>
             </a>
-
-            <!-- Jailbreak flavor options -->
-            <div id="choosejb-initial" class="bg-gray-800 p-6 rounded-lg shadow-xl text-center">
-                <h3 class="text-xl font-semibold mb-4">Choose your HEN flavor</h3>
-                <div class="flex flex-col sm:flex-row justify-center gap-4 sm:gap-8 rtl:gap-4 sm:rtl:gap-8">
-                    <label
-                        class="flex items-center px-4 py-2 rounded-lg bg-gray-700/60 hover:bg-gray-700 transition-colors cursor-pointer shadow border-2 border-transparent focus-within:border-blue-500 w-full sm:w-auto mb-2 sm:mb-0"
-                        id="goldhen-label-initial">
-                        <input type="radio" name="hen" value="GoldHEN" onchange="saveJbFlavor(this.name, this.value)"
-                            class="accent-blue-500 w-5 h-5 ml-3 focus:ring-2 focus:ring-blue-400">
-                        <span class="text-lg font-semibold text-white/90 select-none">GoldHEN</span>
-                    </label>
-                    <label id="PS4HEN-label-initial"
-                        class="flex items-center px-4 py-2 rounded-lg bg-gray-700/60 hover:bg-gray-700 transition-colors cursor-pointer shadow border-2 border-transparent focus-within:border-blue-500 w-full sm:w-auto">
-                        <input type="radio" name="hen" value="PS4HEN" onchange="saveJbFlavor(this.name, this.value)"
-                            class="accent-blue-500 w-5 h-5 ml-3 focus:ring-2 focus:ring-blue-400">
-                        <span class="text-lg font-semibold text-white/90 select-none">PS4HEN</span>
-                    </label>
-                    <label id="nexHEN-label-initial"
-                        class="hidden flex items-center px-4 py-2 rounded-lg bg-gray-700/60 hover:bg-gray-700 transition-colors cursor-pointer shadow border-2 border-transparent focus-within:border-blue-500 w-full sm:w-auto">
-                        <input type="radio" name="hen" value="nexHEN" onchange="saveJbFlavor(this.name, this.value)"
-                            class="accent-blue-500 w-5 h-5 ml-3 focus:ring-2 focus:ring-blue-400">
-                        <span class="text-lg font-semibold text-white/90 select-none">nexHEN<br>Experimental</span>
-                    </label>
-                </div>
-            </div>
 
             <!-- Scroll Down Icon -->
             <button id="scrollDown" class="absolute bottom-10 cursor-pointer"
@@ -215,18 +190,6 @@
                             <input type="radio" name="hen2" value="GoldHEN" class="accent-blue-500 w-4 h-4 ml-2"
                                 onchange="saveJbFlavor(this.name, this.value)">
                             <span class="text-base font-semibold text-white/90 select-none">GoldHEN</span>
-                        </label>
-                        <label id="PS4HEN-label-exploit"
-                            class="flex items-center px-2 py-1 rounded bg-gray-700/60 hover:bg-gray-700 cursor-pointer shadow border-2 border-transparent focus-within:border-blue-500">
-                            <input type="radio" name="hen2" value="PS4HEN" class="accent-blue-500 w-4 h-4 ml-2"
-                                onchange="saveJbFlavor(this.name, this.value)">
-                            <span class="text-base font-semibold text-white/90 select-none">PS4HEN</span>
-                        </label>
-                        <label id="nexHEN-label-exploit"
-                            class="hidden flex items-center px-2 py-1 rounded bg-gray-700/60 hover:bg-gray-700 cursor-pointer shadow border-2 border-transparent focus-within:border-blue-500">
-                            <input type="radio" name="hen2" value="nexHEN" class="accent-blue-500 w-4 h-4 ml-2"
-                                onchange="saveJbFlavor(this.name, this.value)">
-                            <span class="text-base font-semibold text-white/90 select-none">nexHEN</span>
                         </label>
                         <button id="exploitRun"
                             class="flex items-center justify-center bg-blue-600 hover:bg-blue-700 p-2 rounded-full transition-colors">
@@ -931,6 +894,15 @@
                 }
                 paint(current());
                 applyBranding();
+                try {
+                    if (typeof user !== 'undefined' && user.currentJbFlavor !== 'GoldHEN') {
+                        user.currentJbFlavor = 'GoldHEN';
+                        storage.set('jailbreakFlavor', 'GoldHEN');
+                    }
+                    var ghv = (storage.getString('GHVer', 'GHv2.4b18.14') || 'GHv2.4b18.14').replace('GHv', '');
+                    var note = document.getElementById('lpHenNote');
+                    if (note) note.textContent = 'HEN: GoldHEN ' + ghv;
+                } catch (e) {}
                 // the language/layout code rewrites a few labels once it loads; put ours back
                 applyBranding();
                 if (window.MutationObserver) {

@@ -16,7 +16,7 @@ http://ps4.loopayeh.ir/
 https://ps4.loopayeh.ir/
 ```
 
-صفحه‌ی اصلی فریمور کنسول را خودکار تشخیص می‌دهد؛ مدل اکسپلویت (PSFree / BadHoist / CSSFontFace / Slopkit / Relapse / Afterglow / BPF) و نسخه HEN (GoldHEN یا PS4HEN) را انتخاب کن و روی لوگو بزن.
+صفحه‌ی اصلی فریمور کنسول را خودکار تشخیص می‌دهد؛ مدل اکسپلویت (PSFree / BadHoist / CSSFontFace / Slopkit / Relapse / Afterglow / BPF) و نسخه HEN (GoldHEN) را انتخاب کن و روی لوگو بزن.
 
 پشتیبانی: 4.50 – 5.07 و 6.70 – 14.02
 
