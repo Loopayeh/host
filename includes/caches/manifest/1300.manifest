@@ -1,4 +1,5 @@
 CACHE MANIFEST
+# loopayeh-skin
 # v4
 # Generated on 2026-11-14
 
@@ -17,6 +18,7 @@ CACHE:
 ../../../includes/css/colors/catppuccino.css
 ../../../includes/css/layouts/compact.css
 ../../../includes/css/layouts/index.css
+../../../includes/css/loopayeh.css
 ../../../includes/js/HENs.js
 ../../../includes/js/autoJbRetry.js
 ../../../includes/js/cache.js
