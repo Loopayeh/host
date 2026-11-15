@@ -6,8 +6,8 @@
 <title>PS4 Host · Loopayeh</title>
 <meta name="description" content="PS4 jailbreak host for 4.50 - 14.02">
 <link rel="icon" href="./includes/assets/icons/favicon.ico">
-<link rel="stylesheet" href="./includes/css/host.css">
 <script>var rtlLangs = ["ar", "fa"];</script>
+<link rel="stylesheet" href="./includes/css/host.css">
 <script>
     (function () {
         var isPS4 = navigator.userAgent.indexOf("PlayStation 4") !== -1;
@@ -34,39 +34,28 @@
     <div class="bar-right">
         <span class="pill" id="fwPill">در حال تشخیص…</span>
         <button class="icon-btn" id="cacheBtn" title="به‌روزرسانی کش">↻</button>
+        <button class="icon-btn" id="gearBtn" title="تنظیمات">⚙</button>
     </div>
 </header>
 
 <main id="initial-screen" class="wrap">
+    <section class="card hero">
+        <div class="hero-txt">
+            <h2>آمادهٔ جیلبریک</h2>
+            <p class="model">مدل اکسپلویت: <b id="modelName">—</b></p>
+            <p class="start-hint" id="startHint">بهترین حالت برای فریمور خودکار انتخاب شده است.</p>
+        </div>
+        <button class="start-btn" id="startBtn">
+            <svg class="ps-ico" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0.69 21.95C-0.5 22.79-0.28 24.24 2.45 25.14c2.73.9 5.9 1.09 8.7.59v-2.85l-2.71.92c-1.04.34-2.08.42-3.11.17-.8-.25-.64-.75.32-1.17l5.51-2.01v-3.1l-7.67 2.77c-.96.33-1.92.83-2.8 1.5zM19.21 9.37v8.14c3.27 1.68 5.83 0 5.83-4.36 0-4.45-1.52-6.46-5.91-8.05-2.32-.84-4.71-1.6-7.11-2.1V27.2l5.59 1.76V8.62c0-.92 0-1.59.64-1.34.88.25.96 1.17.96 2.09zm10.38 10.65c-2.31-.84-4.79-1.17-7.18-.92-1.33.09-2.58.48-3.83.92v3.27l5.19-2.01c1.04-.34 2.08-.42 3.11-.17.8.25.64.75-.32 1.17l-7.98 3.11v3.19l11.02-4.28c.8-.34 1.52-.75 2.16-1.43.56-.84.32-2.01-2.15-2.85z"/>
+            </svg>
+            <span>شروع</span>
+        </button>
+    </section>
+
     <section class="card">
         <div class="step-head">
             <span class="num">۱</span>
-            <h2>مدل اکسپلویت</h2>
-            <span class="hint" id="chainHint"></span>
-        </div>
-        <div class="row" id="chainGrid"></div>
-    </section>
-
-    <section class="card">
-        <div class="step-head">
-            <span class="num">۲</span>
-            <h2>جیلبریک</h2>
-            <span class="hint">HEN: GoldHEN <b id="ghVer">2.4b18.14</b></span>
-        </div>
-        <div class="start-wrap">
-            <button class="start-btn" id="startBtn">
-                <svg class="ps-ico" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0.69 21.95C-0.5 22.79-0.28 24.24 2.45 25.14c2.73.9 5.9 1.09 8.7.59v-2.85l-2.71.92c-1.04.34-2.08.42-3.11.17-.8-.25-.64-.75.32-1.17l5.51-2.01v-3.1l-7.67 2.77c-.96.33-1.92.83-2.8 1.5zM19.21 9.37v8.14c3.27 1.68 5.83 0 5.83-4.36 0-4.45-1.52-6.46-5.91-8.05-2.32-.84-4.71-1.6-7.11-2.1V27.2l5.59 1.76V8.62c0-.92 0-1.59.64-1.34.88.25.96 1.17.96 2.09zm10.38 10.65c-2.31-.84-4.79-1.17-7.18-.92-1.33.09-2.58.48-3.83.92v3.27l5.19-2.01c1.04-.34 2.08-.42 3.11-.17.8.25.64.75-.32 1.17l-7.98 3.11v3.19l11.02-4.28c.8-.34 1.52-.75 2.16-1.43.56-.84.32-2.01-2.15-2.85z"/>
-                </svg>
-                <span>شروع</span>
-            </button>
-            <p class="start-hint" id="startHint">مدل پیشنهادی خودکار انتخاب شده است؛ برای شروع روی دکمه بزن.</p>
-        </div>
-    </section>
-
-    <section class="card">
-        <div class="step-head">
-            <span class="num">۳</span>
             <h2>پیلودها</h2>
             <span class="hint">بعد از جیلبریک</span>
         </div>
@@ -88,6 +77,23 @@
         </div>
     </div>
 </section>
+
+<!-- settings sheet (hidden by default) -->
+<div class="sheet-backdrop hidden" id="sheetBack"></div>
+<aside class="sheet hidden" id="sheet">
+    <div class="sheet-head">
+        <h3>تنظیمات</h3>
+        <button class="icon-btn" id="sheetClose" title="بستن">×</button>
+    </div>
+    <div class="sheet-body">
+        <p class="sheet-label">مدل اکسپلویت</p>
+        <p class="hint" id="chainHint">خودکار بر اساس فریمور انتخاب می‌شود؛ معمولاً نیازی به تغییر نیست.</p>
+        <div class="row" id="chainGrid"></div>
+
+        <p class="sheet-label">GoldHEN</p>
+        <p class="hint">نسخه <b id="ghVer">2.4b18.14</b> · پیش‌فرض</p>
+    </div>
+</aside>
 
 <!-- engine compatibility nodes (never rendered) -->
 <div hidden>

@@ -1,6 +1,7 @@
 /* ==========================================================================
-   PS4 Host · Loopayeh — UI controller (from-scratch front end)
+   PS4 Host · Loopayeh — UI controller
    Drives the exploit engine (firmware.js / HENs.js / jailbreak.js / chains).
+   The exploit model is chosen automatically; the sheet is only a fallback.
    ========================================================================== */
 (function () {
     'use strict';
@@ -25,7 +26,11 @@
         if (typeof user !== 'undefined' && user.exploitChain !== null && user.exploitChain !== undefined) v = user.exploitChain;
         if (v === null) { try { v = storage.getNumber('exploitChain', null); } catch (e) { v = null; } }
         var f = fw();
-        if (v === null || isNaN(v)) v = f ? getDefaultChain(parseFloat(f)) : FIRMWARE_RANGES[0].id;
+        if (v === null || isNaN(v)) v = f ? getDefaultChain(parseFloat(f)) : null;
+        if (v === null) {
+            var av = availableChains();
+            v = av.length ? av[0] : FIRMWARE_RANGES[0].id;
+        }
         return v;
     }
 
@@ -35,19 +40,22 @@
         try { storage.set('exploitChain', String(id)); } catch (e) {}
     }
 
-    function loadExploitChain() {
-        paintChains(currentChain());
-    }
+    function loadExploitChain() { paintChains(currentChain()); }
 
     function chainLabel(id) {
         for (var i = 0; i < FIRMWARE_RANGES.length; i++) {
             if (FIRMWARE_RANGES[i].id === Number(id)) return FIRMWARE_RANGES[i].label;
         }
-        return '—';
+        return '\u2014';
     }
 
     function rangeLabel(r) {
-        return r.min === r.max ? String(r.min) : (r.min + ' – ' + r.max);
+        return r.min === r.max ? String(r.min) : (r.min + ' \u2013 ' + r.max);
+    }
+
+    function paintModel() {
+        var n = el('modelName');
+        if (n) n.textContent = chainLabel(currentChain());
     }
 
     function paintChains(id) {
@@ -55,6 +63,7 @@
         for (var i = 0; i < items.length; i++) {
             items[i].classList.toggle('on', Number(items[i].getAttribute('data-id')) === Number(id));
         }
+        paintModel();
     }
 
     function buildChains() {
@@ -79,9 +88,8 @@
             };
             box.appendChild(b);
         });
-
         if (!avail.length) {
-            box.innerHTML = '<div class="hint">برای این فریمور مدلی تعریف نشده است.</div>';
+            box.innerHTML = '<div class="hint">\u0645\u062f\u0644\u06cc \u0628\u0631\u0627\u06cc \u0627\u06cc\u0646 \u0641\u0631\u06cc\u0645\u0648\u0631 \u062a\u0639\u0631\u06cc\u0641 \u0646\u0634\u062f\u0647 \u0627\u0633\u062a.</div>';
         }
         paintChains(currentChain());
     }
@@ -89,19 +97,23 @@
     /* -------------------------------------------------------------- firmware */
     function paintFw() {
         var pill = el('fwPill');
-        var hint = el('chainHint');
+        var hint = el('startHint');
         var f = fw();
         if (!pill) return;
         if (!f) {
-            pill.textContent = 'روی PS4 باز کن';
+            pill.textContent = '\u0631\u0648\u06cc PS4 \u0628\u0627\u0632 \u06a9\u0646';
             pill.className = 'pill bad';
-            if (hint) hint.textContent = 'این هاست روی کنسول اجرا می‌شود';
+            if (hint) hint.textContent = '\u0627\u06cc\u0646 \u0647\u0627\u0633\u062a \u0631\u0648\u06cc \u06a9\u0646\u0633\u0648\u0644 \u0627\u062c\u0631\u0627 \u0645\u06cc\u200c\u0634\u0648\u062f.';
             return;
         }
         var ok = isFirmwareSupported(parseFloat(f));
-        pill.textContent = 'فریمور ' + f;
+        pill.textContent = '\u0641\u0631\u06cc\u0645\u0648\u0631 ' + f;
         pill.className = 'pill ' + (ok ? 'ok' : 'bad');
-        if (hint) hint.textContent = ok ? ('مدل پیشنهادی برای ' + f + ': ' + chainLabel(getDefaultChain(parseFloat(f)))) : 'فریمور پشتیبانی نمی‌شود';
+        if (hint) {
+            hint.textContent = ok
+                ? '\u0628\u0647\u062a\u0631\u06cc\u0646 \u062d\u0627\u0644\u062a \u0628\u0631\u0627\u06cc \u0641\u0631\u06cc\u0645\u0648\u0631 ' + f + ' \u062e\u0648\u062f\u06a9\u0627\u0631 \u0627\u0646\u062a\u062e\u0627\u0628 \u0634\u062f\u0647 \u0627\u0633\u062a.'
+                : '\u0627\u06cc\u0646 \u0641\u0631\u06cc\u0645\u0648\u0631 \u067e\u0634\u062a\u06cc\u0628\u0627\u0646\u06cc \u0646\u0645\u06cc\u200c\u0634\u0648\u062f.';
+        }
     }
 
     function paintHen() {
@@ -113,10 +125,10 @@
 
     /* ---------------------------------------------------------------- payload */
     var PAY_TABS = [
-        ['tools', 'ابزارها'],
-        ['homebrew', 'هوم‌برو'],
-        ['linux', 'لینوکس'],
-        ['advanced', 'پیشرفته']
+        ['tools', '\u0627\u0628\u0632\u0627\u0631\u0647\u0627'],
+        ['homebrew', '\u0647\u0648\u0645\u200c\u0628\u0631\u0648'],
+        ['linux', '\u0644\u06cc\u0646\u0648\u06a9\u0633'],
+        ['advanced', '\u067e\u06cc\u0634\u0631\u0641\u062a\u0647']
     ];
     var currentTab = 'tools';
 
@@ -129,10 +141,10 @@
             PAY_TABS.forEach(function (t) {
                 var b = document.createElement('button');
                 b.type = 'button';
-                b.className = 'chip' + (t[0] === currentTab ? ' on' : '');
+                b.className = 'chip';
                 b.textContent = t[1];
-                b.onclick = function () { renderPayloads(t[0]); };
                 b.setAttribute('data-tab', t[0]);
+                b.onclick = function () { renderPayloads(t[0]); };
                 tabs.appendChild(b);
             });
         }
@@ -158,8 +170,6 @@
             if (p.specificFW) {
                 var fwTag = document.createElement('span'); fwTag.textContent = p.specificFW; card.appendChild(fwTag);
             }
-            var tag = document.createElement('em'); tag.className = 'tag'; tag.textContent = p.category; card.appendChild(tag);
-
             card.onclick = function () { sendPayload(p); };
             grid.appendChild(card);
         });
@@ -167,19 +177,31 @@
 
     function sendPayload(p) {
         if (!isPS4Console()) {
-            alert('پیلودها فقط از روی کنسول (یا با IP کنسول) ارسال می‌شوند.');
+            alert('\u067e\u06cc\u0644\u0648\u062f\u0647\u0627 \u0641\u0642\u0637 \u0627\u0632 \u0631\u0648\u06cc \u06a9\u0646\u0633\u0648\u0644 \u0627\u0631\u0633\u0627\u0644 \u0645\u06cc\u200c\u0634\u0648\u0646\u062f.');
             return;
         }
         if (p.id === 'FanThreshold') { askFan(); return; }
-        try { Loadpayloads(p); } catch (e) { alert('ارسال نشد: ' + e.message); }
+        try { Loadpayloads(p); } catch (e) { alert('\u0627\u0631\u0633\u0627\u0644 \u0646\u0634\u062f: ' + e.message); }
     }
 
     function askFan() {
-        var t = prompt('دمای فن را انتخاب کن: 60 / 70 / 80 / 85', '70');
+        var t = prompt('\u062f\u0645\u0627\u06cc \u0641\u0646 \u0631\u0627 \u0627\u0646\u062a\u062e\u0627\u0628 \u06a9\u0646: 60 / 70 / 80 / 85', '70');
         if (!t) return;
         t = String(t).trim();
         if (['60', '70', '80', '85'].indexOf(t) === -1) return;
         loadFanThreshold(t);
+    }
+
+    /* ------------------------------------------------------------- settings */
+    function openSheet() {
+        var s = el('sheet'), b = el('sheetBack');
+        if (s) s.classList.remove('hidden');
+        if (b) b.classList.remove('hidden');
+    }
+    function closeSheet() {
+        var s = el('sheet'), b = el('sheetBack');
+        if (s) s.classList.add('hidden');
+        if (b) b.classList.add('hidden');
     }
 
     /* ------------------------------------------------------------------- run */
@@ -201,14 +223,21 @@
         var run = el('exploit-main-screen');
         if (home) home.classList.add('hidden');
         if (run) run.classList.remove('hidden');
-        setBadge('', 'در حال جیلبریک…', true);
-        window.scrollTo(0, 0);
+        var resetScroll = function () {
+            document.documentElement.scrollLeft = 0;
+            document.body.scrollLeft = 0;
+            window.scrollTo(0, 0);
+        };
+        resetScroll();
+        setTimeout(resetScroll, 60);
+        setTimeout(resetScroll, 320);
+        setBadge('', '\u062f\u0631 \u062d\u0627\u0644 \u062c\u06cc\u0644\u0628\u0631\u06cc\u06a9\u2026', true);
     }
 
     function startJailbreak() {
         if (typeof user !== 'undefined' && user.blockJailbreak) return;
         if (!isPS4Console() && typeof devMode === 'undefined') {
-            setBadge('bad', 'فقط روی کنسول');
+            setBadge('bad', '\u0641\u0642\u0637 \u0631\u0648\u06cc \u06a9\u0646\u0633\u0648\u0644');
             return;
         }
         if (typeof user !== 'undefined') user.blockJailbreak = true;
@@ -217,7 +246,7 @@
             if (typeof chooseHEN === 'function') chooseHEN();
             jailbreak();
         } catch (e) {
-            setBadge('bad', 'خطا: ' + (e && e.message ? e.message : e));
+            setBadge('bad', '\u062e\u0637\u0627: ' + (e && e.message ? e.message : e));
         }
     }
 
@@ -234,10 +263,21 @@
             window.location.href = (typeof testModeUrl === 'function') ? testModeUrl('./cache.html') : './cache.html';
         };
 
+        var gear = el('gearBtn');
+        if (gear) gear.onclick = openSheet;
+        var sc = el('sheetClose');
+        if (sc) sc.onclick = closeSheet;
+        var sb = el('sheetBack');
+        if (sb) sb.onclick = closeSheet;
+
         if (typeof user !== 'undefined') {
             user.currentJbFlavor = HEN;
             try { storage.set('jailbreakFlavor', HEN); } catch (e) {}
         }
+        if (typeof user !== 'undefined' && (user.exploitChain === null || isNaN(user.exploitChain))) {
+            exploitChain(currentChain());
+        }
+
         paintFw();
         paintHen();
         buildChains();
@@ -248,12 +288,18 @@
         if (typeof storage === 'undefined' || typeof FIRMWARE_RANGES === 'undefined') return;
         if (window.abortLoading) return;
 
+        window.exploitChain = exploitChain;
+        window.loadExploitChain = loadExploitChain;
+
         try { CheckFW(); } catch (e) { console.warn('CheckFW', e); }
 
-        var afterLang = function () {
-            try { if (typeof autoJailbreak === 'function') autoJailbreak(); } catch (e) { console.warn('autoJb', e); }
-        };
+        var arming = false;
+        try { arming = storage.session.getBoolean('jailbreakNow', false); } catch (e) {}
+        if (arming) showRun();
 
+        var afterLang = function () {
+            try { if (typeof autoJailbreak === 'function') autoJailbreak(); } catch (e) {}
+        };
         if (typeof initLanguage === 'function') {
             initLanguage().then(afterLang, afterLang);
         } else {
@@ -262,12 +308,23 @@
 
         bind();
 
-        // Persian status on a successful exploit, whatever the chain reported
+        var st = el('state');
+        if (st && window.MutationObserver) {
+            new MutationObserver(function () {
+                var t = (st.textContent || '').trim();
+                if (!t) return;
+                if (/DONE|success/i.test(t)) setBadge('ok', '\u062c\u06cc\u0644\u0628\u0631\u06cc\u06a9 \u0634\u062f');
+                else if (/Restored/i.test(t)) setBadge('', '\u0628\u0631\u06af\u0634\u062a \u0628\u0647 \u0635\u0641\u062d\u0647 \u0634\u0631\u0648\u0639\u2026', true);
+                else if (/Restart/i.test(t)) setBadge('bad', '\u06a9\u0646\u0633\u0648\u0644 \u0631\u0627 \u0631\u06cc\u200c\u0627\u0633تارت \u06a9ن');
+                else if (/Refresh/i.test(t)) setBadge('bad', '\u062e\u0637ا\u061b \u0635فحه \u0631ا \u0631\u0641\u0631\u0634 \u06a9\u0646');
+            }).observe(st, { childList: true, characterData: true, subtree: true });
+        }
+
         var orig = window.jailbreakSuccess;
         if (typeof orig === 'function' && !orig.__lp) {
             var wrapped = function () {
                 try { orig.apply(this, arguments); } catch (e) {}
-                setBadge('ok', 'جیلبریک شد');
+                setBadge('ok', '\u062c\u06cc\u0644\u0628\u0631\u06cc\u06a9 \u0634\u062f');
             };
             wrapped.__lp = true;
             window.jailbreakSuccess = wrapped;

@@ -22,6 +22,7 @@
 
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
+html{overflow-x:hidden}
 body{
   background:var(--bg);
   color:var(--txt);
@@ -185,17 +186,44 @@ footer{
   .grid{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
 }
 
-/* -------------------------------------------------- wide screens (TV / PC) */
-@media (min-width:1000px){
-  #initial-screen{
-    grid-template-columns:1.15fr .85fr;
-    align-items:start;
-  }
-  #initial-screen > section:nth-of-type(3),
-  #initial-screen > footer{grid-column:1 / -1}
-  #initial-screen > section:nth-of-type(2) .start-wrap{
-    flex-direction:column; align-items:flex-start; gap:16px;
-  }
-  #initial-screen > section:nth-of-type(2) .start-btn{width:100%; justify-content:center}
-  .start-hint{max-width:none}
+/* ------------------------------------------------------------------- hero */
+.hero{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:26px; flex-wrap:wrap;
+  background:linear-gradient(150deg,#121b2b 0%, #0d1421 60%);
 }
+.hero-txt h2{font-size:27px; font-weight:800; letter-spacing:-.01em}
+.hero-txt .model{margin-top:9px; font-size:14.5px; color:var(--mut)}
+.hero-txt .model b{color:var(--txt); font-weight:800}
+.hero .start-hint{margin-top:10px; max-width:520px}
+
+/* ------------------------------------------------------------------ sheet */
+.sheet{
+  position:fixed; top:0; right:0; bottom:0; width:390px; max-width:94vw;
+  background:linear-gradient(180deg,#101725,#0b111c);
+  border-left:1px solid var(--line);
+  padding:20px 20px 34px; overflow-y:auto; z-index:60;
+  box-shadow:-30px 0 60px -40px #000;
+}
+.sheet-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:6px}
+.sheet-head h3{font-size:18px; font-weight:800}
+.sheet-label{margin:20px 0 8px; font-size:12.5px; font-weight:800; color:var(--mut); letter-spacing:.04em}
+.sheet .hint{margin:0 0 10px; font-size:12.5px; line-height:1.7}
+.sheet .chip{font-size:13px; padding:9px 13px}
+.sheet .chip small{font-size:11px}
+.sheet-backdrop{position:fixed; inset:0; background:rgba(3,5,9,.62); z-index:55}
+
+@media (min-width:1100px){
+  .hero{padding:30px 34px}
+  .hero-txt h2{font-size:31px}
+}
+
+/* notice the exploit chains append to the page */
+.notice{
+  position:fixed; left:50%; bottom:22px; transform:translateX(-50%);
+  max-width:86vw; padding:13px 20px; border-radius:14px; z-index:80;
+  background:#2a1216; color:#ffdada; border:1px solid rgba(247,140,140,.45);
+  font-size:14px; font-weight:700; text-align:center;
+  box-shadow:0 20px 40px -30px #000;
+}
+body.fail .notice{display:block}
