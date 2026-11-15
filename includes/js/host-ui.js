@@ -93,7 +93,7 @@
         var f = fw();
         if (!pill) return;
         if (!f) {
-            pill.textContent = 'شیطونک، PS4 نیستی';
+            pill.textContent = 'روی PS4 باز کن';
             pill.className = 'pill bad';
             if (hint) hint.textContent = 'این هاست روی کنسول اجرا می‌شود';
             return;
