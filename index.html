@@ -872,8 +872,9 @@
                 ];
                 for (var i = 0; i < map.length; i++) {
                     var el = document.querySelector(map[i][0]);
-                    if (el) el.textContent = map[i][1];
+                    if (el && el.textContent !== map[i][1]) el.textContent = map[i][1];
                 }
+                document.title = 'PS4 Host \u00b7 Loopayeh';
             }
 
             function boot() {
@@ -930,12 +931,17 @@
                 }
                 paint(current());
                 applyBranding();
-                // the language pack rewrites a few labels once it loads; put ours back
+                // the language/layout code rewrites a few labels once it loads; put ours back
+                applyBranding();
+                if (window.MutationObserver) {
+                    new MutationObserver(function () { applyBranding(); })
+                        .observe(document.body, { childList: true, subtree: true, characterData: true });
+                }
                 var ticks = 0;
                 var timer = setInterval(function () {
                     applyBranding();
                     if (++ticks > 20) clearInterval(timer);
-                }, 300);
+                }, 400);
             }
             if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
             else boot();

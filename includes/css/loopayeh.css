@@ -199,6 +199,6 @@ label{color:#cfd8e6;}
 /* ------------------------------------------------------- PS4 / TV sizing */
 @media (min-width:1200px){
   .lp-brand h1{font-size:27px;}
-  .lp-chain{max-width:720px;}
+  .lp-brand,.lp-chain,#choosejb-initial{max-width:720px;}
   #initial-screen{font-size:18px;}
 }
