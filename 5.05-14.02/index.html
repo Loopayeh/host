@@ -1,0 +1,257 @@
+<html lang="en">
+    <head>
+        <meta charset='utf-8'>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PS4 Jailbreak · 5.05 – 14.02</title>
+        <link rel="stylesheet" href="includes/style.css">
+        <script>
+            var uaFull = navigator.userAgent;
+            var match = uaFull.match(/PlayStation 4[ /]([\d.]+)/i);
+            var isPS4 = match !== null;
+            var fwVersion = isPS4 ? match[1] : "Unknown";
+            var fwNum = parseFloat(fwVersion);
+
+            function onScriptError() {
+                msgs.innerHTML = "Cache not found. Clear the browser data and open the host again.";
+            }
+
+            if (!isPS4) {
+                document.addEventListener("DOMContentLoaded", () => {
+                    msgs.innerHTML = "Only for PS4 consoles on firmware 5.05 to 14.02";
+                });
+				} else {
+					if (window.applicationCache.status == '0') {
+						if (fwNum == 5.05 || fwNum == 5.07) {
+							window.location.replace("cache505.html");
+						} else if (fwNum >= 6.70 && fwNum <= 6.72) {
+							window.location.replace("cache700.html");
+						} else if (fwNum >= 7.00 && fwNum <= 8.52) {
+							window.location.replace("cache700.html");
+						} else if (fwNum >= 9.00 && fwNum <= 9.60) {
+							window.location.replace("cache900.html");
+						} else if (fwNum >= 10.00 && fwNum <= 11.02) {
+							window.location.replace("cachecss.html");
+						} else if (fwNum >= 11.50 && fwNum <= 14.00) {
+							window.location.replace("cacheslopkit.html");
+						} else if (fwNum >= 14.02 && fwNum <= 14.02) {
+							window.location.replace("cacheafterglow.html");
+						} else {
+							document.addEventListener("DOMContentLoaded", () => {
+								msgs.innerHTML = 'Unsupported Firmware: ' + fwVersion;
+							});
+						}
+                } else {
+                    if (fwNum == 5.05 || fwNum == 5.07) {
+                        var script = document.createElement('script');
+                        script.src = "505/exploit.js";
+                        script.onerror = onScriptError;
+                        document.head.appendChild(script);
+                    }
+                    else if (fwNum >= 6.70 && fwNum <= 6.72) {
+                        var script = document.createElement('script');
+                        script.src = "672/672entrypoint.js";
+                        script.onerror = onScriptError;
+                        script.onload = function () {
+                            var mainScript = document.createElement('script');
+                            mainScript.src = "672/main.js";
+                            mainScript.onerror = onScriptError;
+                            mainScript.onload = function () {
+                                setTimeout(function () {
+                                    if (typeof doJailBreak === "function") {
+                                        doJailBreak();
+                                    }
+                                }, 500);
+                            };
+                            document.head.appendChild(mainScript);
+                        };
+                        document.head.appendChild(script);
+                    }
+                    else if (fwNum >= 7.00 && fwNum <= 8.52) {
+                        var script = document.createElement('script');
+                        script.type = 'module';
+                        script.src = "700/alert.js";
+                        script.onerror = onScriptError;
+                        document.head.appendChild(script);
+                    }
+                    else if (fwNum >= 9.00 && fwNum <= 9.60) {
+                        var script = document.createElement('script');
+                        script.type = 'module';
+                        script.src = "900/alert.js";
+                        script.onerror = onScriptError;
+                        document.head.appendChild(script);
+                    }
+                    else if (fwNum >= 10.00 && fwNum <= 11.02) {
+                        var script = document.createElement('script');
+                        script.src = "css/main.js";
+                        script.onerror = onScriptError;
+                        script.onload = function () {
+                            setTimeout(function () {
+                                doJb();
+                            }, 500);
+                        };
+                        document.head.appendChild(script);
+                    }
+                    else if (fwNum >= 11.50 && fwNum <= 12.02) {
+                        var script = document.createElement('script');
+                        script.type = 'module';
+                        script.src = "slopkit/chain_lapse.js";
+                        script.onerror = onScriptError;
+                        document.head.appendChild(script);
+                    }
+                    else if (fwNum >= 12.50 && fwNum <= 13.00) {
+                        var script = document.createElement('script');
+                        script.type = 'module';
+                        script.src = "slopkit/chain_poops.js";
+                        script.onerror = onScriptError;
+                        document.head.appendChild(script);
+                    }
+                    else if (fwNum >= 13.02 && fwNum <= 13.52) {
+                        var script = document.createElement('script');
+                        script.type = 'module';
+                        script.src = "slopkit/jb.js?v=19";
+                        script.onerror = onScriptError;
+                        document.head.appendChild(script);
+                    }
+                    else if (fwNum == 14.00) {
+                        var script = document.createElement('script');
+                        script.type = 'module';
+                        script.src = "slopkit/jb2.js";
+                        script.onerror = onScriptError;
+                        document.head.appendChild(script);
+                    }
+                    else if (fwNum == 14.02) {
+                        var script = document.createElement('script');
+                        script.type = 'module';
+                        script.src = "afterglow/jb.js?afterglow=1";
+                        script.onerror = onScriptError;
+                        document.head.appendChild(script);
+                    }
+                }
+            }
+        </script>
+        <style>
+            :root{
+                --txt:#f2f5fb; --mut:#98a2b6; --acc:#7cc2ff; --acc2:#b693f1;
+                --ok:#6fe3a4; --bad:#f58b8b; --warn:#f3cf7a;
+                --glass:linear-gradient(150deg,rgba(255,255,255,.11),rgba(255,255,255,.035));
+                --stroke:rgba(255,255,255,.14);
+            }
+            *{box-sizing:border-box;margin:0;padding:0}
+            html,body{height:100%}
+            body{position:relative;overflow:hidden;min-height:100vh;display:flex;align-items:center;justify-content:center;
+                padding:26px 16px;background:#08080c;color:var(--txt);
+                font:16px/1.6 system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif}
+            /* aurora backdrop */
+            .aurora{position:fixed;inset:0;z-index:0;pointer-events:none;
+                background:
+                    radial-gradient(620px 420px at 12% -6%, rgba(79,142,247,.26), transparent 62%),
+                    radial-gradient(560px 460px at 92% 108%, rgba(139,92,246,.24), transparent 62%),
+                    radial-gradient(520px 520px at 78% 6%, rgba(56,189,248,.12), transparent 60%),
+                    radial-gradient(500px 500px at 6% 96%, rgba(236,72,153,.10), transparent 60%);}
+            .grid{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.22;
+                background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),
+                                 linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+                background-size:44px 44px;
+                -webkit-mask-image:radial-gradient(circle at 50% 40%,#000 0%,transparent 78%);
+                mask-image:radial-gradient(circle at 50% 40%,#000 0%,transparent 78%);}
+            .card{position:relative;z-index:1;width:100%;max-width:470px;border-radius:26px;
+                padding:30px 26px 26px;text-align:center;
+                background:var(--glass);border:1px solid var(--stroke);
+                -webkit-backdrop-filter:blur(22px) saturate(160%);
+                backdrop-filter:blur(22px) saturate(160%);
+                box-shadow:0 26px 60px -32px rgba(0,0,0,.92), inset 0 1px 0 rgba(255,255,255,.13)}
+            .mark{width:52px;height:52px;margin:0 auto 14px;border-radius:15px;overflow:hidden;border:1px solid rgba(255,255,255,.16);box-shadow:0 10px 24px -16px rgba(0,0,0,.85), inset 0 1px 0 rgba(255,255,255,.18)}
+            .mark img{width:100%;height:100%;object-fit:cover;display:block}
+            h1{font-size:21px;font-weight:700;letter-spacing:.01em}
+            .sub{color:var(--mut);font-size:13px;margin-top:5px}
+            .fwchip{display:inline-flex;align-items:center;gap:7px;margin-top:14px;padding:6px 14px;border-radius:999px;
+                font-size:12px;font-weight:600;color:var(--acc);
+                background:rgba(124,194,255,.10);border:1px solid rgba(124,194,255,.30)}
+            .status{display:inline-flex;align-items:center;gap:9px;margin:20px auto 4px;padding:11px 20px;border-radius:999px;
+                font-size:14px;font-weight:700;letter-spacing:.01em;
+                border:1px solid var(--stroke);background:rgba(255,255,255,.05);color:var(--txt);
+                transition:background .3s,border-color .3s,color .3s}
+            .status .sdot{width:9px;height:9px;border-radius:50%;background:currentColor;flex:none}
+            .status.busy{color:var(--acc);border-color:rgba(124,194,255,.42);background:rgba(124,194,255,.12);
+                box-shadow:0 8px 20px -14px rgba(0,0,0,.7)}
+            .status.busy .sdot{animation:blink 1.1s ease-in-out infinite}
+            .status.ok{color:var(--ok);border-color:rgba(111,227,164,.45);background:rgba(111,227,164,.12);
+                box-shadow:0 8px 20px -14px rgba(0,0,0,.7)}
+            .status.err{color:var(--bad);border-color:rgba(245,139,139,.45);background:rgba(245,139,139,.12);
+                box-shadow:0 8px 20px -14px rgba(0,0,0,.7)}
+            .status.warn{color:var(--warn);border-color:rgba(243,207,122,.45);background:rgba(243,207,122,.12)}
+            @keyframes blink{0%,100%{opacity:.25}50%{opacity:1}}
+            #console{margin-top:18px;height:132px;overflow:auto;padding:13px;border-radius:16px;text-align:left;
+                direction:ltr;background:rgba(4,6,12,.55);border:1px solid rgba(255,255,255,.09);
+                font:12.5px/1.55 ui-monospace,Menlo,Consolas,monospace;color:#c9d4e6;white-space:pre-wrap}
+            .hidden-msgs{position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;opacity:0}
+            /* larger sizing for TV viewing */
+            body{font-size:19px}
+            .card{max-width:560px;padding:38px 32px 32px;border-radius:30px}
+            .mark{width:70px;height:70px;border-radius:20px;margin-bottom:18px;overflow:hidden;border:1px solid rgba(255,255,255,.16)}
+            .mark img{width:100%;height:100%;object-fit:cover;display:block}
+            h1{font-size:28px}
+            .sub{font-size:16px;margin-top:7px}
+            .fwchip{font-size:14px;padding:8px 18px;margin-top:18px}
+            .status{font-size:17px;padding:14px 26px;margin:24px auto 4px;gap:11px}
+            .status .sdot{width:11px;height:11px}
+            #console{font-size:14.5px;height:180px;padding:16px;border-radius:18px;margin-top:22px}
+        </style>
+    </head>
+    <body>
+        <div class="aurora"></div>
+        <div class="grid"></div>
+
+        <div class="card">
+            <div class="mark">
+                <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAQDAwQDAwQEAwQFBAQFBgoHBgYGBg0JCggKDw0QEA8NDw4RExgUERIXEg4PFRwVFxkZGxsbEBQdHx0aHxgaGxr/2wBDAQQFBQYFBgwHBwwaEQ8RGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhr/wAARCACgAKADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD8/wCiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKK+w/2Y/wBirUfiIbTxV8UobjSPChxJa2BzHcaiOoJ7xxH1+8w6YBDV53+2fo2neHfj9rWlaFZQadptnY2EVtbW8YSOJBax4AA6UAeAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFSQQtcTxwpgNIwUZ6ZJxQBLp+n3erX1vY6XazXt7cyCKCCCMvJI5OAqqOST6Cv0b/AGYv2IbTwqLHxd8YraK/10Yls9FbDwWZ6hpu0kg/u8qv+0enrP7OX7Knhv4FWSajdeVrnjOaPFxqbp8sAI5jgU/dXsW+83fA+UfQNABX5Hft0/8AJyfib/r2sf8A0mjr9ca/I79un/k5PxN/17WP/pNHQB85UUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFWtM/5CVn/13T/0IVVq1pn/ACErP/run/oQoA/fQUUCigAr8jv26f8Ak5PxN/17WP8A6TR1+uNfkd+3T/ycn4m/69rH/wBJo6APnKiiigAooooAKKKKACiiigAooooAKKKKACiiigAq1pn/ACErP/run/oQqrVrTP8AkJWf/XdP/QhQB++gooFFABX5Hft0/wDJyfib/r2sf/SaOv1xr8jv26f+Tk/E3/XtY/8ApNHQB85UUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFWtM/wCQlZ/9d0/9CFVataZ/yErP/run/oQoA/fQUUCigAr8jv26f+Tk/E3/AF7WP/pNHX63TTR20Mk1xIkUMal3d2CqqgZJJPQAV+Q37Sl7L8bfjn4r1/4XaZqnibR4/s9t9qsLCSZC0cKoWG0H5SUbaTjIGRQB8+0V1/8Awqnx7/0JHiX/AME1x/8AEUf8Kp8e/wDQkeJf/BNcf/EUAchRXX/8Kp8e/wDQkeJf/BNcf/EUf8Kp8e/9CR4l/wDBNcf/ABFAHIUV1/8Awqnx7/0JHiX/AME1x/8AEUf8Kp8e/wDQkeJf/BNcf/EUAchRXR6n8PvF2iWMt9rXhbXNOsYseZcXWmzRRpk4GWZQBknFc5QAUUUUAFFFFABRRRQAVa0z/kJWf/XdP/QhVWrWmf8AISs/+u6f+hCgD99BTJZY4InlndYoo1LO7tgKBySSegokkSGJ5JnWONFLMzHAUDqSewr4k+JPxG8S/tZeMrn4WfBO5ey8CWjgeJfEig+XOmeUQjGUOCAoOZCOyAkgEfxI+I3iX9rfxncfC74KXL2PgGzcDxH4jAOy4TPKKeMocEKoOZCMnCAk/WXwz+Gfh34S+ErPw14Nsxa2NuN0kjYMtxKR80sjfxMcfQDAAAAFHwz+Gfh34S+ErPw14Nsxa2NuN0kjYMtxKR80sjfxMcfQDAAAAFdhQAUUUUAFFFFABWR4o8UaR4L0C/17xRfw6ZpNhEZbi4mOAo9PUknAAHJJAGSaPFHijSPBegX+veKL+HTdJsIjLcXExwFHp6kk4AA5JIA5Nfkp+0z+0zq/x51/7NZ+dpvgywlJ0/Ty2DKennzY4LkdB0UHA5JJAF/aY/ab1n48a8bWyM+meC7GUmw04tgykcefNjguR0HIQHA5JJ8CoooAKKKKACiiigAooooAKtaaQNRsySAPPTJJwB8wqrRQB+knxK+I/iX9q7xlc/Cv4I3TWXge0YL4m8SqD5cyZwY0IxlDggKDmQjsgJP1V8Mvhl4d+EnhKz8NeDbMWtlbjdJI2DLcSkfNLI38THH0AwAAABX46eDfjr8RPh9ow0bwV4pvNE0wStL5Fskagu2MsTtyTwOSegAroP8Ahq74z/8ARQdX/OP/AOJoA/Zuivxk/wCGrvjP/wBFB1f84/8A4mj/AIau+M//AEUHV/zj/wDiaAP2bor8ZP8Ahq74z/8ARQdX/OP/AOJo/wCGrvjP/wBFB1f84/8A4mgD9m6yPFHijSPBegX+veKL+HTdJsIjLcXExwFHoO5JOAAOSSAOTX49/wDDV3xn/wCig6v+cf8A8TXMeN/jT4/+JGnwaf448VajrVjBL50dvO4CB8Y3FVABIBOM9MnHWgD0H9pn9pnV/jzr/wBms/O03wZYSk6fp5bBlPTz5scFyOg6KDgckk+BUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFAH//2Q==" alt="Loopayeh">
+            </div>
+            <h1>PS4 Jailbreak</h1>
+            <p class="sub">Firmware 5.05 &ndash; 14.02</p>
+            <div class="fwchip" id="fwchip">Detecting firmware&hellip;</div>
+
+            <div class="status busy" id="status"><span class="sdot"></span><span id="statusText">Starting&hellip;</span></div>
+
+            <pre id="console">Ready. Waiting for the exploit&hellip;</pre>
+        </div>
+
+        <div id="msgs" class="hidden-msgs">Starting the exploit&hellip; please wait</div>
+
+        <script>
+        (function () {
+            var msgsEl = document.getElementById("msgs");
+            var stEl = document.getElementById("status");
+            var stTxt = document.getElementById("statusText");
+            var chip = document.getElementById("fwchip");
+            var last = null;
+
+            var m = (navigator.userAgent.match(/PlayStation 4[ /]([\d.]+)/i) || [])[1];
+            chip.textContent = m ? ("PS4 \u00b7 firmware " + m) : "Not a PS4";
+
+            function classify(t) {
+                t = (t || "").toLowerCase();
+                if (t.indexOf("unsupported") > -1) return ["err", "Unsupported firmware"];
+                if (t.indexOf("cache not found") > -1) return ["err", "Cache not found"];
+                if (t.indexOf("only for") > -1) return ["warn", "PS4 only"];
+                if (t.indexOf("failed") > -1 || t.indexOf("error") > -1) return ["err", "Not jailbroken"];
+                if (t.indexOf("already") > -1) return ["ok", "Already jailbroken"];
+                if (t.indexOf("loaded") > -1 || t.indexOf("succeeded") > -1) return ["ok", "Jailbroken"];
+                return ["busy", "Jailbreaking\u2026"];
+            }
+            function apply() {
+                var res = classify(msgsEl.textContent);
+                var key = res[0] + "|" + res[1];
+                if (key === last) return;
+                last = key;
+                stEl.className = "status " + res[0];
+                stTxt.textContent = res[1];
+            }
+            if (window.MutationObserver) {
+                new MutationObserver(apply).observe(msgsEl, { childList: true, characterData: true, subtree: true });
+            }
+            setInterval(apply, 400);
+            apply();
+        })();
+        </script>
+    </body>
+</html>

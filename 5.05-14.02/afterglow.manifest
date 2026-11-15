@@ -1,0 +1,21 @@
+CACHE MANIFEST
+# loopayeh-rev: 5
+
+CACHE:
+includes/img.jpg
+includes/style.css
+payload.bin
+hen.bin
+patchset-1402.bin
+index.html
+afterglow/afterglow.js
+afterglow/core.js
+afterglow/int64.js
+afterglow/jb.js
+afterglow/mem.js
+afterglow/patchset-1402.bin
+afterglow/ps4_offsets.js
+
+
+NETWORK:
+*
