@@ -843,6 +843,16 @@
 
     <script>
         (function () {
+            // keep our labels even after the language pack loads
+            if (typeof initLanguage === 'function') {
+                var __lpInitLanguage = initLanguage;
+                initLanguage = function () {
+                    var r = __lpInitLanguage.apply(this, arguments);
+                    if (r && typeof r.then === 'function') { r.then(applyBranding, applyBranding); }
+                    else { setTimeout(applyBranding, 60); }
+                    return r;
+                };
+            }
             function applyBranding() {
                 document.title = 'PS4 Host · Loopayeh';
                 window.projectName = 'PS4 Host';
@@ -924,7 +934,7 @@
                 var ticks = 0;
                 var timer = setInterval(function () {
                     applyBranding();
-                    if (++ticks > 12) clearInterval(timer);
+                    if (++ticks > 20) clearInterval(timer);
                 }, 300);
             }
             if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
