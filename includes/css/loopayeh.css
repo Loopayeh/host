@@ -1,0 +1,204 @@
+/* ==========================================================================
+   Loopayeh skin for the exploit host  (loaded after the layout/colour sheets)
+   Only overrides the look: layout, ids and behaviour stay untouched.
+   ========================================================================== */
+
+:root{
+  --lp-txt:#f2f5fb;
+  --lp-mut:#98a2b6;
+  --lp-acc:#7cc2ff;
+  --lp-acc2:#b693f1;
+  --lp-ok:#6fe3a4;
+  --lp-bad:#f58b8b;
+  --lp-warn:#f3cf7a;
+  --lp-surface:linear-gradient(150deg,rgba(255,255,255,.10),rgba(255,255,255,.03));
+  --lp-stroke:rgba(255,255,255,.13);
+  --lp-sh:0 26px 60px -32px rgba(0,0,0,.92), inset 0 1px 0 rgba(255,255,255,.13);
+}
+
+html,body{
+  background:#08080c !important;
+  color:var(--lp-txt) !important;
+  font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif !important;
+}
+
+body::before{
+  content:"";
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(760px 520px at 12% -6%, rgba(79,142,247,.26), transparent 62%),
+    radial-gradient(700px 560px at 92% 108%, rgba(139,92,246,.24), transparent 62%),
+    radial-gradient(640px 640px at 78% 6%, rgba(56,189,248,.12), transparent 60%),
+    radial-gradient(600px 600px at 6% 96%, rgba(236,72,153,.10), transparent 60%);
+}
+body::after{
+  content:"";
+  position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.20;
+  background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+  background-size:52px 52px;
+}
+.mainContainer{position:relative; z-index:1;}
+#initial-screen,#exploit-main-screen{background:transparent !important;}
+
+/* ---------------------------------------------------------------- surfaces */
+.bg-gray-900{background:transparent !important;}
+.bg-gray-800,.bg-gray-700,.bg-gray-700\/60,.bg-gray-50{
+  background:var(--lp-surface) !important;
+  border:1px solid var(--lp-stroke) !important;
+  -webkit-backdrop-filter:blur(20px) saturate(150%);
+  backdrop-filter:blur(20px) saturate(150%);
+  box-shadow:var(--lp-sh);
+  border-radius:20px !important;
+}
+#exploit-status-panel,#payloadsSection{
+  background:var(--lp-surface) !important;
+  border:1px solid var(--lp-stroke) !important;
+  border-radius:22px !important;
+  box-shadow:var(--lp-sh);
+}
+#exploitContainer{padding:22px !important; gap:18px;}
+
+/* ------------------------------------------------------------------- text */
+.text-white,.text-white\/90{color:var(--lp-txt) !important;}
+.text-white\/80{color:#cfd8e6 !important;}
+.text-white\/70{color:var(--lp-mut) !important;}
+.text-white\/60{color:#8b95a8 !important;}
+.text-cyan-300{color:var(--lp-acc) !important;}
+.text-blue-500,.accent-blue-500{color:var(--lp-acc) !important;}
+
+/* ---------------------------------------------------------------- buttons */
+.bg-blue-600{
+  background:linear-gradient(180deg,rgba(124,194,255,.30),rgba(124,194,255,.10)) !important;
+  border:1px solid rgba(124,194,255,.45) !important;
+  color:#eaf3ff !important;
+  box-shadow:0 12px 26px -20px rgba(0,0,0,.9), inset 0 1px 0 rgba(255,255,255,.14) !important;
+}
+.bg-blue-600:hover,.hover\:bg-blue-700:hover{
+  background:linear-gradient(180deg,rgba(124,194,255,.44),rgba(124,194,255,.16)) !important;
+}
+.bg-red-600{
+  background:linear-gradient(180deg,rgba(245,139,139,.26),rgba(245,139,139,.10)) !important;
+  border:1px solid rgba(245,139,139,.45) !important;
+  color:#ffeaea !important;
+}
+.bg-red-600:hover,.hover\:bg-red-700:hover{
+  background:linear-gradient(180deg,rgba(245,139,139,.40),rgba(245,139,139,.16)) !important;
+}
+.hover\:bg-gray-700:hover,.hover\:bg-white\/10:hover{background:rgba(255,255,255,.10) !important;}
+.bg-white\/5{background:rgba(255,255,255,.05) !important;}
+button{font-family:inherit;}
+.rounded-full{box-shadow:0 14px 34px -26px rgba(0,0,0,.9);}
+
+/* --------------------------------------------------------------- branding */
+#initial-screen{
+  justify-content:flex-start !important;
+  height:auto !important;
+  min-height:100vh;
+  padding:88px 16px 46px !important;
+}
+
+.lp-brand{
+  display:flex; align-items:center; gap:16px; order:-3; margin:0 0 16px;
+  width:100%; max-width:560px; box-sizing:border-box;
+  padding:16px 20px; border-radius:22px;
+  background:var(--lp-surface); border:1px solid var(--lp-stroke);
+  -webkit-backdrop-filter:blur(20px) saturate(150%);
+  backdrop-filter:blur(20px) saturate(150%);
+  box-shadow:var(--lp-sh);
+  text-align:left;
+}
+.lp-brand img{
+  width:58px; height:58px; border-radius:16px; object-fit:cover; flex:none;
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 10px 24px -16px rgba(0,0,0,.85), inset 0 1px 0 rgba(255,255,255,.18);
+}
+.lp-brand h1{font-size:24px; font-weight:800; letter-spacing:-.01em; margin:0; line-height:1.2;}
+.lp-brand p{font-size:14px; color:var(--lp-mut); margin:3px 0 0;}
+
+/* -------------------------------------------------------- chain (exploit) */
+.lp-chain{
+  order:-2; width:100%; max-width:560px; box-sizing:border-box; margin:0 0 16px; padding:18px 20px;
+  border-radius:22px; text-align:left;
+  background:var(--lp-surface); border:1px solid var(--lp-stroke);
+  -webkit-backdrop-filter:blur(20px) saturate(150%);
+  backdrop-filter:blur(20px) saturate(150%);
+  box-shadow:var(--lp-sh);
+}
+.lp-chain-head{
+  display:flex; align-items:baseline; justify-content:space-between; gap:10px;
+  font-size:15px; font-weight:700; color:var(--lp-txt); margin-bottom:12px;
+}
+.lp-chain-head small{font-weight:500; font-size:12px; color:var(--lp-mut);}
+.lp-chain-list{display:flex; flex-wrap:wrap; gap:10px;}
+.lp-chip{
+  padding:10px 16px; border-radius:14px; cursor:pointer; font-size:14px; font-weight:600;
+  color:#cfd8e6; background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:0 10px 24px -22px rgba(0,0,0,.9), inset 0 1px 0 rgba(255,255,255,.10);
+  transition:transform .15s ease, border-color .15s ease, background .15s ease;
+}
+.lp-chip:hover{transform:translateY(-1px); border-color:rgba(124,194,255,.38); color:#fff;}
+.lp-chip.active{
+  color:#eaf3ff; border-color:rgba(124,194,255,.55);
+  background:linear-gradient(180deg,rgba(124,194,255,.28),rgba(124,194,255,.10));
+  box-shadow:0 16px 34px -26px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.16);
+}
+.lp-chain .lp-note{margin-top:12px; font-size:12.5px; color:var(--lp-mut);}
+
+/* re-order the landing screen: brand, chain, HEN, start */
+#choosejb-initial{
+  order:-1; border-radius:20px !important; margin-bottom:18px;
+  width:100%; max-width:560px; box-sizing:border-box; text-align:center;
+}
+#pslogo{order:0; margin-top:4px;}
+#click-to-start-text{order:1; font-size:17px; color:var(--lp-mut) !important;}
+#PS4FW{order:2;}
+
+/* ------------------------------------------------------------------ radios */
+input[type="radio"]{border-color:rgba(255,255,255,.35) !important; background:#0d1018 !important;}
+input[type="radio"]:checked{background:var(--lp-acc) !important; border-color:var(--lp-acc) !important;}
+label{color:#cfd8e6;}
+
+/* ------------------------------------------------------------------ tabs */
+.tabs{border-bottom-color:rgba(255,255,255,.10) !important; box-shadow:none !important; background:transparent !important;}
+.tabs button{border-bottom-color:transparent; color:var(--lp-mut) !important;}
+.tabs button[aria-selected="true"]{color:var(--lp-txt) !important; border-bottom-color:var(--lp-acc) !important;}
+
+/* -------------------------------------------------------------- payloads */
+.payload-card .bg-gray-800{border-radius:18px !important;}
+.payloadContainer{background:transparent !important; border:0 !important;}
+.payload-card{transition:transform .16s ease;}
+.payload-card:hover{transform:translateY(-2px);}
+
+/* ---------------------------------------------------------------- console */
+#DebugConsole{
+  background:rgba(4,6,12,.55) !important;
+  border:1px solid rgba(255,255,255,.09) !important;
+  border-radius:16px !important;
+}
+#console{
+  font-family:ui-monospace,Menlo,Consolas,monospace !important;
+  font-size:13px; line-height:1.55; color:#c9d4e6 !important;
+}
+#state,#payloads-section-title,#successRate{color:var(--lp-txt) !important;}
+
+/* ---------------------------------------------------------------- popups */
+#about-popup,#settings-popup,#theme-popup,#choose-fanThreshold{
+  background:linear-gradient(150deg,rgba(20,24,34,.98),rgba(10,12,18,.98)) !important;
+  border:1px solid var(--lp-stroke);
+  border-radius:22px !important;
+}
+#about-popup-overlay,#settings-popup-overlay,#theme-popup-overlay,#choose-fanThreshold-overlay{background:rgba(4,6,12,.72) !important;}
+
+/* ------------------------------------------------------------------ scroll */
+::-webkit-scrollbar{width:8px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14); border-radius:8px;}
+
+/* ------------------------------------------------------- PS4 / TV sizing */
+@media (min-width:1200px){
+  .lp-brand h1{font-size:27px;}
+  .lp-chain{max-width:720px;}
+  #initial-screen{font-size:18px;}
+}

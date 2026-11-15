@@ -1,6 +1,6 @@
 # PS4 Host — ps4.loopayeh.ir
 
-کالکشن هاست‌های جیلبریک PlayStation 4 (کپی از مجموعه P30DAY).
+هاست جیلبریک PlayStation 4 با ظاهر اختصاصی Loopayeh و موتور WebKitty.
 
 ## نحوه استفاده
 
@@ -16,14 +16,19 @@ http://ps4.loopayeh.ir/
 https://ps4.loopayeh.ir/
 ```
 
-سپس بر اساس فریمور کنسول یکی از کالکشن‌ها را انتخاب کنید (5.05 تا 14.02).
+صفحه‌ی اصلی فریمور کنسول را خودکار تشخیص می‌دهد؛ مدل اکسپلویت (PSFree / BadHoist / CSSFontFace / Slopkit / Relapse / Afterglow / BPF) و نسخه HEN (GoldHEN یا PS4HEN) را انتخاب کن و روی لوگو بزن.
+
+پشتیبانی: 4.50 – 5.07 و 6.70 – 14.02
 
 ## ساختار
 
-- `index.html` — صفحه اصلی و انتخاب فریمور
-- `505/`, `672/`, `702/`, `755/`, `9.00/` — کالکشن هر فریمور
-- `5.05-14.02/`, `5.05-13.52/`, `6.00-11.02/`, `ps4jb-Feyzee-AIO/`, `PSFree/`, ... — هاست‌های کامل
-- `webkitty/` — هاست کامل WebKitty (4.50 تا 14.02، انتخاب GoldHEN/PS4HEN، پیلودها، کش جدا برای هر فریمور)
+- `index.html` — صفحه اصلی (انتخاب مدل اکسپلویت + HEN)
+- `cache.html`, `includes/caches/` — سیستم کش جداگانه برای هر گروه فریمور (AppCache)
+- `includes/js/`, `includes/css/` — موتور و ظاهر (اسکین Loopayeh در `includes/css/loopayeh.css`)
+- `includes/payloads/` — پیلودها (GoldHEN/PS4HEN، FTP، BinLoader، ELF Loader، Linux و …)
+- `src/` — زنجیره‌های اکسپلویت (`psfree-lapse`, `badhoist`, `cssfontface`, `slopkit`, `slopkit-afterglow`, `relapse`, `bpf-double-free`, `kpatches`)
+- `505/`, `672/`, `702/`, `755/`, `9.00/` — کالکشن‌های قدیمی (از روت لینک نشده‌اند)
+- `5.05-14.02/`, `5.05-13.52/`, `6.00-11.02/`, `ps4jb-Feyzee-AIO/`, `PSFree/`, ... — هاست‌های قدیمی (پشتیبان، از روت لینک نشده‌اند)
 - `restore/`, `restore-t/` — راهنماهای نصب/ریستور
 
 ## اجرای محلی
@@ -33,6 +38,8 @@ python -m http.server 8080
 ```
 
 سپس `http://localhost:8080/`
+
+> نکته: روی `localhost` صفحه وارد حالت «local server» می‌شود (فرستادن پیلود به PS4 از PC/موبایل). برای دیدن صفحه‌ی انتخاب اکسپلویت، آدرس را با `?test=1` باز کنید.
 
 ## دامنه
 
