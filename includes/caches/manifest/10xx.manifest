@@ -76,7 +76,8 @@ CACHE:
 ../../../includes/payloads/Linux/linux-3072mb.elf
 ../../../includes/payloads/Linux/linux-4096mb.elf
 ../../../includes/css/layouts/index.css
-../../../includes/css/loopayeh.css
+../../../includes/css/host.css
+../../../includes/js/host-ui.js
 ../../../includes/css/layouts/compact.css
 ../../../includes/css/colors/default.css
 ../../../includes/css/colors/vibrant.css

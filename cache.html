@@ -1,78 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
     <title>PS4 Host · کش</title>
-    <meta name="author" content="ArabPixel">
-    <link rel="stylesheet" href="./includes/css/colors/default.css">
-    <link rel="stylesheet" href="./includes/css/layouts/index.css">
-    <link rel="stylesheet" href="./includes/css/cache.css">
-    <link rel="stylesheet" href="./includes/css/loopayeh.css">
+    <link rel="icon" href="./includes/assets/icons/favicon.ico">
+    <link rel="stylesheet" href="./includes/css/host.css">
+    <style>
+        .cache-wrap{max-width:560px; margin:12vh auto 0; text-align:center}
+        .cache-title{font-size:24px; font-weight:800; letter-spacing:-.01em}
+        .bar-track{
+            height:14px; border-radius:999px; margin:26px 0 14px; overflow:hidden;
+            background:#0b111c; border:1px solid var(--line);
+        }
+        .bar-fill{
+            height:100%; width:0; border-radius:999px;
+            background:linear-gradient(90deg,#6cb6ff,#a78bfa);
+            transition:width .35s ease;
+        }
+        .cache-sub{font-size:14px; color:var(--mut); min-height:22px}
+        .cache-foot{margin-top:34px; font-size:12px; color:#5d6577}
+        #cacheFrame{width:1px;height:1px;border:0;position:absolute;left:-9999px}
+    </style>
 </head>
+<body>
+<div class="bg"></div>
 
-<body class="bg-gray-900 text-white">
-    <main class="mainContainer">
-        <section class="cache-screen">
-            <div class="cache-title">در حال کش کردن هاست</div>
-            <div class="progress-bar-wrap">
-                <div class="progress-bar-fill" id="progressFill"></div>
-            </div>
-            <div class="cache-subtitle" id="cacheStatus">آماده‌سازی…</div>
-        </section>
-        <div class="absolute bottom-10 text-center w-full">سیستم کش بر اساس فریمور</div>
-    </main>
+<header class="bar">
+    <div class="brand">
+        <div class="brand-txt"><b>PS4 Host</b><span>DESIGNED BY LOOPAYEH</span></div>
+    </div>
+</header>
 
-    <iframe id="cacheFrame" src="about:blank"></iframe>
+<main class="cache-wrap">
+    <div class="cache-title">در حال کش کردن هاست</div>
+    <div class="bar-track"><div class="bar-fill" id="progressFill"></div></div>
+    <div class="cache-sub" id="cacheStatus">آماده‌سازی…</div>
+    <div class="cache-foot">سیستم کش بر اساس فریمور</div>
+</main>
 
-    <script src="./includes/js/storage.js"></script>
-    <script src="./includes/js/testMode.js"></script>
-    <script src="./includes/js/firmware.js"></script>
-    <script>
-        var fwVersion = getPs4FwVersion();
-        var targetPage = getCachePage(fwVersion);
+<iframe id="cacheFrame" src="about:blank"></iframe>
 
-        var statusEl = document.getElementById('cacheStatus');
-        var fillEl = document.getElementById('progressFill');
-        var frame = document.getElementById('cacheFrame');
+<script src="./includes/js/storage.js"></script>
+<script src="./includes/js/testMode.js"></script>
+<script src="./includes/js/firmware.js"></script>
+<script>
+    var fwVersion = getPs4FwVersion();
+    var targetPage = getCachePage(fwVersion);
 
-        // Listen for postMessages from the iframe (iframe_cache.js)
-        window.addEventListener('message', function (event) {
-            var data = event.data;
-            if (!data || !data.type) return;
+    var statusEl = document.getElementById('cacheStatus');
+    var fillEl = document.getElementById('progressFill');
+    var frame = document.getElementById('cacheFrame');
+    var mainPageLocal = (typeof mainPage !== 'undefined') ? mainPage : './';
 
-            if (data.type === 'CACHE_PROGRESS') {
-                if (data.percent >= 0) {
-                    fillEl.style.width = data.percent + '%';
-                    statusEl.textContent = 'در حال دانلود… ' + data.percent + '%';
-                } else {
-                    statusEl.textContent = 'در حال دانلود… (' + data.loaded + ' از ' + data.total + ')';
-                }
-            } else if (data.type === 'CACHE_COMPLETE' || data.type === 'CACHE_EXISTS') {
-                fillEl.style.width = '100%';
-                statusEl.textContent = data.type === 'CACHE_EXISTS' ? 'از قبل کش شده؛ در حال رفتن…' : 'انجام شد؛ در حال رفتن…';
-                setTimeout(function () {
-                    window.location.replace(mainPage);
-                }, 1000);
+    window.addEventListener('message', function (event) {
+        var data = event.data;
+        if (!data || !data.type) return;
 
-            } else if (data.type === 'CACHE_CHECKING') {
-                statusEl.textContent = 'بررسی کش…';
-            } else if (data.type === 'CACHE_DOWNLOADING') {
-                statusEl.textContent = 'در حال کش کردن فایل‌ها…';
-            } else if (data.type === 'CACHE_ERROR') {
-                var reason = data.reason || 'Unknown error';
-                statusEl.textContent = 'خطای کش: ' + reason;
-                setTimeout(function () {
-                    window.location.replace(mainPage);
-                }, 3000);
+        if (data.type === 'CACHE_PROGRESS') {
+            if (data.percent >= 0) {
+                fillEl.style.width = data.percent + '%';
+                statusEl.textContent = 'در حال دانلود… ' + data.percent + '%';
+            } else {
+                statusEl.textContent = 'در حال دانلود… (' + data.loaded + ' از ' + data.total + ')';
             }
-        }, false);
+        } else if (data.type === 'CACHE_COMPLETE' || data.type === 'CACHE_EXISTS') {
+            fillEl.style.width = '100%';
+            statusEl.textContent = (data.type === 'CACHE_EXISTS') ? 'از قبل کش شده؛ در حال رفتن…' : 'انجام شد؛ در حال رفتن…';
+            setTimeout(function () { window.location.replace(mainPageLocal); }, 1000);
+        } else if (data.type === 'CACHE_CHECKING') {
+            statusEl.textContent = 'بررسی کش…';
+        } else if (data.type === 'CACHE_DOWNLOADING') {
+            statusEl.textContent = 'در حال کش کردن فایل‌ها…';
+        } else if (data.type === 'CACHE_ERROR') {
+            statusEl.textContent = 'خطای کش: ' + (data.reason || '?');
+            setTimeout(function () { window.location.replace(mainPageLocal); }, 3000);
+        }
+    }, false);
 
-        // Load the firmware-based cache page into the hidden iframe
-        statusEl.textContent = 'شروع کش برای فریمور ' + (fwVersion || '?') + '…';
-        frame.src = targetPage;
-    </script>
+    statusEl.textContent = 'شروع کش برای فریمور ' + (fwVersion || '?') + '…';
+    frame.src = targetPage;
+</script>
 </body>
-
 </html>
